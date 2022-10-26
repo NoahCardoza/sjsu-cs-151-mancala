@@ -5,7 +5,7 @@
  * @assignment Mancala
  */
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * An interface to define the different colors that
@@ -67,4 +67,6 @@ public interface BoardTheme {
      * @return the forth variant of the stone color
      */
     Color getStoneColor4();
+
+    Font getFont();
 }

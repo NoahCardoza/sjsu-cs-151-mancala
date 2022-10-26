@@ -5,7 +5,7 @@
  * @assignment Mancala
  */
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * Defines the default color scheme used in the game.
@@ -49,5 +49,10 @@ public class DefaultTheme implements BoardTheme {
     @Override
     public Color getStoneColor4() {
         return new Color(251, 176, 60);
+    }
+
+    @Override
+    public Font getFont() {
+        return new Font("Arial", Font.PLAIN, 13);
     }
 }
