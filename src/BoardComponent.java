@@ -11,6 +11,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A component that draws a resizable mancala board.
@@ -19,7 +20,6 @@ public class BoardComponent extends JComponent {
     BoardTheme theme;
     private final int aspectRatioWidth = 22;
     private final int aspectRatioHeight = 9;
-
     private final java.util.List<Pocket> pocketsPlayerA;
     private final java.util.List<Pocket> pocketsPlayerB;
     private final Mancala mancalaPlayerA;
@@ -57,8 +57,12 @@ public class BoardComponent extends JComponent {
                 b.height = b.width * minHeight / minWidth;
 
                 event.getComponent().setBounds(b.x, b.y, b.width, b.height);
+                BoardComponent.this.setBounds(b.x, b.y, b.width, b.height);
+
+                // propagate resize event to child components
                 mancalaPlayerA.resize(b.width, b.height);
                 mancalaPlayerB.resize(b.width, b.height);
+
                 for (Pocket pocket : pocketsPlayerA ) {
                     pocket.resize(b.width, b.height);
                 }
@@ -68,8 +72,6 @@ public class BoardComponent extends JComponent {
             }
         });
     }
-
-
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -83,6 +85,9 @@ public class BoardComponent extends JComponent {
         float pocketWidth = getWidth() / (float) 10;
         float pocketMargin = 20;
 
+        System.out.println(getHeight());
+
+        // TODO: implement board icon to remove flicker on render
         RoundRectangle2D.Float board = new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 40, 40);
 
         g2.setColor(theme.getBoardBackgroundColor());
@@ -91,10 +96,9 @@ public class BoardComponent extends JComponent {
         mancalaPlayerA.draw(g2);
         mancalaPlayerB.draw(g2);
 
-        float midPoint = getHeight() / (float) 2;
-        float section = pocketMargin + (midPoint - pocketMargin) / 2;
+        int midPoint = getHeight() / 2;
 
-        g2.drawLine((int) (2 * pocketMargin + pocketWidth), (int) midPoint, (int) (getWidth() - (2 * pocketMargin + pocketWidth)), (int) midPoint);
+        g2.drawLine((int) (2 * pocketMargin + pocketWidth), midPoint, (int) (getWidth() - (2 * pocketMargin + pocketWidth)), midPoint);
 
 
         for (Pocket pocket : pocketsPlayerA) {
@@ -123,4 +127,13 @@ public class BoardComponent extends JComponent {
         this.theme = theme;
         repaint();
     }
+
+    public List<Pocket> getPocketsPlayerA() {
+        return pocketsPlayerA;
+    }
+
+    public List<Pocket> getPocketsPlayerB() {
+        return pocketsPlayerB;
+    }
+
 }
