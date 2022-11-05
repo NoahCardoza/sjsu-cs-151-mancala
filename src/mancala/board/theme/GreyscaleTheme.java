@@ -12,8 +12,13 @@ import java.awt.*;
 /**
  * Defines the default color scheme used in the game.
  */
-public class GreyScaleTheme implements BoardTheme {
+public class GreyscaleTheme implements BoardTheme {
     private static final Color stone = new Color(42, 42, 42);;
+
+    @Override
+    public String getName() {
+        return "Grayscale";
+    }
 
     @Override
     public Color getBoardBackgroundColor() {

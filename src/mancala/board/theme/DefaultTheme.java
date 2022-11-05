@@ -14,6 +14,11 @@ import java.awt.*;
  */
 public class DefaultTheme implements BoardTheme {
     @Override
+    public String getName() {
+        return "Default";
+    }
+
+    @Override
     public Color getBoardBackgroundColor() {
         return new Color(166,124, 82);
     }

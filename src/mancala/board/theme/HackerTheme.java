@@ -17,6 +17,11 @@ public class HackerTheme implements BoardTheme {
     private static final Color black = new Color(0, 0, 0);;
 
     @Override
+    public String getName() {
+        return "Hacker";
+    }
+
+    @Override
     public Color getBoardBackgroundColor() {
         return new Color(52, 52, 52);
     }

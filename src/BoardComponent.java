@@ -143,6 +143,7 @@ public class BoardComponent extends JComponent {
 
     public void setBoardStyle(BoardStyle boardStyle) {
         this.boardStyle = boardStyle;
+        repaint();
     }
 
     public List<Pocket> getPocketsPlayerA() {

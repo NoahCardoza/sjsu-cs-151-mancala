@@ -5,6 +5,11 @@ import java.awt.geom.RoundRectangle2D;
 
 public class SquareBoardStyle implements BoardStyle {
     @Override
+    public String getName() {
+        return "Square";
+    }
+
+    @Override
     public RectangularShape getMancala(double x, double y, double w, double h) {
         return new RoundRectangle2D.Double(x, y, w, h, 10, 10);
     }

@@ -8,6 +8,7 @@ package mancala.board.style; /**
 import java.awt.geom.RectangularShape;
 
 public interface BoardStyle {
+    String getName();
     RectangularShape getMancala(double x, double y, double w, double h);
     RectangularShape getPocket(double x, double y, double w, double h);
     RectangularShape getStone(double x, double y, double w, double h);

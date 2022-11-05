@@ -14,6 +14,7 @@ import java.awt.*;
  * make up the board.
  */
 public interface BoardTheme {
+    String getName();
     /**
      * Defines the background color of the board.
      *
