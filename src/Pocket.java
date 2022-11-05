@@ -50,7 +50,7 @@ public class Pocket implements BoardIcon {
 
         public Stone factory() {
             Stone stone = new Stone(board, stoneColors[nextColor++ % stoneColors.length]);
-            stone.resize(board.getWidth(), board.getHeight());
+            stone.onResize(board.getWidth(), board.getHeight());
             return stone;
         }
         public void place(Stone stone) {
@@ -79,11 +79,11 @@ public class Pocket implements BoardIcon {
 
         // TODO: allow this to be set by
         stones = new ArrayList<>();
-        resize(board.getWidth(), board.getHeight());
+        onResize(board.getWidth(), board.getHeight());
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void onResize(int width, int height) {
         BoardStyle boardStyle = board.getBoardStyle();
         int fontSize = board.getTheme().getFont().getSize();
 
@@ -126,7 +126,7 @@ public class Pocket implements BoardIcon {
 
         // propagate resize event to child components
         for (Stone stone : stones) {
-            stone.resize(width, height);
+            stone.onResize(width, height);
         }
     }
 

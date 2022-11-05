@@ -33,5 +33,5 @@ public interface BoardIcon {
      * @param width the new width of the board
      * @param height the new height of the board
      */
-    void resize(int width, int height);
+    void onResize(int width, int height);
 }

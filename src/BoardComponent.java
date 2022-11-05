@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * A component that draws a resizable mancala board.
  */
-public class BoardComponent extends JComponent {
+public class BoardComponent extends JComponent implements BoardIcon {
     private BoardTheme theme;
     private BoardStyle boardStyle;
     private final int aspectRatioWidth = 22;
@@ -64,16 +64,7 @@ public class BoardComponent extends JComponent {
                 event.getComponent().setBounds(b.x, b.y, b.width, b.height);
                 BoardComponent.this.setBounds(b.x, b.y, b.width, b.height);
 
-                // propagate resize event to child components
-                mancalaPlayerA.resize(b.width, b.height);
-                mancalaPlayerB.resize(b.width, b.height);
-
-                for (Pocket pocket : pocketsPlayerA ) {
-                    pocket.resize(b.width, b.height);
-                }
-                for (Pocket pocket : pocketsPlayerB ) {
-                    pocket.resize(b.width, b.height);
-                }
+                onResize(b.width, b.height);
             }
         });
     }
@@ -82,6 +73,62 @@ public class BoardComponent extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        draw(g2);
+    }
+
+    /**
+     * A getter for the theme property.
+     *
+     * @return the theme instance used by the board
+     */
+    public BoardTheme getTheme() {
+        return theme;
+    }
+
+    /**
+     * A setter for the theme property
+     * @param theme the theme to use when rendering the board
+     */
+    public void setTheme(BoardTheme theme) {
+        this.theme = theme;
+        repaint();
+    }
+
+    public BoardStyle getBoardStyle() {
+        return boardStyle;
+    }
+
+    public void setBoardStyle(BoardStyle boardStyle) {
+        this.boardStyle = boardStyle;
+        // trigger resize to generate the RectangularShape instances
+        onResize(getWidth(), getHeight());
+        repaint();
+    }
+
+    public List<Pocket> getPocketsPlayerA() {
+        return pocketsPlayerA;
+    }
+
+    public List<Pocket> getPocketsPlayerB() {
+        return pocketsPlayerB;
+    }
+
+    @Override
+    public void onResize(int width, int height) {
+        // propagate resize event to child components
+        mancalaPlayerA.onResize(width, height);
+        mancalaPlayerB.onResize(width, height);
+
+        for (Pocket pocket : pocketsPlayerA ) {
+            pocket.onResize(width, height);
+        }
+        for (Pocket pocket : pocketsPlayerB ) {
+            pocket.onResize(width, height);
+        }
+    }
+
+    @Override
+    public void draw(Graphics2D g2, int x, int y) {
         g2.setFont(theme.getFont());
 
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -118,40 +165,4 @@ public class BoardComponent extends JComponent {
             pocket.draw(g2);
         }
     }
-
-    /**
-     * A getter for the theme property.
-     *
-     * @return the theme instance used by the board
-     */
-    public BoardTheme getTheme() {
-        return theme;
-    }
-
-    /**
-     * A setter for the theme property
-     * @param theme the theme to use when rendering the board
-     */
-    public void setTheme(BoardTheme theme) {
-        this.theme = theme;
-        repaint();
-    }
-
-    public BoardStyle getBoardStyle() {
-        return boardStyle;
-    }
-
-    public void setBoardStyle(BoardStyle boardStyle) {
-        this.boardStyle = boardStyle;
-        repaint();
-    }
-
-    public List<Pocket> getPocketsPlayerA() {
-        return pocketsPlayerA;
-    }
-
-    public List<Pocket> getPocketsPlayerB() {
-        return pocketsPlayerB;
-    }
-
 }

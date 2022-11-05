@@ -89,7 +89,7 @@ public class Stone implements BoardIcon {
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void onResize(int width, int height) {
         // TODO: use one function to calculate this somewhere
         size = height / (float) 20;
         pocketSize = width / (float) 10;

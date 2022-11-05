@@ -29,7 +29,7 @@ public class Mancala implements BoardIcon {
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void onResize(int width, int height) {
         int pocketWidth = width / 10;
         int pocketMargin = 20;
 
