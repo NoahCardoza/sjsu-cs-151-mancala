@@ -21,6 +21,8 @@ public interface BoardTheme {
      */
     Color getBoardBackgroundColor();
 
+    Color getBoardOutlineColor();
+
     /**
      * Defines the background of the pockets.
      *
@@ -28,12 +30,14 @@ public interface BoardTheme {
      */
     Color getPocketColor();
 
+    Color getPocketOutlineColor();
+
     /**
      * Defines the outline color of an active pocket.
      *
      * @return the outline color of an active pocket
      */
-    Color getPocketOutlineColor();
+    Color getPocketActiveOutlineColor();
 
     /**
      * Defines the text color.
@@ -49,12 +53,16 @@ public interface BoardTheme {
      */
     Color getStoneColor1();
 
+    Color getStoneColor1Outline();
+
     /**
      * Defines the second variant of the stone color
      *
      * @return the second variant of the stone color
      */
     Color getStoneColor2();
+
+    Color getStoneColor2Outline();
 
     /**
      * Defines the third variant of the stone color
@@ -63,12 +71,15 @@ public interface BoardTheme {
      */
     Color getStoneColor3();
 
+    Color getStoneColor3Outline();
     /**
      * Defines the forth variant of the stone color
      *
      * @return the forth variant of the stone color
      */
     Color getStoneColor4();
+
+    Color getStoneColor4Outline();
 
     Font getFont();
 }

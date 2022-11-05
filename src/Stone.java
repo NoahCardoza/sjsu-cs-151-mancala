@@ -23,6 +23,7 @@ public class Stone implements BoardIcon {
     private final int variant;
     private float size;
     private float pocketSize;
+    private boolean active;
 
     private RectangularShape stoneEllipse;
     private RectangularShape pocketBoundary;
@@ -30,6 +31,7 @@ public class Stone implements BoardIcon {
     public Stone(BoardComponent board, int variant) {
         this.board = board;
         this.variant = variant;
+        this.active = false;
         BoardStyle boardStyle = board.getBoardStyle();
 
         stoneEllipse = boardStyle.getStone(0, 0, 0, 0);
@@ -53,7 +55,6 @@ public class Stone implements BoardIcon {
                     stoneEllipse.getHeight()
             );
         }
-
     }
 
     @Override
@@ -70,8 +71,20 @@ public class Stone implements BoardIcon {
         });
 
         g2.fill(stoneEllipse);
-        g2.setColor(theme.getPocketOutlineColor());
+
+        if (active) {
+            g2.setColor(theme.getPocketActiveOutlineColor());
+        } else {
+            g2.setColor(switch (variant) {
+                case COLOR_1 -> theme.getStoneColor1Outline();
+                case COLOR_2 -> theme.getStoneColor2Outline();
+                case COLOR_3 -> theme.getStoneColor3Outline();
+                case COLOR_4 -> theme.getStoneColor4Outline();
+                default -> throw new IllegalStateException("Unexpected Stone variant value: " + variant);
+            });
+        }
         g2.draw(stoneEllipse);
+
         g2.translate(-x, -y);
     }
 
@@ -84,5 +97,13 @@ public class Stone implements BoardIcon {
 
         pocketBoundary = boardStyle.getPocket(pocketBoundary.getX(), pocketBoundary.getY(), pocketSize, pocketSize);
         stoneEllipse = boardStyle.getPocket(stoneEllipse.getX(), stoneEllipse.getY(), size, size);
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

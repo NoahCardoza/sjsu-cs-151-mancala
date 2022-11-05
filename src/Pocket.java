@@ -141,6 +141,8 @@ public class Pocket implements BoardIcon {
 
         g2.setColor(theme.getPocketColor());
         g2.fill(pocketEllipse);
+        g2.setColor(theme.getPocketOutlineColor());
+        g2.draw(pocketEllipse);
 
 
 

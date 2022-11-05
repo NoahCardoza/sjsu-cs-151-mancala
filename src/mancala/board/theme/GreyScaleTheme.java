@@ -12,10 +12,12 @@ import java.awt.*;
 /**
  * Defines the default color scheme used in the game.
  */
-public class DefaultTheme implements BoardTheme {
+public class GreyScaleTheme implements BoardTheme {
+    private static final Color stone = new Color(42, 42, 42);;
+
     @Override
     public Color getBoardBackgroundColor() {
-        return new Color(166,124, 82);
+        return Color.BLACK;
     }
 
     @Override
@@ -25,12 +27,12 @@ public class DefaultTheme implements BoardTheme {
 
     @Override
     public Color getPocketColor() {
-        return new Color(117, 76, 37);
+        return Color.darkGray;
     }
 
     @Override
     public Color getPocketOutlineColor() {
-        return new Color(0, 0, 0, 0);
+        return Color.lightGray;
     }
 
     @Override
@@ -40,47 +42,47 @@ public class DefaultTheme implements BoardTheme {
 
     @Override
     public Color getTextColor() {
-        return new Color(54, 53, 53, 147);
+        return Color.white;
     }
 
     @Override
     public Color getStoneColor1() {
-        return new Color(41, 171, 226);
+        return stone;
     }
 
     @Override
     public Color getStoneColor1Outline() {
-        return new Color(0, 0, 0, 0);
+        return Color.white;
     }
 
     @Override
     public Color getStoneColor2() {
-        return new Color(34, 181,116);
+        return stone;
     }
 
     @Override
     public Color getStoneColor2Outline() {
-        return new Color(0, 0, 0, 0);
+        return Color.white;
     }
 
     @Override
     public Color getStoneColor3() {
-        return new Color(212,19,89);
+        return stone;
     }
 
     @Override
     public Color getStoneColor3Outline() {
-        return new Color(0, 0, 0, 0);
+        return Color.white;
     }
 
     @Override
     public Color getStoneColor4() {
-        return new Color(251, 176, 60);
+        return stone;
     }
 
     @Override
     public Color getStoneColor4Outline() {
-        return new Color(0, 0, 0, 0);
+        return Color.white;
     }
 
     @Override

@@ -7,7 +7,6 @@
 
 import java.awt.*;
 import java.awt.geom.RectangularShape;
-import java.awt.geom.RoundRectangle2D;
 
 public class Mancala implements BoardIcon {
     public static int VARIANT_LEFT = 0;
@@ -25,6 +24,8 @@ public class Mancala implements BoardIcon {
     public void draw(Graphics2D g2, int x, int y) {
         g2.setColor(board.getTheme().getPocketColor());
         g2.fill(mancalaBox);
+        g2.setColor(board.getTheme().getPocketOutlineColor());
+        g2.draw(mancalaBox);
     }
 
     @Override

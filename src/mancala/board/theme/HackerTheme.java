@@ -12,10 +12,13 @@ import java.awt.*;
 /**
  * Defines the default color scheme used in the game.
  */
-public class DefaultTheme implements BoardTheme {
+public class HackerTheme implements BoardTheme {
+    private static final Color limeGreen = new Color(116, 255, 1);
+    private static final Color black = new Color(0, 0, 0);;
+
     @Override
     public Color getBoardBackgroundColor() {
-        return new Color(166,124, 82);
+        return new Color(52, 52, 52);
     }
 
     @Override
@@ -25,12 +28,12 @@ public class DefaultTheme implements BoardTheme {
 
     @Override
     public Color getPocketColor() {
-        return new Color(117, 76, 37);
+        return new Color(19, 19, 19);
     }
 
     @Override
     public Color getPocketOutlineColor() {
-        return new Color(0, 0, 0, 0);
+        return limeGreen;
     }
 
     @Override
@@ -40,47 +43,47 @@ public class DefaultTheme implements BoardTheme {
 
     @Override
     public Color getTextColor() {
-        return new Color(54, 53, 53, 147);
+        return limeGreen;
     }
 
     @Override
     public Color getStoneColor1() {
-        return new Color(41, 171, 226);
+        return black;
     }
 
     @Override
     public Color getStoneColor1Outline() {
-        return new Color(0, 0, 0, 0);
+        return limeGreen;
     }
 
     @Override
     public Color getStoneColor2() {
-        return new Color(34, 181,116);
+        return black;
     }
 
     @Override
     public Color getStoneColor2Outline() {
-        return new Color(0, 0, 0, 0);
+        return limeGreen;
     }
 
     @Override
     public Color getStoneColor3() {
-        return new Color(212,19,89);
+        return black;
     }
 
     @Override
     public Color getStoneColor3Outline() {
-        return new Color(0, 0, 0, 0);
+        return limeGreen;
     }
 
     @Override
     public Color getStoneColor4() {
-        return new Color(251, 176, 60);
+        return black;
     }
 
     @Override
     public Color getStoneColor4Outline() {
-        return new Color(0, 0, 0, 0);
+        return limeGreen;
     }
 
     @Override

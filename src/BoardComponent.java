@@ -98,6 +98,10 @@ public class BoardComponent extends JComponent {
         g2.setColor(theme.getBoardBackgroundColor());
         g2.fill(board);
 
+        // g2.setStroke(new BasicStroke(6));
+        g2.setColor(theme.getBoardOutlineColor());
+        g2.draw(board);
+
         mancalaPlayerA.draw(g2);
         mancalaPlayerB.draw(g2);
 
