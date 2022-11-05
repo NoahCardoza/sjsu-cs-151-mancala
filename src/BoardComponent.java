@@ -65,6 +65,8 @@ public class BoardComponent extends JComponent implements BoardIcon {
                 BoardComponent.this.setBounds(b.x, b.y, b.width, b.height);
 
                 onResize(b.width, b.height);
+
+                System.out.println("RESIZED");
             }
         });
     }
@@ -145,7 +147,6 @@ public class BoardComponent extends JComponent implements BoardIcon {
         g2.setColor(theme.getBoardBackgroundColor());
         g2.fill(board);
 
-        // g2.setStroke(new BasicStroke(6));
         g2.setColor(theme.getBoardOutlineColor());
         g2.draw(board);
 

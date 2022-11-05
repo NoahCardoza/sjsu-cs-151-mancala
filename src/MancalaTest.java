@@ -25,13 +25,6 @@ public class MancalaTest {
 	public static void main(String[] args) {
 		// create a new board component
 		BoardComponent board = new BoardComponent(new DefaultTheme(), new DefaultBoardStyle());
-//		BoardComponent board = new BoardComponent(new mancala.board.theme.DefaultTheme(), new SquareBoardStyle());
-//		BoardComponent board = new BoardComponent(new mancala.board.theme.HackerTheme(), new HardEdgesBoardStyle());
-//		BoardComponent board = new BoardComponent(new mancala.board.theme.HackerTheme(), new DefaultBoardStyle());
-//		BoardComponent board = new BoardComponent(new GreyscaleTheme(), new SquareBoardStyle());
-
-
-
 
 		JPanel boardPanel = new JPanel();
 		boardPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -76,7 +69,7 @@ public class MancalaTest {
 			for (Pocket pocket : board.getPocketsPlayerB()) {
 				pocket.addStone();
 			}
-			board.revalidate();
+			board.repaint();
 		});
 
 		ArrayList<BoardTheme> themes = new ArrayList<>();
