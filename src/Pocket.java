@@ -97,7 +97,7 @@ public class Pocket implements BoardIcon {
 
         int topLeftY;
         if (this.variant == VARIANT_UPPER) {
-            topLeftY = (int) ((int) section - pocketWidth / 2);
+            topLeftY = section - pocketWidth / 2;
             titleTextBox = new Rectangle2D.Float(topLeftX, pocketMargin, pocketWidth, fontSize);
             stoneCountTextBox = new Rectangle2D.Float(
                     topLeftX,
@@ -106,7 +106,7 @@ public class Pocket implements BoardIcon {
                     stoneCountTextBoxHeight
             );
         } else {
-            topLeftY = (int) ((int) height - section - pocketWidth / 2);
+            topLeftY = height - section - pocketWidth / 2;
             titleTextBox = new Rectangle2D.Float(topLeftX, height - pocketMargin - fontSize, pocketWidth, fontSize);
             stoneCountTextBox = new Rectangle2D.Float(
                     topLeftX,
@@ -116,7 +116,6 @@ public class Pocket implements BoardIcon {
             );
         }
 
-        // TODO: update reference instead of creating new objects
         pocketEllipse = boardStyle.getPocket(
                 topLeftX,
                 topLeftY,
@@ -143,8 +142,6 @@ public class Pocket implements BoardIcon {
         g2.fill(pocketEllipse);
         g2.setColor(theme.getPocketOutlineColor());
         g2.draw(pocketEllipse);
-
-
 
         for (Stone stone : stones) {
             stone.draw(g2, (int) pocketEllipse.getX(), (int) pocketEllipse.getY());

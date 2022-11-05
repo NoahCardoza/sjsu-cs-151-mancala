@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.geom.Line2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,9 @@ public class BoardComponent extends JComponent implements BoardIcon {
     private final java.util.List<Pocket> pocketsPlayerB;
     private final Mancala mancalaPlayerA;
     private final Mancala mancalaPlayerB;
+
+    private RoundRectangle2D.Double board;
+    private Line2D.Double centerDivide;
 
     /**
      * Constructs a mancala game board from a theme
@@ -65,8 +69,6 @@ public class BoardComponent extends JComponent implements BoardIcon {
                 BoardComponent.this.setBounds(b.x, b.y, b.width, b.height);
 
                 onResize(b.width, b.height);
-
-                System.out.println("RESIZED");
             }
         });
     }
@@ -117,6 +119,13 @@ public class BoardComponent extends JComponent implements BoardIcon {
 
     @Override
     public void onResize(int width, int height) {
+        int pocketWidth = width / 10;
+        int pocketMargin = 20;
+        int midPoint = height / 2;
+
+        board = new RoundRectangle2D.Double(0, 0, width, height, 40, 40);
+        centerDivide = new Line2D.Double((2 * pocketMargin + pocketWidth), midPoint, width - (2 * pocketMargin + pocketWidth), midPoint);
+
         // propagate resize event to child components
         mancalaPlayerA.onResize(width, height);
         mancalaPlayerB.onResize(width, height);
@@ -136,14 +145,6 @@ public class BoardComponent extends JComponent implements BoardIcon {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-        float pocketWidth = getWidth() / (float) 10;
-        float pocketMargin = 20;
-
-        System.out.println(getHeight());
-
-        // TODO: implement board icon to remove flicker on render
-        RoundRectangle2D.Float board = new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 40, 40);
-
         g2.setColor(theme.getBoardBackgroundColor());
         g2.fill(board);
 
@@ -153,9 +154,7 @@ public class BoardComponent extends JComponent implements BoardIcon {
         mancalaPlayerA.draw(g2);
         mancalaPlayerB.draw(g2);
 
-        int midPoint = getHeight() / 2;
-
-        g2.drawLine((int) (2 * pocketMargin + pocketWidth), midPoint, (int) (getWidth() - (2 * pocketMargin + pocketWidth)), midPoint);
+        g2.draw(centerDivide);
 
 
         for (Pocket pocket : pocketsPlayerA) {
