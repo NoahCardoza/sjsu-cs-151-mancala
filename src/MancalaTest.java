@@ -5,6 +5,9 @@
  * @assignment Mancala
  */
 
+import mancala.board.style.DefaultBoardStyle;
+import mancala.board.theme.DefaultTheme;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -14,7 +17,11 @@ import java.awt.event.ComponentEvent;
 public class MancalaTest {
 	public static void main(String[] args) {
 		// create a new board component
-		BoardComponent board = new BoardComponent(new DefaultTheme());
+		BoardComponent board = new BoardComponent(new DefaultTheme(), new DefaultBoardStyle());
+//		BoardComponent board = new BoardComponent(new mancala.board.theme.DefaultTheme(), new SquareBoardStyle());
+//		BoardComponent board = new BoardComponent(new mancala.board.theme.DefaultTheme(), new HardEdgesBoardStyle());
+
+
 
 		JPanel boardPanel = new JPanel();
 		boardPanel.setBorder(new EmptyBorder(10, 10, 10, 10));

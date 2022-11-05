@@ -5,8 +5,11 @@
  * @assignment Mancala
  */
 
+import mancala.board.style.BoardStyle;
+import mancala.board.theme.BoardTheme;
+
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
+import java.awt.geom.RectangularShape;
 import java.util.Random;
 
 public class Stone implements BoardIcon {
@@ -21,15 +24,16 @@ public class Stone implements BoardIcon {
     private float size;
     private float pocketSize;
 
-    private final Ellipse2D.Double stoneEllipse;
-    private final Ellipse2D.Double pocketBoundary;
+    private RectangularShape stoneEllipse;
+    private RectangularShape pocketBoundary;
 
     public Stone(BoardComponent board, int variant) {
         this.board = board;
         this.variant = variant;
+        BoardStyle boardStyle = board.getBoardStyle();
 
-        stoneEllipse = new Ellipse2D.Double(0, 0, 0, 0);
-        pocketBoundary = new Ellipse2D.Double(0, 0, 0, 0);
+        stoneEllipse = boardStyle.getStone(0, 0, 0, 0);
+        pocketBoundary = boardStyle.getPocket(0, 0, 0, 0);
     }
 
     public void randomlyPlaceInPocketBoundary(double startAngle, double endAngle) {
@@ -42,8 +46,12 @@ public class Stone implements BoardIcon {
             double theta = rand.nextDouble(endAngle - startAngle) + startAngle;
 
             // convert polar coordinates to cartesian
-            stoneEllipse.x = pocketCenterOffset - size / 2 + Math.cos(theta) * r;
-            stoneEllipse.y = pocketCenterOffset - size / 2 + Math.sin(theta) * r;
+            stoneEllipse = board.getBoardStyle().getPocket(
+                    pocketCenterOffset - size / 2 + Math.cos(theta) * r,
+                    pocketCenterOffset - size / 2 + Math.sin(theta) * r,
+                    stoneEllipse.getWidth(),
+                    stoneEllipse.getHeight()
+            );
         }
 
     }
@@ -72,11 +80,9 @@ public class Stone implements BoardIcon {
         // TODO: use one function to calculate this somewhere
         size = height / (float) 20;
         pocketSize = width / (float) 10;
+        BoardStyle boardStyle = board.getBoardStyle();
 
-        pocketBoundary.height = pocketSize;
-        pocketBoundary.width = pocketSize;
-
-        stoneEllipse.height = size;
-        stoneEllipse.width = size;
+        pocketBoundary = boardStyle.getPocket(pocketBoundary.getX(), pocketBoundary.getY(), pocketSize, pocketSize);
+        stoneEllipse = boardStyle.getPocket(stoneEllipse.getX(), stoneEllipse.getY(), size, size);
     }
 }

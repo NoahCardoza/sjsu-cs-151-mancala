@@ -5,9 +5,12 @@
  * @assignment Mancala
  */
 
+import mancala.board.style.BoardStyle;
+import mancala.board.theme.BoardTheme;
+
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -62,7 +65,7 @@ public class Pocket implements BoardIcon {
 
     private Rectangle2D.Float titleTextBox;
     private Rectangle2D.Float stoneCountTextBox;
-    private Ellipse2D.Float pocketEllipse;
+    private RectangularShape pocketEllipse;
 
     private final StoneManager stoneManager;
 
@@ -81,16 +84,17 @@ public class Pocket implements BoardIcon {
 
     @Override
     public void resize(int width, int height) {
+        BoardStyle boardStyle = board.getBoardStyle();
         int fontSize = board.getTheme().getFont().getSize();
 
-        float pocketWidth = width / (float) 10;
-        float pocketMargin = 20;
-        float pocketGridWidth = (width - (4 * pocketMargin) - 2 * pocketWidth) / 6;
-        float midPoint = height / (float) 2;
-        float section = pocketMargin + (midPoint - pocketMargin) / 2;
-        int topLeftX = (int) (2 * pocketMargin + pocketWidth + pocketGridWidth * index + (pocketGridWidth - pocketWidth) / 2);
+        int pocketWidth = width / 10;
+        int pocketMargin = 20;
+        int pocketGridWidth = (width - (4 * pocketMargin) - 2 * pocketWidth) / 6;
+        int midPoint = height / 2;
+        int section = pocketMargin + (midPoint - pocketMargin) / 2;
+        int topLeftX = 2 * pocketMargin + pocketWidth + pocketGridWidth * index + (pocketGridWidth - pocketWidth) / 2;
+        int stoneCountTextBoxHeight = midPoint - (board.getHeight() - section - pocketWidth / 2);
 
-        float stoneCountTextBoxHeight = midPoint - (board.getHeight() - section - pocketWidth / 2);
         int topLeftY;
         if (this.variant == VARIANT_UPPER) {
             topLeftY = (int) ((int) section - pocketWidth / 2);
@@ -113,7 +117,7 @@ public class Pocket implements BoardIcon {
         }
 
         // TODO: update reference instead of creating new objects
-        pocketEllipse = new Ellipse2D.Float(
+        pocketEllipse = boardStyle.getPocket(
                 topLeftX,
                 topLeftY,
                 pocketWidth,
@@ -138,8 +142,10 @@ public class Pocket implements BoardIcon {
         g2.setColor(theme.getPocketColor());
         g2.fill(pocketEllipse);
 
+
+
         for (Stone stone : stones) {
-            stone.draw(g2, (int) pocketEllipse.x, (int) pocketEllipse.y);
+            stone.draw(g2, (int) pocketEllipse.getX(), (int) pocketEllipse.getY());
         }
     }
 

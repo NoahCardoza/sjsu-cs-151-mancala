@@ -6,12 +6,13 @@
  */
 
 import java.awt.*;
+import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
 
 public class Mancala implements BoardIcon {
     public static int VARIANT_LEFT = 0;
     public static int VARIANT_RIGHT = 1;
-    private RoundRectangle2D.Float mancalaBox;
+    private RectangularShape mancalaBox;
     private final BoardComponent board;
     private final int variant;
 
@@ -28,20 +29,18 @@ public class Mancala implements BoardIcon {
 
     @Override
     public void resize(int width, int height) {
-        float pocketWidth = width / (float) 10;
-        float pocketMargin = 20;
+        int pocketWidth = width / 10;
+        int pocketMargin = 20;
 
-        float x = variant == VARIANT_LEFT
+        int x = variant == VARIANT_LEFT
                 ? pocketMargin
                 : width - pocketWidth - pocketMargin;
 
-        mancalaBox = new RoundRectangle2D.Float(
+        mancalaBox = board.getBoardStyle().getMancala(
                 x,
                 pocketMargin,
                 pocketWidth,
-                height - 2 * pocketMargin,
-                10,
-                10
+                height - 2 * pocketMargin
         );
     }
 }

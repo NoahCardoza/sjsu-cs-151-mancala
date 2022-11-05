@@ -5,6 +5,9 @@
  * @assignment Mancala
  */
 
+import mancala.board.style.BoardStyle;
+import mancala.board.theme.BoardTheme;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -17,7 +20,8 @@ import java.util.List;
  * A component that draws a resizable mancala board.
  */
 public class BoardComponent extends JComponent {
-    BoardTheme theme;
+    private BoardTheme theme;
+    private BoardStyle boardStyle;
     private final int aspectRatioWidth = 22;
     private final int aspectRatioHeight = 9;
     private final java.util.List<Pocket> pocketsPlayerA;
@@ -29,8 +33,9 @@ public class BoardComponent extends JComponent {
      * Constructs a mancala game board from a theme
      * @param theme the theme config for the board
      */
-    public BoardComponent(BoardTheme theme) {
+    public BoardComponent(BoardTheme theme, BoardStyle boardStyle) {
         this.theme = theme;
+        this.boardStyle = boardStyle;
 
         this.mancalaPlayerA = new Mancala(this, Mancala.VARIANT_RIGHT);
         this.mancalaPlayerB = new Mancala(this, Mancala.VARIANT_LEFT);
@@ -126,6 +131,14 @@ public class BoardComponent extends JComponent {
     public void setTheme(BoardTheme theme) {
         this.theme = theme;
         repaint();
+    }
+
+    public BoardStyle getBoardStyle() {
+        return boardStyle;
+    }
+
+    public void setBoardStyle(BoardStyle boardStyle) {
+        this.boardStyle = boardStyle;
     }
 
     public List<Pocket> getPocketsPlayerA() {

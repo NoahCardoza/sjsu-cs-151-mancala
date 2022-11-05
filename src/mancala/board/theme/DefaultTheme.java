@@ -5,6 +5,8 @@
  * @assignment Mancala
  */
 
+package mancala.board.theme;
+
 import java.awt.*;
 
 /**
