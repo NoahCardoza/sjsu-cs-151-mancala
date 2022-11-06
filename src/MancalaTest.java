@@ -7,15 +7,18 @@
 
 import mancala.board.style.BoardStyle;
 import mancala.board.style.DefaultBoardStyle;
+import mancala.board.style.OblongBoardStyle;
 import mancala.board.style.BlockBoardStyle;
 import mancala.board.style.SquareBoardStyle;
 import mancala.board.theme.BoardTheme;
 import mancala.board.theme.DefaultTheme;
 import mancala.board.theme.GreyscaleTheme;
 import mancala.board.theme.HackerTheme;
+import mancala.board.theme.OceanTheme;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -44,6 +47,7 @@ public class MancalaTest {
 		styles.add(new DefaultBoardStyle());
 		styles.add(new SquareBoardStyle());
 		styles.add(new BlockBoardStyle());
+		styles.add(new OblongBoardStyle());
 
 		JComboBox<Object> styleSelect = new JComboBox<>(styles.stream().map(BoardStyle::getName).toArray());
 		styleSelect.setSelectedIndex(0);
@@ -76,6 +80,7 @@ public class MancalaTest {
 		themes.add(new DefaultTheme());
 		themes.add(new HackerTheme());
 		themes.add(new GreyscaleTheme());
+		themes.add(new OceanTheme());
 
 		JComboBox<Object> themeSelect = new JComboBox<>(themes.stream().map(BoardTheme::getName).toArray());
 		themeSelect.setSelectedIndex(0);

@@ -50,7 +50,7 @@ public class Stone implements BoardIcon {
             theta = rand.nextDouble(endAngle - startAngle) + startAngle;
 
             // convert polar coordinates to cartesian
-            stoneEllipse = board.getBoardStyle().getPocket(
+            stoneEllipse = board.getBoardStyle().getStone(
                     pocketCenterOffset - size / 2 + Math.cos(theta) * r,
                     pocketCenterOffset - size / 2 + Math.sin(theta) * r,
                     stoneEllipse.getWidth(),
@@ -100,7 +100,7 @@ public class Stone implements BoardIcon {
         pocketCenterOffset = pocketSize / 2;
         double r = pocketCenterOffset * rMultiplier;
 
-        stoneEllipse = boardStyle.getPocket(
+        stoneEllipse = boardStyle.getStone(
                 pocketCenterOffset - size / 2 + Math.cos(theta) * r,
                 pocketCenterOffset - size / 2 + Math.sin(theta) * r,
                 size,
