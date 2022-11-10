@@ -17,8 +17,8 @@ import java.util.Random;
 
 public class Pocket implements BoardIcon {
     // TODO: should we create a rand for each class or use a singleton?
-    static int VARIANT_UPPER = 0;
-    static int VARIANT_LOWER = 1;
+    static final int VARIANT_UPPER = 0;
+    static final int VARIANT_LOWER = 1;
     private final BoardComponent board;
     private final String title;
     private final List<Stone> stones;

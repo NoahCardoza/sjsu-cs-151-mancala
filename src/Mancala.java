@@ -9,8 +9,8 @@ import java.awt.*;
 import java.awt.geom.RectangularShape;
 
 public class Mancala implements BoardIcon {
-    public static int VARIANT_LEFT = 0;
-    public static int VARIANT_RIGHT = 1;
+    public static final int VARIANT_LEFT = 0;
+    public static final int VARIANT_RIGHT = 1;
     private RectangularShape mancalaBox;
     private final BoardComponent board;
     private final int variant;

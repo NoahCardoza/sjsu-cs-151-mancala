@@ -14,7 +14,7 @@ import java.awt.*;
  */
 public class HackerTheme implements BoardTheme {
     private static final Color limeGreen = new Color(116, 255, 1);
-    private static final Color black = new Color(0, 0, 0);;
+    private static final Color black = new Color(0, 0, 0);
 
     @Override
     public String getName() {
@@ -93,6 +93,6 @@ public class HackerTheme implements BoardTheme {
 
     @Override
     public Font getFont() {
-        return new Font("Arial", Font.PLAIN, 13);
+        return new Font("Courier New", Font.PLAIN, 13);
     }
 }

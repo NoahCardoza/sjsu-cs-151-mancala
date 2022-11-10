@@ -19,7 +19,7 @@ public class GUIUtils {
      * @param text The String to draw.
      * @param rect The Rectangle to center the text in.
      *
-     * @link https://stackoverflow.com/a/27711103/6169961
+     * @link <a href="https://stackoverflow.com/a/27711103/6169961">StackOverflow</a>
      */
     public static void drawCenteredString(Graphics2D g, String text, Rectangle2D.Float rect, Font font) {
         // Get the FontMetrics

@@ -1,6 +1,5 @@
 package mancala.board.style;
 
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
 
