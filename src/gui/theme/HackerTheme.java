@@ -5,24 +5,25 @@
  * @assignment Mancala
  */
 
-package mancala.board.theme;
+package gui.theme;
 
 import java.awt.*;
 
 /**
  * Defines the default color scheme used in the game.
  */
-public class GreyscaleTheme implements BoardTheme {
-    private static final Color stone = new Color(42, 42, 42);
+public class HackerTheme implements BoardTheme {
+    private static final Color limeGreen = new Color(116, 255, 1);
+    private static final Color black = new Color(0, 0, 0);
 
     @Override
     public String getName() {
-        return "Grayscale";
+        return "Hacker";
     }
 
     @Override
     public Color getBoardBackgroundColor() {
-        return Color.BLACK;
+        return new Color(52, 52, 52);
     }
 
     @Override
@@ -32,12 +33,12 @@ public class GreyscaleTheme implements BoardTheme {
 
     @Override
     public Color getPocketColor() {
-        return Color.darkGray;
+        return new Color(19, 19, 19);
     }
 
     @Override
     public Color getPocketOutlineColor() {
-        return Color.lightGray;
+        return limeGreen;
     }
 
     @Override
@@ -47,51 +48,51 @@ public class GreyscaleTheme implements BoardTheme {
 
     @Override
     public Color getTextColor() {
-        return Color.white;
+        return limeGreen;
     }
 
     @Override
     public Color getStoneColor1() {
-        return stone;
+        return black;
     }
 
     @Override
     public Color getStoneColor1Outline() {
-        return Color.white;
+        return limeGreen;
     }
 
     @Override
     public Color getStoneColor2() {
-        return stone;
+        return black;
     }
 
     @Override
     public Color getStoneColor2Outline() {
-        return Color.white;
+        return limeGreen;
     }
 
     @Override
     public Color getStoneColor3() {
-        return stone;
+        return black;
     }
 
     @Override
     public Color getStoneColor3Outline() {
-        return Color.white;
+        return limeGreen;
     }
 
     @Override
     public Color getStoneColor4() {
-        return stone;
+        return black;
     }
 
     @Override
     public Color getStoneColor4Outline() {
-        return Color.white;
+        return limeGreen;
     }
 
     @Override
     public Font getFont() {
-        return new Font("Arial", Font.PLAIN, 13);
+        return new Font("Courier New", Font.PLAIN, 13);
     }
 }

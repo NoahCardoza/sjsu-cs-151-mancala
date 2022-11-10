@@ -5,7 +5,7 @@
  * @assignment Mancala
  */
 
-package mancala.board.style;
+package gui.style;
 
 import java.awt.geom.RectangularShape;
 

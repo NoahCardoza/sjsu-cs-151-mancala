@@ -5,8 +5,13 @@
  * @assignment Mancala
  */
 
-import mancala.board.style.BoardStyle;
-import mancala.board.theme.BoardTheme;
+package gui.view;
+
+import gui.component.BoardIcon;
+import gui.component.Mancala;
+import gui.component.Pocket;
+import gui.style.BoardStyle;
+import gui.theme.BoardTheme;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +25,7 @@ import java.util.List;
 /**
  * A component that draws a resizable mancala board.
  */
-public class BoardComponent extends JComponent implements BoardIcon {
+public class BoardView extends JComponent implements BoardIcon {
     private BoardTheme theme;
     private BoardStyle boardStyle;
     private final int aspectRatioWidth = 22;
@@ -37,7 +42,7 @@ public class BoardComponent extends JComponent implements BoardIcon {
      * Constructs a mancala game board from a theme
      * @param theme the theme config for the board
      */
-    public BoardComponent(BoardTheme theme, BoardStyle boardStyle) {
+    public BoardView(BoardTheme theme, BoardStyle boardStyle) {
         this.theme = theme;
         this.boardStyle = boardStyle;
 
@@ -66,7 +71,7 @@ public class BoardComponent extends JComponent implements BoardIcon {
                 b.height = b.width * minHeight / minWidth;
 
                 event.getComponent().setBounds(b.x, b.y, b.width, b.height);
-                BoardComponent.this.setBounds(b.x, b.y, b.width, b.height);
+                BoardView.this.setBounds(b.x, b.y, b.width, b.height);
 
                 onResize(b.width, b.height);
             }

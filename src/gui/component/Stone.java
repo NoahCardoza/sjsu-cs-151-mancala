@@ -5,8 +5,11 @@
  * @assignment Mancala
  */
 
-import mancala.board.style.BoardStyle;
-import mancala.board.theme.BoardTheme;
+package gui.component;
+
+import gui.style.BoardStyle;
+import gui.theme.BoardTheme;
+import gui.view.BoardView;
 
 import java.awt.*;
 import java.awt.geom.RectangularShape;
@@ -19,7 +22,7 @@ public class Stone implements BoardIcon {
     public final static int COLOR_3 = 2;
     public final static int COLOR_4 = 3;
 
-    private final BoardComponent board;
+    private final BoardView board;
     private final int variant;
     private double size;
     private double pocketSize;
@@ -32,7 +35,7 @@ public class Stone implements BoardIcon {
 
     private RectangularShape stoneEllipse;
 
-    public Stone(BoardComponent board, int variant) {
+    public Stone(BoardView board, int variant) {
         this.board = board;
         this.variant = variant;
         this.active = false;

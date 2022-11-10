@@ -5,6 +5,8 @@
  * @assignment Mancala
  */
 
+package gui.component;
+
 import java.awt.*;
 
 /**

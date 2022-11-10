@@ -5,8 +5,12 @@
  * @assignment Mancala
  */
 
-import mancala.board.style.BoardStyle;
-import mancala.board.theme.BoardTheme;
+package gui.component;
+
+import gui.GUIUtils;
+import gui.style.BoardStyle;
+import gui.theme.BoardTheme;
+import gui.view.BoardView;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -17,9 +21,9 @@ import java.util.Random;
 
 public class Pocket implements BoardIcon {
     // TODO: should we create a rand for each class or use a singleton?
-    static final int VARIANT_UPPER = 0;
-    static final int VARIANT_LOWER = 1;
-    private final BoardComponent board;
+    public static final int VARIANT_UPPER = 0;
+    public static final int VARIANT_LOWER = 1;
+    private final BoardView board;
     private final String title;
     private final List<Stone> stones;
     private final int index;
@@ -69,7 +73,7 @@ public class Pocket implements BoardIcon {
 
     private final StoneManager stoneManager;
 
-    Pocket(BoardComponent board, String title, int index, int variant) {
+    public Pocket(BoardView board, String title, int index, int variant) {
         this.variant = variant;
         this.board = board;
         this.title = title;

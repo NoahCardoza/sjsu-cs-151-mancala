@@ -5,6 +5,10 @@
  * @assignment Mancala
  */
 
+package gui.component;
+
+import gui.view.BoardView;
+
 import java.awt.*;
 import java.awt.geom.RectangularShape;
 
@@ -12,10 +16,10 @@ public class Mancala implements BoardIcon {
     public static final int VARIANT_LEFT = 0;
     public static final int VARIANT_RIGHT = 1;
     private RectangularShape mancalaBox;
-    private final BoardComponent board;
+    private final BoardView board;
     private final int variant;
 
-    public Mancala(BoardComponent board, int variant) {
+    public Mancala(BoardView board, int variant) {
         this.board = board;
         this.variant = variant;
     }

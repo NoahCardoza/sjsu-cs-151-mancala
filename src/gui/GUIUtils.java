@@ -5,6 +5,8 @@
  * @assignment Mancala
  */
 
+package gui;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 

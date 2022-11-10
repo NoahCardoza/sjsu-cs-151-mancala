@@ -1,4 +1,4 @@
-package mancala.board.style;
+package gui.style;
 
 import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
