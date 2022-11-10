@@ -228,6 +228,42 @@ public class MancalaModel {
 	//for undoing current player's most recent move
 	public void undo() {
 		
+		//checking if undo was already used prior
+		if (undoAlr == true) {
+			return;
+		}
+		
+		
+		boolean alreadyUsed;
+		
+		
+		//checking player one
+		
+		if (lastStone == false && pOneUndo < totalUndos) {
+			
+			pOneUndo++;
+			alreadyUsed = true;
+			
+		} else if(lastStone == true && pOneUndo < totalUndos) {
+			
+			pOneUndo++;
+			alreadyUsed = true;
+		} 
+		
+		
+		
+		//checking player two 
+		
+		if (lastStone == false && pTwoUndo < totalUndos) {
+			
+			pTwoUndo++;
+			alreadyUsed = true;
+			
+		} else if(lastStone == true && pTwoUndo < totalUndos) {
+			
+			pTwoUndo++;
+			alreadyUsed = true;
+		} 
 		
 	}
 	
