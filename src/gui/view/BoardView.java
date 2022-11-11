@@ -17,6 +17,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
@@ -74,6 +76,19 @@ public class BoardView extends JComponent implements BoardIcon {
                 BoardView.this.setBounds(b.x, b.y, b.width, b.height);
 
                 onResize(b.width, b.height);
+            }
+        });
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                for (Pocket pocket : pocketsPlayerA) {
+                    pocket.propagateMouseEvent(e);
+                }
+
+                for (Pocket pocket : pocketsPlayerB) {
+                    pocket.propagateMouseEvent(e);
+                }
             }
         });
     }

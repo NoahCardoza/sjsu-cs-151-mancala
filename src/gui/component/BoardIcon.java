@@ -8,6 +8,7 @@
 package gui.component;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 /**
  * An interface to define different parts of the board
@@ -36,4 +37,8 @@ public interface BoardIcon {
      * @param height the new height of the board
      */
     void onResize(int width, int height);
+
+    default void propagateMouseEvent(MouseEvent event) {
+        throw new RuntimeException("BoardIcon.propagateClickEvent not implemented");
+    }
 }

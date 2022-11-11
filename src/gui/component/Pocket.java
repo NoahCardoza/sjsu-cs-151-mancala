@@ -13,6 +13,9 @@ import gui.theme.BoardTheme;
 import gui.view.BoardView;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
@@ -28,6 +31,8 @@ public class Pocket implements BoardIcon {
     private final List<Stone> stones;
     private final int index;
     private final int variant;
+
+    ArrayList<ActionListener> listeners;
 
     /**
      * Cycles through colors when added new stones
@@ -57,6 +62,8 @@ public class Pocket implements BoardIcon {
             stone.onResize(board.getWidth(), board.getHeight());
             return stone;
         }
+
+        // TODO: use when we track stones
         public void place(Stone stone) {
             stone.randomlyPlaceInPocketBoundary(stoneAngleOffset, stoneAngleOffset + Math.PI / 4);
             // offset the next round of placement
@@ -83,7 +90,13 @@ public class Pocket implements BoardIcon {
 
         // TODO: allow this to be set by
         stones = new ArrayList<>();
+        listeners = new ArrayList<>();
+
         onResize(board.getWidth(), board.getHeight());
+    }
+
+    public void addActionListener(ActionListener actionListener) {
+        listeners.add(actionListener);
     }
 
     @Override
@@ -158,8 +171,26 @@ public class Pocket implements BoardIcon {
      * @param stone the stone to add
      */
     public void addStone(Stone stone) {
-        stoneManager.place(stone);
+        // TODO: uncomment when we can track stones across pits
+        // stoneManager.place(stone);
         stones.add(stone);
+    }
+
+    public void setStoneCount(int stoneCount) {
+        stones.clear();
+
+        double spacing = 2 * Math.PI / stoneCount;
+        double startBound = 0;
+
+        // TODO: hack to space since we aren't tracking WHICH
+        //       stone is moving from pocket to pocket
+        for (int i = 0; i < stoneCount; i++) {
+            Stone stone = stoneManager.factory();
+            stone.setPosition(startBound, stone.getSize());
+            startBound += spacing;
+            addStone(stone);
+        }
+
     }
 
     /**
@@ -168,5 +199,14 @@ public class Pocket implements BoardIcon {
      */
     public void addStone() {
         addStone(stoneManager.factory());
+    }
+
+    @Override
+    public void propagateMouseEvent(MouseEvent event) {
+        if (pocketEllipse.contains(event.getPoint())) {
+            for (ActionListener listener : listeners) {
+                listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "click"));
+            }
+        }
     }
 }

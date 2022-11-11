@@ -53,13 +53,18 @@ public class Stone implements BoardIcon {
             theta = rand.nextDouble(endAngle - startAngle) + startAngle;
 
             // convert polar coordinates to cartesian
-            stoneEllipse = board.getBoardStyle().getStone(
-                    pocketCenterOffset - size / 2 + Math.cos(theta) * r,
-                    pocketCenterOffset - size / 2 + Math.sin(theta) * r,
-                    stoneEllipse.getWidth(),
-                    stoneEllipse.getHeight()
-            );
+            setPosition(theta, r);
         }
+    }
+
+    public void setPosition(double theta, double r) {
+        // convert polar coordinates to cartesian
+        stoneEllipse = board.getBoardStyle().getStone(
+                pocketCenterOffset - size / 2 + Math.cos(theta) * r,
+                pocketCenterOffset - size / 2 + Math.sin(theta) * r,
+                stoneEllipse.getWidth(),
+                stoneEllipse.getHeight()
+        );
     }
 
     @Override
@@ -117,5 +122,9 @@ public class Stone implements BoardIcon {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public double getSize() {
+        return size;
     }
 }

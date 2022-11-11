@@ -7,6 +7,7 @@
 
 package gui.controller;
 
+import gui.model.MancalaModel;
 import gui.view.BoardView;
 import gui.component.Pocket;
 import gui.model.OptionsModel;
@@ -16,6 +17,8 @@ import gui.view.OptionsView;
 import gui.window.MainWindow;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -26,9 +29,13 @@ public class MainController implements BaseController {
     private final List<BoardStyle> styles;
     private final List<BoardTheme> themes;
 
+    private final MancalaModel mancalaModel;
+
     public MainController(MainWindow mainWindow, OptionsModel optionsModel) {
         this.mainWindow = mainWindow;
         this.optionsModel = optionsModel;
+
+        this.mancalaModel = new MancalaModel();
 
         styles = Stream.of(
                 new DefaultBoardStyle(),
@@ -63,6 +70,25 @@ public class MainController implements BaseController {
 
     @Override
     public void addChangeListeners() {
+        mancalaModel.add((event) -> {
+            int[] pockets = mancalaModel.getPits();
+
+            System.out.println(Arrays.toString(pockets));
+
+            List<Pocket> pocketsPlayerA = mainWindow.getMainView().getBoard().getPocketsPlayerA();
+            List<Pocket> pocketsPlayerB = mainWindow.getMainView().getBoard().getPocketsPlayerB();
+
+            for (int i = 0; i < 6; i++) {
+                pocketsPlayerB.get(i).setStoneCount(pockets[i]);
+            }
+
+            for (int i = 0; i < 6; i++) {
+                pocketsPlayerA.get(i).setStoneCount(pockets[i + 6]);
+            }
+
+            mainWindow.getMainView().getBoard().repaint();
+        });
+
         optionsModel.addEventListener("update:currentStyle", (event) -> {
             mainWindow.getMainView().getBoard().setBoardStyle(optionsModel.getCurrentStyle());
         });
@@ -87,13 +113,26 @@ public class MainController implements BaseController {
 
         // TODO: modify to when user chooses how many stones to play with
         view.getAddStoneButton().addActionListener((event) -> {
-            for (Pocket pocket : board.getPocketsPlayerA()) {
-                pocket.addStone();
-            }
-            for (Pocket pocket : board.getPocketsPlayerB()) {
-                pocket.addStone();
-            }
+            // TODO: keep track of counter or use dropdown select
+            mancalaModel.resetPockets(4);
             board.repaint();
         });
+
+        List<Pocket> pocketsPlayerA = mainWindow.getMainView().getBoard().getPocketsPlayerA();
+        List<Pocket> pocketsPlayerB = mainWindow.getMainView().getBoard().getPocketsPlayerB();
+
+        for (int i = 0; i < 6; i++) {
+            int index = i;
+            pocketsPlayerB.get(i).addActionListener(event -> {
+                mancalaModel.moveStones(index);
+            });
+        }
+
+        for (int i = 0; i < 6; i++) {
+            int index = i;
+            pocketsPlayerA.get(i).addActionListener(event -> {
+                mancalaModel.moveStones(index + 6);
+            });
+        }
     }
 }

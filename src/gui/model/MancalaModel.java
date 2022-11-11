@@ -1,3 +1,5 @@
+package gui.model;
+
 import java.util.ArrayList;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -74,13 +76,10 @@ public class MancalaModel {
 		undoAlr = false;
 		
 			
-		}
-	
-	
+	}
+
 	public void changeListeners() {
-		
 		for (ChangeListener CL : listeners) {
-			
 			CL.stateChanged(new ChangeEvent(this));
 		}
 	}
@@ -88,9 +87,7 @@ public class MancalaModel {
 	
 	
 	public void add(ChangeListener CL) {
-		
 		listeners.add(CL);
-		
 	}
 	
 	//for saving current game stats
@@ -129,16 +126,16 @@ public class MancalaModel {
 			
 			gState = gameState.start;
 		} 
-			else if (st.equals("inGame")) {
-				
-				gState = gameState.inGame;
-			} 
-			else {
-				
-				gState = gameState.end;
-				
-			}
-		
+		else if (st.equals("inGame")) {
+
+			gState = gameState.inGame;
+		}
+		else {
+
+			gState = gameState.end;
+
+		}
+
 	}
 	
 	//checking for if inside the players' mancala
@@ -166,8 +163,7 @@ public class MancalaModel {
 	
 	
 	//for moving stones using pits' index
-	public void moveStones(int index) { 
-		
+	public void moveStones(int index) {
 		//makes sure undo is still available
 		undoAlr = false;
 		
@@ -178,12 +174,9 @@ public class MancalaModel {
 		
 		if(pCur.equals(players.pOne)) {
 			pTwoUndo = 0;
-			
 		} else {
-			
 			pOneUndo = 0;
 		}
-		
 		
 		while (stoneNum != 0) {
 			pit++;
@@ -209,17 +202,13 @@ public class MancalaModel {
 		
 		//checks for empty pits
 		if (checkIfPitsEmpty()) {
-			
 			moveLastStonesToCala();
 			gState = gameState.end;
-			
 		}
 		
 		//save and notify listeners
-		this.saveCurState();
-		this.changeListeners();
-		
-		
+		saveCurState();
+		changeListeners();
 	}
 	
 	
@@ -302,25 +291,18 @@ public class MancalaModel {
 	//for obtaining and moving the leftover stones
 	//into respective players' mancalas
 	public void moveLastStonesToCala() {
-		
 		for (int i = 1; i <= pitTotal; i++) {
-			
 			//checks that i isn't in either 
 			//cala's index 
 			if (!(inCala(i))) {
-				
 				//nested if statement to determine 
 				//current player
 				if (whichPlayerPit(i) == players.pOne) {
-					
 					pits[calaOne] += pits[i];
 					pits[i] = 0;
-					
 				} else {
-					
 					pits[calaTwo] += pits[i];
 					pits[i] = 0;
-					
 				}
 			}
 		}
@@ -359,29 +341,21 @@ public class MancalaModel {
 				interchange();					
 			
 		} else {
-			
 			lastStone = false;
-			interchange();	
-			
+			interchange();
 		}
-		
-		
 	}
 	
 	//created for method ^
 	//getting the pit on the other side of the board
 	public int getOtherSidePit(int pit) {
-		
 		if ( pit >= 13) {
-			
 			return pit - 13;
-			
 		} else {
-			
 			return 13 - pit;
 		}
 	}
-	
+
 	
 	public gameState getGameState() {
 		return gState;
@@ -395,7 +369,16 @@ public class MancalaModel {
 	public players getCurrentPlayer() {
 		return pCur;
 	}
-	
-	
-	
+
+	/**
+	 * Initializes all pockets.
+	 *
+	 * @param stonedCount the number of stones to be placed into each pocket
+	 */
+	public void resetPockets(int stonedCount) {
+		for (int i = 0; i < pits.length; i++) {
+			pits[i] = stonedCount;
+		}
+		changeListeners();
+	}
 }
