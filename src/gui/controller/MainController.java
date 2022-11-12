@@ -79,11 +79,12 @@ public class MainController implements BaseController {
             List<Pocket> pocketsPlayerB = mainWindow.getMainView().getBoard().getPocketsPlayerB();
 
             for (int i = 0; i < 6; i++) {
-                pocketsPlayerB.get(i).setStoneCount(pockets[i]);
+                pocketsPlayerB.get(i).setStoneCount(pockets[12 - i]);
             }
 
             for (int i = 0; i < 6; i++) {
-                pocketsPlayerA.get(i).setStoneCount(pockets[i + 6]);
+                pocketsPlayerA.get(i).setStoneCount(pockets[i]);
+                
             }
 
             mainWindow.getMainView().getBoard().repaint();
@@ -124,14 +125,14 @@ public class MainController implements BaseController {
         for (int i = 0; i < 6; i++) {
             int index = i;
             pocketsPlayerB.get(i).addActionListener(event -> {
-                mancalaModel.moveStones(index);
+                mancalaModel.moveStones(12 - index);
             });
         }
 
         for (int i = 0; i < 6; i++) {
             int index = i;
             pocketsPlayerA.get(i).addActionListener(event -> {
-                mancalaModel.moveStones(index + 6);
+                mancalaModel.moveStones(index);
             });
         }
     }

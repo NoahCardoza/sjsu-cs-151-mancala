@@ -160,17 +160,18 @@ public class BoardView extends JComponent implements BoardIcon {
 
     @Override
     public void draw(Graphics2D g2, int x, int y) {
+    
         g2.setFont(theme.getFont());
 
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
+        
         g2.setColor(theme.getBoardBackgroundColor());
         g2.fill(board);
-
+        
         g2.setColor(theme.getBoardOutlineColor());
         g2.draw(board);
-
+    	
         mancalaPlayerA.draw(g2);
         mancalaPlayerB.draw(g2);
 
@@ -184,5 +185,6 @@ public class BoardView extends JComponent implements BoardIcon {
         for (Pocket pocket : pocketsPlayerB) {
             pocket.draw(g2);
         }
+    	
     }
 }

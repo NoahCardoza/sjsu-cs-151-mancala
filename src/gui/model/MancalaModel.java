@@ -53,8 +53,8 @@ public class MancalaModel {
 	
 	
 	//index for each player's mancalas
-	private static final int calaOne = 7;
-	private static final int calaTwo = 14;
+	private static final int calaOne = 6;
+	private static final int calaTwo = 13;
 	
 	
 	private ArrayList<ChangeListener> listeners;
@@ -98,12 +98,14 @@ public class MancalaModel {
 	//figuring out who owns current pit 
 	public players whichPlayerPit(int currentPit) {
 		
-		if (currentPit <= calaOne && currentPit != 0) {
+		if (currentPit == calaOne) {
 			return players.pOne;
 			
 		} else { 
 			return players.pTwo;
 		}
+		
+		
 		
 	}
 	//for changing players when their turn's are over
@@ -185,17 +187,18 @@ public class MancalaModel {
 				pit = 0;
 			}
 			
-			if (inCala(pit) || whichPlayerPit(pit) 
+			/*
+			if (inCala(pit) && whichPlayerPit(pit) 
 					!= pCur) {
 				continue;
-			}
+			}*/
 			
 			
 			pits[pit] += 1;
 			stoneNum--;
 			
 		}
-		
+		/*
 		//checks to see if last stone 
 		//and find where it is
 		findLastStones(pit);
@@ -208,6 +211,7 @@ public class MancalaModel {
 		
 		//save and notify listeners
 		saveCurState();
+		*/
 		changeListeners();
 	}
 	
@@ -262,7 +266,7 @@ public class MancalaModel {
 		int pit1 = 0;
 		int pit2 = 0;
 		
-		for (int i = 1; i <= pitTotal; i++) {
+		for (int i = 0; i < pitTotal; i++) {
 			
 			//checks that i isn't in either 
 			//cala's index
@@ -291,7 +295,7 @@ public class MancalaModel {
 	//for obtaining and moving the leftover stones
 	//into respective players' mancalas
 	public void moveLastStonesToCala() {
-		for (int i = 1; i <= pitTotal; i++) {
+		for (int i = 0; i < pitTotal; i++) {
 			//checks that i isn't in either 
 			//cala's index 
 			if (!(inCala(i))) {
@@ -379,6 +383,9 @@ public class MancalaModel {
 		for (int i = 0; i < pits.length; i++) {
 			pits[i] = stonedCount;
 		}
+		
+		pits[6] = pits[13] = 0;
+		
 		changeListeners();
 	}
 }
