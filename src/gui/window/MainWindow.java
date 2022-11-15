@@ -1,7 +1,7 @@
 /**
  * @author Noah Cardoza
  * @version 0.0.1
- * @date 11/10/2022
+ * @date 11/15/2022
  * @assignment Mancala
  */
 
@@ -11,7 +11,6 @@ import gui.model.ModelManager;
 import gui.view.*;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -35,7 +34,7 @@ public class MainWindow extends JFrame {
         setLayout(cardLayout);
 
         gameView = new GameView(modelManager);
-        mainMenuView = new MainMenuView(modelManager);
+        mainMenuView = new MainMenuView();
 
         add(mainMenuView, Card.MainMenu.toString());
         add(gameView, Card.Game.toString());

@@ -1,13 +1,11 @@
 /**
  * @author Noah Cardoza
  * @version 0.0.1
- * @date 11/10/2022
+ * @date 11/15/2022
  * @assignment Mancala
  */
 
 package gui.view;
-
-import gui.model.ModelManager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,10 +15,8 @@ import java.awt.event.ActionListener;
 public class MainMenuView extends JPanel {
     private final JComboBox<String> mancalaCountSelect;
     private final JButton startGameButton;
-    private final ModelManager modelManager;
 
-    public MainMenuView(ModelManager modelManager) {
-        this.modelManager = modelManager;
+    public MainMenuView() {
 
         setBorder(new EmptyBorder(10, 10, 10, 10));
 
