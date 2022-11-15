@@ -9,6 +9,5 @@ package gui.controller;
 
 public interface BaseController {
     void setup();
-    void addChangeListeners();
     void addEventListeners();
 }

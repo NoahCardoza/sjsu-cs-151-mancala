@@ -7,89 +7,73 @@
 
 package gui.view;
 
-import gui.component.BoardIcon;
-import gui.component.Mancala;
-import gui.component.Pocket;
-import gui.style.BoardStyle;
-import gui.theme.BoardTheme;
+import gui.component.MancalaView;
+import gui.component.PocketsGridView;
+import gui.model.ModelManager;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 import java.awt.geom.RoundRectangle2D;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A component that draws a resizable mancala board.
  */
-public class BoardView extends JComponent implements BoardIcon {
-    private BoardTheme theme;
-    private BoardStyle boardStyle;
-    private final int aspectRatioWidth = 22;
-    private final int aspectRatioHeight = 9;
-    private final java.util.List<Pocket> pocketsPlayerA;
-    private final java.util.List<Pocket> pocketsPlayerB;
-    private final Mancala mancalaPlayerA;
-    private final Mancala mancalaPlayerB;
-
-    private RoundRectangle2D.Double board;
-    private Line2D.Double centerDivide;
+public class BoardView extends JPanel {
+    // TODO: lock aspect ration in for board (w, h) = (22, 9)
+    private final PocketsGridView pocketsGridView;
+    private final ModelManager modelManager;
 
     /**
      * Constructs a mancala game board from a theme
-     * @param theme the theme config for the board
+     *
+     * @param modelManager holds all the models
      */
-    public BoardView(BoardTheme theme, BoardStyle boardStyle) {
-        this.theme = theme;
-        this.boardStyle = boardStyle;
+    public BoardView(ModelManager modelManager) {
+        this.modelManager = modelManager;
 
-        this.mancalaPlayerA = new Mancala(this, Mancala.VARIANT_RIGHT);
-        this.mancalaPlayerB = new Mancala(this, Mancala.VARIANT_LEFT);
+        setBorder(new EmptyBorder(10, 10, 10, 10));
+        setOpaque(false);
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        GridBagConstraints c = new GridBagConstraints();
 
-        this.pocketsPlayerA = new ArrayList<>();
-        this.pocketsPlayerB = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            pocketsPlayerA.add(new Pocket(this, String.format("A%d", i + 1), i, Pocket.VARIANT_LOWER));
-            pocketsPlayerB.add(new Pocket(this, String.format("B%d", i + 1), i, Pocket.VARIANT_UPPER));
-        }
+        setLayout(gridBagLayout);
+        // defaults
+        c.fill = GridBagConstraints.BOTH;
+        c.weighty = 1.0;
+        c.gridy = 1;
+        c.gridwidth = 1;
 
-        addComponentListener(new ComponentAdapter(){
-            @Override
-            public void componentResized(ComponentEvent event) {
-                // scale the aspect ratio to set a realistic minimum
-                int minWidth = aspectRatioWidth * 25;
-                int minHeight = aspectRatioHeight * 25;
+        // player A
+        c.weightx = 1.0;
+        MancalaView mancalaPlayerA = new MancalaView(modelManager, 13);
+        gridBagLayout.setConstraints(mancalaPlayerA, c);
+        add(mancalaPlayerA);
 
-                Rectangle b = event.getComponent().getBounds();
-                if (b.width < minWidth) {
-                    b.width = minWidth;
-                }
+        // pockets
+        c.weightx = 4.0;
+        c.insets.left = 10;
+        c.insets.right = 10;
+        pocketsGridView = new PocketsGridView(modelManager);
+        gridBagLayout.setConstraints(pocketsGridView, c);
+        add(pocketsGridView);
+        c.insets.left = 0;
+        c.insets.right = 0;
 
-                b.height = b.width * minHeight / minWidth;
+        // player B
+        c.weightx = 1.0;
+        MancalaView mancalaPlayerB = new MancalaView(modelManager, 6);
+        gridBagLayout.setConstraints(mancalaPlayerB, c);
 
-                event.getComponent().setBounds(b.x, b.y, b.width, b.height);
-                BoardView.this.setBounds(b.x, b.y, b.width, b.height);
+        add(mancalaPlayerB);
 
-                onResize(b.width, b.height);
-            }
+        modelManager.getOptionsModel().addEventListener("update:currentStyle", (event) -> {
+            repaint();
         });
 
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                for (Pocket pocket : pocketsPlayerA) {
-                    pocket.propagateMouseEvent(e);
-                }
-
-                for (Pocket pocket : pocketsPlayerB) {
-                    pocket.propagateMouseEvent(e);
-                }
-            }
+        modelManager.getOptionsModel().addEventListener("update:currentTheme", event -> {
+            repaint();
         });
     }
 
@@ -97,94 +81,29 @@ public class BoardView extends JComponent implements BoardIcon {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        draw(g2);
-    }
 
-    /**
-     * A getter for the theme property.
-     *
-     * @return the theme instance used by the board
-     */
-    public BoardTheme getTheme() {
-        return theme;
-    }
+        double width = getWidth();
+        double height = getHeight();
+        double pocketWidth = width / 10;
+        double pocketMargin = 20;
+        double midPoint = height / 2;
 
-    /**
-     * A setter for the theme property
-     * @param theme the theme to use when rendering the board
-     */
-    public void setTheme(BoardTheme theme) {
-        this.theme = theme;
-        repaint();
-    }
-
-    public BoardStyle getBoardStyle() {
-        return boardStyle;
-    }
-
-    public void setBoardStyle(BoardStyle boardStyle) {
-        this.boardStyle = boardStyle;
-        // trigger resize to generate the RectangularShape instances
-        onResize(getWidth(), getHeight());
-        repaint();
-    }
-
-    public List<Pocket> getPocketsPlayerA() {
-        return pocketsPlayerA;
-    }
-
-    public List<Pocket> getPocketsPlayerB() {
-        return pocketsPlayerB;
-    }
-
-    @Override
-    public void onResize(int width, int height) {
-        int pocketWidth = width / 10;
-        int pocketMargin = 20;
-        int midPoint = height / 2;
-
-        board = new RoundRectangle2D.Double(0, 0, width, height, 40, 40);
-        centerDivide = new Line2D.Double((2 * pocketMargin + pocketWidth), midPoint, width - (2 * pocketMargin + pocketWidth), midPoint);
-
-        // propagate resize event to child components
-        mancalaPlayerA.onResize(width, height);
-        mancalaPlayerB.onResize(width, height);
-
-        for (Pocket pocket : pocketsPlayerA ) {
-            pocket.onResize(width, height);
-        }
-        for (Pocket pocket : pocketsPlayerB ) {
-            pocket.onResize(width, height);
-        }
-    }
-
-    @Override
-    public void draw(Graphics2D g2, int x, int y) {
-    
-        g2.setFont(theme.getFont());
+        RoundRectangle2D.Double board = new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 40, 40);
+        Line2D.Double centerDivide = new Line2D.Double((2 * pocketMargin + pocketWidth), midPoint, width - (2 * pocketMargin + pocketWidth), midPoint);
 
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        
-        g2.setColor(theme.getBoardBackgroundColor());
+
+        g2.setColor(modelManager.getOptionsModel().getCurrentTheme().getBoardBackgroundColor());
         g2.fill(board);
-        
-        g2.setColor(theme.getBoardOutlineColor());
+
+        g2.setColor(modelManager.getOptionsModel().getCurrentTheme().getBoardOutlineColor());
         g2.draw(board);
-    	
-        mancalaPlayerA.draw(g2);
-        mancalaPlayerB.draw(g2);
 
         g2.draw(centerDivide);
+    }
 
-
-        for (Pocket pocket : pocketsPlayerA) {
-            pocket.draw(g2);
-        }
-
-        for (Pocket pocket : pocketsPlayerB) {
-            pocket.draw(g2);
-        }
-    	
+    public PocketsGridView getPocketsView() {
+        return pocketsGridView;
     }
 }
