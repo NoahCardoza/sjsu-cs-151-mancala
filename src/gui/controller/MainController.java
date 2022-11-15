@@ -54,16 +54,6 @@ public class MainController implements BaseController {
 
     @Override
     public void setup() {
-        JComboBox<Object> styleSelect = mainWindow.getOptionsView().getStyleSelect();
-        JComboBox<Object> themeSelect = mainWindow.getOptionsView().getThemeSelect();
-
-        styleSelect.setModel(new DefaultComboBoxModel<>(styles.stream().map(BoardStyle::getName).toArray()));
-        themeSelect.setModel(new DefaultComboBoxModel<>(themes.stream().map(BoardTheme::getName).toArray()));
-
-        // TODO: if the default in the model is changed select accordingly
-        styleSelect.setSelectedIndex(0);
-        themeSelect.setSelectedIndex(0);
-
         addEventListeners();
     }
 
@@ -78,14 +68,22 @@ public class MainController implements BaseController {
             modelManager.getOptionsModel().setCurrentCard(MainWindow.Card.Game);
         });
 
-        // sets the current style
-        view.getStyleSelect().addActionListener((event) -> {
-            optionsModel.setCurrentStyle(styles.get(mainWindow.getOptionsView().getStyleSelect().getSelectedIndex()));
+        view.addStyleSelectedListener((event) -> {
+            optionsModel.setCurrentStyle(styles.get(((JComboBox<Object>) event.getSource()).getSelectedIndex()));
         });
 
-        view.getThemeSelect().addActionListener((event) -> {
-            optionsModel.setCurrentTheme(themes.get(mainWindow.getOptionsView().getThemeSelect().getSelectedIndex()));
+        view.addThemeSelectedListener((event) -> {
+            optionsModel.setCurrentTheme(themes.get(((JComboBox<Object>) event.getSource()).getSelectedIndex()));
         });
+
+        // sets the current style
+//        view.getStyleSelect().addActionListener((event) -> {
+//            optionsModel.setCurrentStyle(styles.get(mainWindow.getOptionsView().getStyleSelect().getSelectedIndex()));
+//        });
+//
+//        view.getThemeSelect().addActionListener((event) -> {
+//            optionsModel.setCurrentTheme(themes.get(mainWindow.getOptionsView().getThemeSelect().getSelectedIndex()));
+//        });
 
         board.getPocketsView().addActionListener(event -> {
             PocketsGridCell pocket = (PocketsGridCell) event.getSource();

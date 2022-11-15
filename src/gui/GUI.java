@@ -11,14 +11,35 @@ import gui.controller.MainController;
 import gui.model.MancalaModel;
 import gui.model.ModelManager;
 import gui.model.OptionsModel;
+import gui.style.BlockBoardStyle;
 import gui.style.DefaultBoardStyle;
+import gui.style.OblongBoardStyle;
+import gui.style.SquareBoardStyle;
+import gui.theme.DefaultTheme;
+import gui.theme.GreyscaleTheme;
 import gui.theme.HackerTheme;
+import gui.theme.OceanTheme;
 import gui.window.MainWindow;
+
+import java.util.stream.Stream;
 
 public class GUI {
     public GUI() {
         ModelManager modelManager = new ModelManager(
-                new OptionsModel(new HackerTheme(), new DefaultBoardStyle()),
+                new OptionsModel(
+                        Stream.of(
+                                new HackerTheme(),
+                                new DefaultTheme(),
+                                new GreyscaleTheme(),
+                                new OceanTheme()
+                        ).toList(),
+                        Stream.of(
+                                new DefaultBoardStyle(),
+                                new SquareBoardStyle(),
+                                new BlockBoardStyle(),
+                                new OblongBoardStyle()
+                        ).toList()
+                ),
                 new MancalaModel()
         );
 

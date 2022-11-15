@@ -7,28 +7,48 @@
 
 package gui.view;
 
+import gui.model.ModelManager;
+import gui.style.BoardStyle;
+import gui.theme.BoardTheme;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
 
 public class OptionsView extends JPanel {
     private final JComboBox<Object> styleSelect;
     private final JComboBox<Object> themeSelect;
 
-    public OptionsView() {
+    public OptionsView(ModelManager modelManager) {
         setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        styleSelect = new JComboBox<>();
-        themeSelect = new JComboBox<>();
+        styleSelect = new JComboBox<>(
+                modelManager
+                        .getOptionsModel()
+                        .getStyles()
+                        .stream()
+                        .map(BoardStyle::getName)
+                        .toArray()
+        );
+
+        themeSelect = new JComboBox<>(
+                modelManager
+                        .getOptionsModel()
+                        .getThemes()
+                        .stream()
+                        .map(BoardTheme::getName)
+                        .toArray()
+        );
 
         add(styleSelect);
         add(themeSelect);
     }
 
-    public JComboBox<Object> getStyleSelect() {
-        return styleSelect;
+    public void addStyleSelectedListener(ActionListener listener) {
+        styleSelect.addActionListener(listener);
     }
 
-    public JComboBox<Object> getThemeSelect() {
-        return themeSelect;
+    public void addThemeSelectedListener(ActionListener listener) {
+        themeSelect.addActionListener(listener);
     }
 }
