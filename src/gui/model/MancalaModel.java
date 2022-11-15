@@ -1,6 +1,7 @@
 package gui.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -26,13 +27,9 @@ public class MancalaModel {
 	
 	private players pCur;
 	private gameState gState;
-	
-	
-	//number of undos for each player
-	private final int totalUndos = 3;
-	
-	
-	//for checking if certain player has 
+
+
+	//for checking if certain player has
 	//already used their undo during a turn
 	private boolean undoAlr;
 	
@@ -61,7 +58,7 @@ public class MancalaModel {
 	
 	
 	public MancalaModel() {
-		listeners = new ArrayList<ChangeListener>();
+		listeners = new ArrayList<>();
 
 		pits = new int[pitTotal];
 		undoPits = new int[pitTotal];
@@ -231,7 +228,9 @@ public class MancalaModel {
 		
 		
 		//checking player one
-		
+
+		//number of undos for each player
+		int totalUndos = 3;
 		if (lastStone == false && pOneUndo < totalUndos) {
 			
 			pOneUndo++;
@@ -380,9 +379,7 @@ public class MancalaModel {
 	 * @param stonedCount the number of stones to be placed into each pocket
 	 */
 	public void resetPockets(int stonedCount) {
-		for (int i = 0; i < pits.length; i++) {
-			pits[i] = stonedCount;
-		}
+		Arrays.fill(pits, stonedCount);
 		
 		pits[6] = pits[13] = 0;
 		

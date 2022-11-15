@@ -7,6 +7,7 @@
 
 package gui.window;
 
+import gui.model.ModelManager;
 import gui.view.MainView;
 
 import javax.swing.*;
@@ -17,8 +18,9 @@ import java.awt.event.ComponentEvent;
 public class MainWindow {
     private final MainView mainView;
 
-    public MainWindow() {
-        mainView = new MainView();
+    public MainWindow(ModelManager modelManager) {
+
+        mainView = new MainView(modelManager);
 
         mainView.setSize(900, 300);
         mainView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

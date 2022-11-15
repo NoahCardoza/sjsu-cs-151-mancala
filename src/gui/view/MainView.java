@@ -7,9 +7,7 @@
 
 package gui.view;
 
-import gui.component.Pocket;
-import gui.style.*;
-import gui.theme.*;
+import gui.model.ModelManager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -19,11 +17,12 @@ public class MainView extends JFrame {
     private final BoardView board;
     private final OptionsView optionsView;
 
-    public MainView() {
+    public MainView(ModelManager modelManager) {
+
         setTitle("Mancala");
 
         // create a new board component
-        board = new BoardView(new DefaultTheme(), new DefaultBoardStyle());
+        board = new BoardView(modelManager);
         optionsView = new OptionsView();
 
         JPanel boardPanel = new JPanel();
@@ -36,17 +35,6 @@ public class MainView extends JFrame {
 
         add(boardPanel, BorderLayout.CENTER);
         add(optionsView, BorderLayout.PAGE_END);
-
-        // TODO: modify to when user chooses how many stones to play with
-        btn.addActionListener((event) -> {
-            for (Pocket pocket : board.getPocketsPlayerA()) {
-                pocket.addStone();
-            }
-            for (Pocket pocket : board.getPocketsPlayerB()) {
-                pocket.addStone();
-            }
-            board.repaint();
-        });
     }
 
     public BoardView getBoard() {

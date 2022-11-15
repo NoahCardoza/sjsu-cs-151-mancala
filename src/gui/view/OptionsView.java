@@ -7,6 +7,8 @@
 
 package gui.view;
 
+import gui.model.ModelManager;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

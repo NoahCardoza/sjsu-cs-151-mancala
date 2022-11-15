@@ -8,16 +8,22 @@
 package gui;
 
 import gui.controller.MainController;
+import gui.model.MancalaModel;
+import gui.model.ModelManager;
 import gui.model.OptionsModel;
 import gui.style.DefaultBoardStyle;
-import gui.theme.DefaultTheme;
+import gui.theme.HackerTheme;
 import gui.window.MainWindow;
 
 public class GUI {
     public GUI() {
-        MainWindow mainWindow = new MainWindow();
-        OptionsModel optionsModel = new OptionsModel(new DefaultTheme(), new DefaultBoardStyle());
-        MainController mainController = new MainController(mainWindow, optionsModel);
+        ModelManager modelManager = new ModelManager(
+                new OptionsModel(new HackerTheme(), new DefaultBoardStyle()),
+                new MancalaModel()
+        );
+
+        MainWindow mainWindow = new MainWindow(modelManager);
+        MainController mainController = new MainController(mainWindow, modelManager);
 
         mainController.setup();
 
