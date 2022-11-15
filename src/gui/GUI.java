@@ -27,6 +27,6 @@ public class GUI {
 
         mainController.setup();
 
-        mainWindow.getMainView().setVisible(true);
+        mainWindow.setVisible(true);
     }
 }

@@ -7,16 +7,12 @@
 
 package gui.view;
 
-import gui.model.ModelManager;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 public class OptionsView extends JPanel {
     private final JComboBox<Object> styleSelect;
     private final JComboBox<Object> themeSelect;
-    private final JButton addStoneButton;
 
     public OptionsView() {
         setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -24,11 +20,7 @@ public class OptionsView extends JPanel {
         styleSelect = new JComboBox<>();
         themeSelect = new JComboBox<>();
 
-        addStoneButton = new JButton("Add Stone");
-        addStoneButton.setSize(new Dimension(30,20));
-
         add(styleSelect);
-        add(addStoneButton);
         add(themeSelect);
     }
 
@@ -38,9 +30,5 @@ public class OptionsView extends JPanel {
 
     public JComboBox<Object> getThemeSelect() {
         return themeSelect;
-    }
-
-    public JButton getAddStoneButton() {
-        return addStoneButton;
     }
 }

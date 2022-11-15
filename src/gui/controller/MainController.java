@@ -28,10 +28,11 @@ public class MainController implements BaseController {
 
     private final List<BoardStyle> styles;
     private final List<BoardTheme> themes;
+    private final ModelManager modelManager;
 
     public MainController(MainWindow mainWindow, ModelManager modelManager) {
         this.mainWindow = mainWindow;
-
+        this.modelManager = modelManager;
         // TODO: verify this is safe
         this.optionsModel = modelManager.getOptionsModel();
         this.mancalaModel = modelManager.getMancalaModel();
@@ -53,8 +54,8 @@ public class MainController implements BaseController {
 
     @Override
     public void setup() {
-        JComboBox<Object> styleSelect = mainWindow.getMainView().getOptionsView().getStyleSelect();
-        JComboBox<Object> themeSelect = mainWindow.getMainView().getOptionsView().getThemeSelect();
+        JComboBox<Object> styleSelect = mainWindow.getOptionsView().getStyleSelect();
+        JComboBox<Object> themeSelect = mainWindow.getOptionsView().getThemeSelect();
 
         styleSelect.setModel(new DefaultComboBoxModel<>(styles.stream().map(BoardStyle::getName).toArray()));
         themeSelect.setModel(new DefaultComboBoxModel<>(themes.stream().map(BoardTheme::getName).toArray()));
@@ -68,22 +69,22 @@ public class MainController implements BaseController {
 
     @Override
     public void addEventListeners() {
-        OptionsView view = mainWindow.getMainView().getOptionsView();
-        BoardView board = mainWindow.getMainView().getBoard();
+        OptionsView view = mainWindow.getOptionsView();
+        BoardView board = mainWindow.getBoardView();
 
+        // on start game button clicked
+        mainWindow.getMainMenuView().addStartGameButtonListener(event -> {
+            modelManager.getMancalaModel().resetPockets(mainWindow.getMainMenuView().getMancalaCount());
+            modelManager.getOptionsModel().setCurrentCard(MainWindow.Card.Game);
+        });
+
+        // sets the current style
         view.getStyleSelect().addActionListener((event) -> {
-            optionsModel.setCurrentStyle(styles.get(mainWindow.getMainView().getOptionsView().getStyleSelect().getSelectedIndex()));
+            optionsModel.setCurrentStyle(styles.get(mainWindow.getOptionsView().getStyleSelect().getSelectedIndex()));
         });
 
         view.getThemeSelect().addActionListener((event) -> {
-            optionsModel.setCurrentTheme(themes.get(mainWindow.getMainView().getOptionsView().getThemeSelect().getSelectedIndex()));
-        });
-
-        // TODO: modify to when user chooses how many stones to play with
-        view.getAddStoneButton().addActionListener((event) -> {
-            // TODO: keep track of counter or use dropdown select
-            mancalaModel.resetPockets(4);
-            board.repaint();
+            optionsModel.setCurrentTheme(themes.get(mainWindow.getOptionsView().getThemeSelect().getSelectedIndex()));
         });
 
         board.getPocketsView().addActionListener(event -> {

@@ -9,15 +9,19 @@ package gui.model;
 
 import gui.style.BoardStyle;
 import gui.theme.BoardTheme;
+import gui.window.MainWindow;
 
 public class OptionsModel extends BaseModel {
     private BoardTheme currentTheme;
     private BoardStyle currentStyle;
 
+    private MainWindow.Card currentCard;
+
 
     public OptionsModel(BoardTheme currentTheme, BoardStyle currentStyle) {
         super();
 
+        this.currentCard = MainWindow.Card.MainMenu;
         this.currentTheme = currentTheme;
         this.currentStyle = currentStyle;
     }
@@ -38,5 +42,14 @@ public class OptionsModel extends BaseModel {
     public void setCurrentStyle(BoardStyle currentStyle) {
         this.currentStyle = currentStyle;
         dispatchEvent("update:currentStyle");
+    }
+
+    public MainWindow.Card getCurrentCard() {
+        return currentCard;
+    }
+
+    public void setCurrentCard(MainWindow.Card currentCard) {
+        this.currentCard = currentCard;
+        dispatchEvent("update:currentCard");
     }
 }

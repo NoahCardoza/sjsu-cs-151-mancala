@@ -13,21 +13,22 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class MainView extends JFrame {
-    private final BoardView board;
+public class GameView extends JPanel {
+    private final BoardView boardView;
     private final OptionsView optionsView;
 
-    public MainView(ModelManager modelManager) {
-
-
+    public GameView(ModelManager modelManager) {
         // create a new board component
-        board = new BoardView(modelManager);
+        boardView = new BoardView(modelManager);
         optionsView = new OptionsView();
+
+        setLayout(new BorderLayout());
 
         JPanel boardPanel = new JPanel();
         boardPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         boardPanel.setLayout(new BoxLayout(boardPanel, BoxLayout.Y_AXIS));
-        boardPanel.add(board);
+        boardPanel.add(boardView);
+        setBackground(Color.PINK);
 
         JButton btn = new JButton("Add Stone");
         btn.setSize(new Dimension(30,20));
@@ -36,8 +37,8 @@ public class MainView extends JFrame {
         add(optionsView, BorderLayout.PAGE_END);
     }
 
-    public BoardView getBoard() {
-        return board;
+    public BoardView getBoardView() {
+        return boardView;
     }
 
     public OptionsView getOptionsView() {

@@ -8,25 +8,49 @@
 package gui.window;
 
 import gui.model.ModelManager;
-import gui.view.MainView;
+import gui.view.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-public class MainWindow {
-    private final MainView mainView;
+public class MainWindow extends JFrame {
+    private final GameView gameView;
+    private final CardLayout cardLayout;
+    private final MainMenuView mainMenuView;
+
+    public enum Card {
+        MainMenu,
+        Game
+    }
 
     public MainWindow(ModelManager modelManager) {
+        super();
 
-        mainView = new MainView(modelManager);
+        setTitle("Mancala");
 
-        mainView.setSize(900, 300);
-        mainView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        cardLayout = new CardLayout();
+        setLayout(cardLayout);
+
+        gameView = new GameView(modelManager);
+        mainMenuView = new MainMenuView(modelManager);
+
+        add(mainMenuView, Card.MainMenu.toString());
+        add(gameView, Card.Game.toString());
+
+        mainMenuView.addStartGameButtonListener(e -> showCard(Card.Game));
+
+        setSize(900, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        modelManager.getOptionsModel().addEventListener("update:currentCard", event -> {
+            showCard(modelManager.getOptionsModel().getCurrentCard());
+        });
 
         // keep the aspect ratio of the screen and enforce a minimum size
-        mainView.addComponentListener(new ComponentAdapter(){
+        addComponentListener(new ComponentAdapter(){
             @Override
             public void componentResized(ComponentEvent event) {
                 int minWidth = 600;
@@ -44,7 +68,23 @@ public class MainWindow {
         });
     }
 
-    public MainView getMainView() {
-        return mainView;
+    public void showCard(Card card) {
+        cardLayout.show(getContentPane(), card.toString());
+    }
+
+    public BoardView getBoardView() {
+        return gameView.getBoardView();
+    }
+
+    public OptionsView getOptionsView() {
+        return gameView.getOptionsView();
+    }
+
+    public GameView getGameView() {
+        return gameView;
+    }
+
+    public MainMenuView getMainMenuView() {
+        return mainMenuView;
     }
 }
