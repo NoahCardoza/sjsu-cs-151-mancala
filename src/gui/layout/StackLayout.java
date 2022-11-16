@@ -39,6 +39,10 @@ public class StackLayout implements LayoutManager {
         deltaX = Math.min(deltaX, deltaY);
         deltaY = deltaX;
 
+        if (deltaY <= 0) {
+            return;
+        }
+
         int x = insets.left;
         int y = insets.top + (maxHeight % deltaY) / 2 - deltaY;
 
