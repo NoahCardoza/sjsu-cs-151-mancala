@@ -31,15 +31,12 @@ public class MainWindow extends JFrame {
         setTitle("Mancala");
 
         cardLayout = new CardLayout();
-        setLayout(cardLayout);
-
         gameView = new GameView(modelManager);
         mainMenuView = new MainMenuView();
 
+        setLayout(cardLayout);
         add(mainMenuView, Card.MainMenu.toString());
         add(gameView, Card.Game.toString());
-
-        mainMenuView.addStartGameButtonListener(e -> showCard(Card.Game));
 
         setSize(900, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,10 +74,6 @@ public class MainWindow extends JFrame {
 
     public OptionsView getOptionsView() {
         return gameView.getOptionsView();
-    }
-
-    public GameView getGameView() {
-        return gameView;
     }
 
     public MainMenuView getMainMenuView() {

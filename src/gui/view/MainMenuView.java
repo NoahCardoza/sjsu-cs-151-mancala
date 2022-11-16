@@ -17,7 +17,6 @@ public class MainMenuView extends JPanel {
     private final JButton startGameButton;
 
     public MainMenuView() {
-
         setBorder(new EmptyBorder(10, 10, 10, 10));
 
         String[] options = new String[] {"1", "2", "3", "4"};
