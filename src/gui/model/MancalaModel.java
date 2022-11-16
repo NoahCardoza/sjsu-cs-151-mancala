@@ -138,6 +138,7 @@ public class MancalaModel {
 	}
 	
 	//checking for if inside the players' mancala
+	//or if the current pit is a mancala
 	public boolean inCala(int currentPit) {
 		
 		return (currentPit == calaOne 
@@ -163,6 +164,10 @@ public class MancalaModel {
 	
 	//for moving stones using pits' index
 	public void moveStones(int index) {
+
+		//save current game state
+		saveCurState();
+
 		//makes sure undo is still available
 		undoAlr = false;
 		
@@ -176,25 +181,28 @@ public class MancalaModel {
 		} else {
 			pOneUndo = 0;
 		}
-		
-		while (stoneNum != 0) {
+
+
+		while (stoneNum > 0) {
 			pit++;
 			
 			if (pit >= pitTotal) {
 				pit = 0;
 			}
 			
+
 			/*
 			if (inCala(pit) && whichPlayerPit(pit) 
 					!= pCur) {
 				continue;
-			}*/
-			
+			}
+			*/
 			
 			pits[pit] += 1;
 			stoneNum--;
 			
 		}
+
 		/*
 		//checks to see if last stone 
 		//and find where it is
@@ -205,26 +213,23 @@ public class MancalaModel {
 			moveLastStonesToCala();
 			gState = gameState.end;
 		}
-		
-		//save and notify listeners
-		saveCurState();
+
 		*/
+
+		//notify listeners
 		changeListeners();
 	}
-	
-	
-	//Last thing to work on is undo method 10/30
 	
 	//for undoing current player's most recent move
 	public void undo() {
 		
 		//checking if undo was already used prior
-		if (undoAlr == true) {
+		if (!undoAlr) {
 			return;
 		}
 		
 		
-		boolean alreadyUsed;
+		boolean alreadyUsed = false;
 		
 		
 		//checking player one
@@ -255,8 +260,16 @@ public class MancalaModel {
 			
 			pTwoUndo++;
 			alreadyUsed = true;
-		} 
-		
+		}
+
+
+
+		if (alreadyUsed) {
+			pits = undoPits.clone();
+
+			alreadyUsed = false;
+			changeListeners();
+		}
 	}
 	
 	//for checking whether pits have no stones
@@ -384,5 +397,26 @@ public class MancalaModel {
 		pits[6] = pits[13] = 0;
 		
 		changeListeners();
+	}
+
+	public boolean getCanUndo() {
+		return false;
+	}
+
+	public boolean getCanProceedToNextTurn() {
+		return false;
+	}
+
+
+	public boolean validPit(int pits) {
+
+		// for if player tries to make a move on opposing pit
+		if (pits < 0 || pits > pitTotal) {
+			return false;
+		} else if (pits == calaOne || pits == calaTwo) {
+			return false;
+		}
+
+		return true;
 	}
 }
