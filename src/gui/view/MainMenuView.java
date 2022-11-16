@@ -17,16 +17,24 @@ public class MainMenuView extends JPanel {
     private final JButton startGameButton;
 
     public MainMenuView() {
-        setBorder(new EmptyBorder(10, 10, 10, 10));
+        setBorder(new EmptyBorder(20, 0, 20, 0));
+        setLayout(new BorderLayout());
+
+        JPanel footerPanel = new JPanel();
 
         String[] options = new String[] {"1", "2", "3", "4"};
         mancalaCountSelect = new JComboBox<>(options);
+        mancalaCountSelect.setSelectedIndex(3);
 
         startGameButton = new JButton("Start Game");
         startGameButton.setSize(new Dimension(30,20));
 
-        add(mancalaCountSelect);
-        add(startGameButton);
+        footerPanel.add(new JLabel("Number of stones: "));
+        footerPanel.add(mancalaCountSelect);
+        footerPanel.add(startGameButton);
+
+        add(new InstructionsView(), BorderLayout.CENTER);
+        add(footerPanel, BorderLayout.SOUTH);
     }
 
     public int getMancalaCount() {
