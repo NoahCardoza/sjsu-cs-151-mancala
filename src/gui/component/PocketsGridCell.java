@@ -11,6 +11,7 @@ import gui.layout.RadialLayout;
 import gui.model.ModelManager;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +32,15 @@ public class PocketsGridCell extends JPanel {
 
         setOpaque(false);
         setLayout(new BorderLayout());
-        add(new JLabel(String.format("%s%d", prefix, index), SwingConstants.CENTER), variant.equals(Variant.BOTTOM) ? BorderLayout.SOUTH : BorderLayout.NORTH);
+        setBorder(switch (variant) {
+            case TOP -> new EmptyBorder(0,0,20,0);
+            case BOTTOM -> new EmptyBorder(20, 0,0,0);
+        });
+        add(new JLabel(String.format("%s%d", prefix, index + 1), SwingConstants.CENTER),
+                switch (variant) {
+                    case BOTTOM -> BorderLayout.SOUTH;
+                    case TOP -> BorderLayout.NORTH;
+                });
         add(pocketView, BorderLayout.CENTER);
         add(countLabel, variant.equals(Variant.BOTTOM) ? BorderLayout.NORTH : BorderLayout.SOUTH);
     }

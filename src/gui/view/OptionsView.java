@@ -66,6 +66,7 @@ public class OptionsView extends JPanel {
                     }));
         }, true);
 
+        add(new ScoreView(modelManager));
         add(mainMenuButton);
         add(undoButton);
         add(styleSelect);
