@@ -58,7 +58,12 @@ public class OptionsView extends JPanel {
 
         currentPlayerLable = new JLabel();
         modelManager.getMancalaModel().addEventListener("update:currentPlayer", (event) -> {
-            currentPlayerLable.setText(modelManager.getMancalaModel().getCurrentPlayer().toString());
+            currentPlayerLable.setText(String.format(
+                    "%s's Turn",
+                    switch (modelManager.getMancalaModel().getCurrentPlayer()) {
+                        case PLAYER_ONE -> "Player A";
+                        case PLAYER_TWO -> "Player B";
+                    }));
         }, true);
 
         add(mainMenuButton);
