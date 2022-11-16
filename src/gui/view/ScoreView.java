@@ -19,7 +19,6 @@ import java.awt.event.ActionListener;
 public class ScoreView extends JPanel {
 
     public ScoreView(ModelManager modelManager) {
-//        setBorder(new EmptyBorder(10, 10, 10, 10));
         setLayout(new BorderLayout());
 
         JLabel playerScoreLabelA = new JLabel();

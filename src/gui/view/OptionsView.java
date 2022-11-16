@@ -21,7 +21,7 @@ public class OptionsView extends JPanel {
     private final JButton undoButton;
     private final JButton nextTurnButton;
     private final JButton mainMenuButton;
-    private final JLabel currentPlayerLable;
+    private final JLabel currentPlayerLabel;
 
     public OptionsView(ModelManager modelManager) {
         setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -56,9 +56,9 @@ public class OptionsView extends JPanel {
                         .toArray()
         );
 
-        currentPlayerLable = new JLabel();
+        currentPlayerLabel = new JLabel();
         modelManager.getMancalaModel().addEventListener("update:currentPlayer", (event) -> {
-            currentPlayerLable.setText(String.format(
+            currentPlayerLabel.setText(String.format(
                     "%s's Turn",
                     switch (modelManager.getMancalaModel().getCurrentPlayer()) {
                         case PLAYER_ONE -> "Player A";
@@ -72,7 +72,7 @@ public class OptionsView extends JPanel {
         add(styleSelect);
         add(themeSelect);
         add(nextTurnButton);
-        add(currentPlayerLable);
+        add(currentPlayerLabel);
     }
 
     public void addBackToMainMenuActionListener(ActionListener listener) {
