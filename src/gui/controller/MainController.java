@@ -8,18 +8,10 @@
 package gui.controller;
 
 import gui.component.PocketsGridCell;
-import gui.model.MancalaModel;
 import gui.model.ModelManager;
-import gui.view.BoardView;
-import gui.model.OptionsModel;
-import gui.style.*;
-import gui.theme.*;
-import gui.view.OptionsView;
 import gui.window.MainWindow;
 
 import javax.swing.*;
-import java.util.List;
-import java.util.stream.Stream;
 
 public class MainController implements BaseController {
     private final MainWindow mainWindow;
@@ -40,13 +32,13 @@ public class MainController implements BaseController {
         // on (back to) main menu button clicked
         mainWindow.getOptionsView().addBackToMainMenuActionListener((event) -> {
             // TODO: reset mancala model
-            modelManager.getOptionsModel().setCurrentCard(MainWindow.Card.MainMenu);
+            modelManager.getOptionsModel().setCurrentCard(MainWindow.Card.MAIN_MENU);
         });
 
         // on start game (from main menu) button clicked
         mainWindow.getMainMenuView().addStartGameButtonListener(event -> {
             modelManager.getMancalaModel().resetPockets(mainWindow.getMainMenuView().getMancalaCount());
-            modelManager.getOptionsModel().setCurrentCard(MainWindow.Card.Game);
+            modelManager.getOptionsModel().setCurrentCard(MainWindow.Card.GAME);
         });
 
         // on undo button clicked

@@ -16,10 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PocketsGridCell extends JPanel {
-    public enum Variant {
-        TOP,
-        BOTTOM,
-    }
+    public enum Variant { TOP, BOTTOM }
     private final JLabel countLabel;
     private final PocketView pocketView;
     private final int index;

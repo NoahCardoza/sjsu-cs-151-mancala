@@ -20,10 +20,7 @@ public class MainWindow extends JFrame {
     private final CardLayout cardLayout;
     private final MainMenuView mainMenuView;
 
-    public enum Card {
-        MainMenu,
-        Game
-    }
+    public enum Card { MAIN_MENU, GAME }
 
     public MainWindow(ModelManager modelManager) {
         super();
@@ -35,8 +32,8 @@ public class MainWindow extends JFrame {
         mainMenuView = new MainMenuView();
 
         setLayout(cardLayout);
-        add(mainMenuView, Card.MainMenu.toString());
-        add(gameView, Card.Game.toString());
+        add(mainMenuView, Card.MAIN_MENU.toString());
+        add(gameView, Card.GAME.toString());
 
         setSize(900, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

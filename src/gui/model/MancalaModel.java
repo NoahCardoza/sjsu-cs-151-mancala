@@ -1,30 +1,22 @@
+/**
+ * @author Michael Magbual
+ * @version 0.0.1
+ * @date 10/23/22
+ * @assignment Mancala
+ */
+
 package gui.model;
 
 import java.util.Arrays;
-import javax.swing.event.ChangeListener;
-
-/*
- * By: Michael Magbual
- * Created and started on 10/23/22
- * 
- * 
- */
-
 
 public class MancalaModel extends BaseModel {
-
+	public enum GameState { START, IN_GAME, END }
 	
-	public enum gameState {
-		start, inGame, end;
-	}
-	
-	public enum players {
-		pOne, pTwo;
-	}
+	public enum Player { PLAYER_ONE, PLAYER_TWO }
 	
 	
-	private players pCur;
-	private gameState gState;
+	private Player pCur;
+	private GameState gState;
 
 
 	//for checking if certain player has
@@ -55,8 +47,8 @@ public class MancalaModel extends BaseModel {
 		pits = new int[pitTotal];
 		undoPits = new int[pitTotal];
 		
-		gState = gameState.start;
-		pCur = players.pOne;
+		gState = GameState.START;
+		pCur = Player.PLAYER_ONE;
 		
 		
 		pOneUndo = 0;
@@ -71,13 +63,13 @@ public class MancalaModel extends BaseModel {
 	}
 	
 	//figuring out who owns current pit 
-	public players whichPlayerPit(int currentPit) {
+	public Player whichPlayerPit(int currentPit) {
 		
 		if (currentPit == calaOne) {
-			return players.pOne;
+			return Player.PLAYER_ONE;
 			
 		} else { 
-			return players.pTwo;
+			return Player.PLAYER_TWO;
 		}
 		
 		
@@ -85,13 +77,13 @@ public class MancalaModel extends BaseModel {
 	}
 	//for changing players when their turn's are over
 	public void interchange() {
-		if (pCur == players.pTwo) {
+		if (pCur == Player.PLAYER_TWO) {
 			
-			pCur = players.pOne;
+			pCur = Player.PLAYER_ONE;
 			
 		} else {
 			
-			pCur = players.pTwo;
+			pCur = Player.PLAYER_TWO;
 		}
 	}
 	
@@ -101,15 +93,15 @@ public class MancalaModel extends BaseModel {
 		
 		if (st.equals("start")) {
 			
-			gState = gameState.start;
+			gState = GameState.START;
 		} 
 		else if (st.equals("inGame")) {
 
-			gState = gameState.inGame;
+			gState = GameState.IN_GAME;
 		}
 		else {
 
-			gState = gameState.end;
+			gState = GameState.END;
 
 		}
 
@@ -147,7 +139,7 @@ public class MancalaModel extends BaseModel {
 		
 		int pit = index;
 		
-		if(pCur.equals(players.pOne)) {
+		if(pCur.equals(Player.PLAYER_ONE)) {
 			pTwoUndo = 0;
 		} else {
 			pOneUndo = 0;
@@ -249,7 +241,7 @@ public class MancalaModel extends BaseModel {
 				
 				//nested if statement to determine 
 				//current player
-				if (whichPlayerPit(i) == players.pOne) {
+				if (whichPlayerPit(i) == Player.PLAYER_ONE) {
 					
 					pit1 += pits[i];
 					
@@ -276,7 +268,7 @@ public class MancalaModel extends BaseModel {
 			if (!(inCala(i))) {
 				//nested if statement to determine 
 				//current player
-				if (whichPlayerPit(i) == players.pOne) {
+				if (whichPlayerPit(i) == Player.PLAYER_ONE) {
 					pits[calaOne] += pits[i];
 					pits[i] = 0;
 				} else {
@@ -307,7 +299,7 @@ public class MancalaModel extends BaseModel {
 				pits[pit] = 0;
 				pits[getOtherSidePit(pit)] = 0;
 				
-					if (whichPlayerPit(pit) == players.pOne) {
+					if (whichPlayerPit(pit) == Player.PLAYER_ONE) {
 						
 						pits[calaOne] += stealStone;
 						
@@ -336,7 +328,7 @@ public class MancalaModel extends BaseModel {
 	}
 
 	
-	public gameState getGameState() {
+	public GameState getGameState() {
 		return gState;
 	}
 	
@@ -345,7 +337,7 @@ public class MancalaModel extends BaseModel {
 		return pits;
 	}
 	
-	public players getCurrentPlayer() {
+	public Player getCurrentPlayer() {
 		return pCur;
 	}
 

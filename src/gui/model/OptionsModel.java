@@ -12,7 +12,6 @@ import gui.theme.*;
 import gui.window.MainWindow;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public class OptionsModel extends BaseModel {
     private final List<BoardTheme> themes;
@@ -35,7 +34,7 @@ public class OptionsModel extends BaseModel {
         this.themes = themes;
         this.styles = styles;
 
-        this.currentCard = MainWindow.Card.MainMenu;
+        this.currentCard = MainWindow.Card.MAIN_MENU;
 
         this.currentTheme = themes.get(0);
         this.currentStyle = styles.get(0);
