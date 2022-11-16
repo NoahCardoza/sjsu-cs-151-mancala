@@ -68,6 +68,15 @@ public class MainController implements BaseController {
             modelManager.getOptionsModel().setCurrentCard(MainWindow.Card.Game);
         });
 
+        view.addUndoActionListener((event) -> {
+            mancalaModel.undo();
+        });
+
+        view.addNextTurnActionListener((event) -> {
+            mancalaModel.interchange();
+        });
+
+
         view.addStyleSelectedListener((event) -> {
             optionsModel.setCurrentStyle(styles.get(((JComboBox<Object>) event.getSource()).getSelectedIndex()));
         });

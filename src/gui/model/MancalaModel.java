@@ -385,4 +385,12 @@ public class MancalaModel {
 		
 		changeListeners();
 	}
+
+	public boolean getCanUndo() {
+		return false;
+	}
+
+	public boolean getCanProceedToNextTurn() {
+		return false;
+	}
 }

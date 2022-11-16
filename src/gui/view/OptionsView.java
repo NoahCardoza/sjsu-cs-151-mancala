@@ -18,9 +18,23 @@ import java.awt.event.ActionListener;
 public class OptionsView extends JPanel {
     private final JComboBox<Object> styleSelect;
     private final JComboBox<Object> themeSelect;
+    private final JButton undoButton;
+    private final JButton nextTurnButton;
 
     public OptionsView(ModelManager modelManager) {
         setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        undoButton = new JButton("Undo");
+        undoButton.setEnabled(false);
+        modelManager.getMancalaModel().add(event -> {
+            undoButton.setEnabled(modelManager.getMancalaModel().getCanUndo());
+        });
+
+        nextTurnButton = new JButton("Next Turn");
+        nextTurnButton.setEnabled(false);
+        modelManager.getMancalaModel().add(event -> {
+            nextTurnButton.setEnabled(modelManager.getMancalaModel().getCanProceedToNextTurn());
+        });
 
         styleSelect = new JComboBox<>(
                 modelManager
@@ -40,8 +54,18 @@ public class OptionsView extends JPanel {
                         .toArray()
         );
 
+        add(undoButton);
         add(styleSelect);
         add(themeSelect);
+        add(nextTurnButton);
+    }
+
+    public void addUndoActionListener(ActionListener listener) {
+        undoButton.addActionListener(listener);
+    }
+
+    public void addNextTurnActionListener(ActionListener listener) {
+        undoButton.addActionListener(listener);
     }
 
     public void addStyleSelectedListener(ActionListener listener) {
