@@ -20,9 +20,13 @@ public class OptionsView extends JPanel {
     private final JComboBox<Object> themeSelect;
     private final JButton undoButton;
     private final JButton nextTurnButton;
+    private final JButton mainMenuButton;
+    private final JLabel currentPlayerLable;
 
     public OptionsView(ModelManager modelManager) {
         setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        mainMenuButton = new JButton("Main Menu");
 
         undoButton = new JButton("Undo");
         undoButton.setEnabled(false);
@@ -54,10 +58,22 @@ public class OptionsView extends JPanel {
                         .toArray()
         );
 
+        currentPlayerLable = new JLabel("");
+        currentPlayerLable.setText(modelManager.getMancalaModel().getCurrentPlayer().toString());
+        modelManager.getMancalaModel().add((event) -> {
+            currentPlayerLable.setText(modelManager.getMancalaModel().getCurrentPlayer().toString());
+        });
+
+        add(mainMenuButton);
         add(undoButton);
         add(styleSelect);
         add(themeSelect);
         add(nextTurnButton);
+        add(currentPlayerLable);
+    }
+
+    public void addBackToMainMenuActionListener(ActionListener listener) {
+        mainMenuButton.addActionListener(listener);
     }
 
     public void addUndoActionListener(ActionListener listener) {

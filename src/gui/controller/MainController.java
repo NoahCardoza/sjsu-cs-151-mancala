@@ -37,7 +37,13 @@ public class MainController implements BaseController {
 
     @Override
     public void addEventListeners() {
-        // on start game button clicked
+        // on (back to) main menu button clicked
+        mainWindow.getOptionsView().addBackToMainMenuActionListener((event) -> {
+            // TODO: reset mancala model
+            modelManager.getOptionsModel().setCurrentCard(MainWindow.Card.MainMenu);
+        });
+
+        // on start game (from main menu) button clicked
         mainWindow.getMainMenuView().addStartGameButtonListener(event -> {
             modelManager.getMancalaModel().resetPockets(mainWindow.getMainMenuView().getMancalaCount());
             modelManager.getOptionsModel().setCurrentCard(MainWindow.Card.Game);
@@ -74,7 +80,7 @@ public class MainController implements BaseController {
         });
 
         // on pocket clicked
-        mainWindow.getBoardView().getPocketsView().addActionListener(event -> {
+        mainWindow.getBoardView().addPocketActionListener(event -> {
             PocketsGridCell pocket = (PocketsGridCell) event.getSource();
             modelManager.getMancalaModel().moveStones(pocket.getIndex());
         });
