@@ -8,6 +8,7 @@
 package gui.controller;
 
 import gui.component.PocketsGridCell;
+import gui.model.MancalaModel;
 import gui.model.ModelManager;
 import gui.window.MainWindow;
 
@@ -74,7 +75,22 @@ public class MainController implements BaseController {
         // on pocket clicked
         mainWindow.getBoardView().addPocketActionListener(event -> {
             PocketsGridCell pocket = (PocketsGridCell) event.getSource();
-            modelManager.getMancalaModel().moveStones(pocket.getIndex());
+            MancalaModel.Player player = modelManager.getMancalaModel().getCurrentPlayer();
+            int index = pocket.getIndex();
+
+            // TODO: check state to make sure move is possible
+            //       and move this logic to the model
+            if ((
+                    player == MancalaModel.Player.PLAYER_ONE
+                            && index <= 5
+                            && index >= 0
+            ) || (
+                    player == MancalaModel.Player.PLAYER_TWO
+                            && index <= 12
+                            && index >= 7)
+            ) {
+                modelManager.getMancalaModel().moveStones(index);
+            }
         });
     }
 }
