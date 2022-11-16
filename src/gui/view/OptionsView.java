@@ -29,16 +29,14 @@ public class OptionsView extends JPanel {
         mainMenuButton = new JButton("Main Menu");
 
         undoButton = new JButton("Undo");
-        undoButton.setEnabled(false);
-        modelManager.getMancalaModel().add(event -> {
+        modelManager.getMancalaModel().addEventListener("update:canUndo", event -> {
             undoButton.setEnabled(modelManager.getMancalaModel().getCanUndo());
-        });
+        }, true);
 
-        nextTurnButton = new JButton("Next Turn");
-        nextTurnButton.setEnabled(false);
-        modelManager.getMancalaModel().add(event -> {
-            nextTurnButton.setEnabled(modelManager.getMancalaModel().getCanProceedToNextTurn());
-        });
+        nextTurnButton = new JButton("End Turn");
+        modelManager.getMancalaModel().addEventListener("update:canEndTurn", event -> {
+            nextTurnButton.setEnabled(modelManager.getMancalaModel().getCanEndTurn());
+        }, true);
 
         styleSelect = new JComboBox<>(
                 modelManager
@@ -58,11 +56,10 @@ public class OptionsView extends JPanel {
                         .toArray()
         );
 
-        currentPlayerLable = new JLabel("");
-        currentPlayerLable.setText(modelManager.getMancalaModel().getCurrentPlayer().toString());
-        modelManager.getMancalaModel().add((event) -> {
+        currentPlayerLable = new JLabel();
+        modelManager.getMancalaModel().addEventListener("update:currentPlayer", (event) -> {
             currentPlayerLable.setText(modelManager.getMancalaModel().getCurrentPlayer().toString());
-        });
+        }, true);
 
         add(mainMenuButton);
         add(undoButton);

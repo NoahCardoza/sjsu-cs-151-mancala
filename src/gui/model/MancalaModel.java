@@ -1,8 +1,6 @@
 package gui.model;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /*
@@ -13,14 +11,14 @@ import javax.swing.event.ChangeListener;
  */
 
 
-public class MancalaModel {
+public class MancalaModel extends BaseModel {
 
 	
-	public static enum gameState {
+	public enum gameState {
 		start, inGame, end;
 	}
 	
-	public static enum players {
+	public enum players {
 		pOne, pTwo;
 	}
 	
@@ -53,13 +51,7 @@ public class MancalaModel {
 	private static final int calaOne = 6;
 	private static final int calaTwo = 13;
 	
-	
-	private ArrayList<ChangeListener> listeners;
-	
-	
 	public MancalaModel() {
-		listeners = new ArrayList<>();
-
 		pits = new int[pitTotal];
 		undoPits = new int[pitTotal];
 		
@@ -71,22 +63,8 @@ public class MancalaModel {
 		pTwoUndo = 0;
 		lastStone = false;
 		undoAlr = false;
-		
-			
 	}
 
-	public void changeListeners() {
-		for (ChangeListener CL : listeners) {
-			CL.stateChanged(new ChangeEvent(this));
-		}
-	}
-	
-	
-	
-	public void add(ChangeListener CL) {
-		listeners.add(CL);
-	}
-	
 	//for saving current game stats
 	public void saveCurState() {
 		undoPits = pits.clone();
@@ -155,8 +133,6 @@ public class MancalaModel {
 				
 				pits[i] = mNum;
 			}
-			
-			this.changeListeners();
 		}
 	}
 	
@@ -209,7 +185,7 @@ public class MancalaModel {
 		//save and notify listeners
 		saveCurState();
 		*/
-		changeListeners();
+		dispatchEvent("update:pits");
 	}
 	
 	
@@ -380,17 +356,18 @@ public class MancalaModel {
 	 */
 	public void resetPockets(int stonedCount) {
 		Arrays.fill(pits, stonedCount);
-		
+
+		// empty mancala pockets
 		pits[6] = pits[13] = 0;
-		
-		changeListeners();
+
+		dispatchEvent("update:pits");
 	}
 
 	public boolean getCanUndo() {
 		return false;
 	}
 
-	public boolean getCanProceedToNextTurn() {
+	public boolean getCanEndTurn() {
 		return false;
 	}
 }

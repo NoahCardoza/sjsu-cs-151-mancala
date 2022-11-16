@@ -37,7 +37,7 @@ public class PocketsGridView extends JPanel {
             add(cell);
         }
 
-        modelManager.getMancalaModel().add((event) -> {
+        modelManager.getMancalaModel().addEventListener("update:pits", (event) -> {
             int[] pits = modelManager.getMancalaModel().getPits();
             for (PocketsGridCell cell: pockets) {
                 cell.setCount(pits[cell.getIndex()]);
