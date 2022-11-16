@@ -16,14 +16,11 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class MainWindow extends JFrame {
+    public enum Card { MAIN_MENU, GAME }
+
     private final GameView gameView;
     private final CardLayout cardLayout;
     private final MainMenuView mainMenuView;
-
-    public enum Card {
-        MainMenu,
-        Game
-    }
 
     public MainWindow(ModelManager modelManager) {
         super();
@@ -31,18 +28,12 @@ public class MainWindow extends JFrame {
         setTitle("Mancala");
 
         cardLayout = new CardLayout();
-        setLayout(cardLayout);
-
         gameView = new GameView(modelManager);
         mainMenuView = new MainMenuView();
 
-        add(mainMenuView, Card.MainMenu.toString());
-        add(gameView, Card.Game.toString());
-
-        mainMenuView.addStartGameButtonListener(e -> showCard(Card.Game));
-
-        setSize(900, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(cardLayout);
+        add(mainMenuView, Card.MAIN_MENU.toString());
+        add(gameView, Card.GAME.toString());
 
         modelManager.getOptionsModel().addEventListener("update:currentCard", event -> {
             showCard(modelManager.getOptionsModel().getCurrentCard());
@@ -52,8 +43,8 @@ public class MainWindow extends JFrame {
         addComponentListener(new ComponentAdapter(){
             @Override
             public void componentResized(ComponentEvent event) {
-                int minWidth = 600;
-                int minHeight = 350;
+                int minWidth = 900;
+                int minHeight = 500;
 
                 Rectangle b = event.getComponent().getBounds();
                 if (b.width < minWidth) {
@@ -65,6 +56,9 @@ public class MainWindow extends JFrame {
                 event.getComponent().setBounds(b.x, b.y, b.width, b.width * minHeight / minWidth);
             }
         });
+
+        setSize(700, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void showCard(Card card) {
@@ -77,10 +71,6 @@ public class MainWindow extends JFrame {
 
     public OptionsView getOptionsView() {
         return gameView.getOptionsView();
-    }
-
-    public GameView getGameView() {
-        return gameView;
     }
 
     public MainMenuView getMainMenuView() {

@@ -55,6 +55,18 @@ public class RadialLayout implements LayoutManager {
                 parentInsert.top + parentMaxHeight / 2  - maxSize / 2,
                 maxSize, maxSize);
 
+        if (nComps == 1) {
+            Component c = parent.getComponent(0);
+            if (c.isVisible()) {
+                c.setBounds(
+                        (int) (parent.getWidth() / 2 - radius),
+                        (int) (parent.getHeight() / 2 - radius),
+                        (int) circumference, (int) circumference
+                );
+            }
+            return;
+        }
+
         for (int i = 0 ; i < nComps ; i++) {
             Component c = parent.getComponent(i);
             if (c.isVisible()) {

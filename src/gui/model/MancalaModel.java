@@ -1,32 +1,22 @@
-package gui.model;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-/*
- * By: Michael Magbual
- * Created and started on 10/23/22
- * 
- * 
+/**
+ * @author Michael Magbual
+ * @version 0.0.1
+ * @date 10/23/22
+ * @assignment Mancala
  */
 
+package gui.model;
 
-public class MancalaModel {
+import java.util.Arrays;
 
+public class MancalaModel extends BaseModel {
+	public enum GameState { START, IN_GAME, END }
 	
-	public static enum gameState {
-		start, inGame, end;
-	}
-	
-	public static enum players {
-		pOne, pTwo;
-	}
+	public enum Player { PLAYER_ONE, PLAYER_TWO }
 	
 	
-	private players pCur;
-	private gameState gState;
+	private Player pCur;
+	private GameState gState;
 
 
 	//for checking if certain player has
@@ -53,53 +43,33 @@ public class MancalaModel {
 	private static final int calaOne = 6;
 	private static final int calaTwo = 13;
 	
-	
-	private ArrayList<ChangeListener> listeners;
-	
-	
 	public MancalaModel() {
-		listeners = new ArrayList<>();
-
 		pits = new int[pitTotal];
 		undoPits = new int[pitTotal];
 		
-		gState = gameState.start;
-		pCur = players.pOne;
+		gState = GameState.START;
+		pCur = Player.PLAYER_ONE;
 		
 		
 		pOneUndo = 0;
 		pTwoUndo = 0;
 		lastStone = false;
 		undoAlr = false;
-		
-			
 	}
 
-	public void changeListeners() {
-		for (ChangeListener CL : listeners) {
-			CL.stateChanged(new ChangeEvent(this));
-		}
-	}
-	
-	
-	
-	public void add(ChangeListener CL) {
-		listeners.add(CL);
-	}
-	
 	//for saving current game stats
 	public void saveCurState() {
 		undoPits = pits.clone();
 	}
 	
 	//figuring out who owns current pit 
-	public players whichPlayerPit(int currentPit) {
+	public Player whichPlayerPit(int currentPit) {
 		
 		if (currentPit == calaOne) {
-			return players.pOne;
+			return Player.PLAYER_ONE;
 			
 		} else { 
-			return players.pTwo;
+			return Player.PLAYER_TWO;
 		}
 		
 		
@@ -107,13 +77,13 @@ public class MancalaModel {
 	}
 	//for changing players when their turn's are over
 	public void interchange() {
-		if (pCur == players.pTwo) {
+		if (pCur == Player.PLAYER_TWO) {
 			
-			pCur = players.pOne;
+			pCur = Player.PLAYER_ONE;
 			
 		} else {
 			
-			pCur = players.pTwo;
+			pCur = Player.PLAYER_TWO;
 		}
 	}
 	
@@ -123,15 +93,15 @@ public class MancalaModel {
 		
 		if (st.equals("start")) {
 			
-			gState = gameState.start;
+			gState = GameState.START;
 		} 
 		else if (st.equals("inGame")) {
 
-			gState = gameState.inGame;
+			gState = GameState.IN_GAME;
 		}
 		else {
 
-			gState = gameState.end;
+			gState = GameState.END;
 
 		}
 
@@ -155,8 +125,6 @@ public class MancalaModel {
 				
 				pits[i] = mNum;
 			}
-			
-			this.changeListeners();
 		}
 	}
 	
@@ -171,7 +139,7 @@ public class MancalaModel {
 		
 		int pit = index;
 		
-		if(pCur.equals(players.pOne)) {
+		if(pCur.equals(Player.PLAYER_ONE)) {
 			pTwoUndo = 0;
 		} else {
 			pOneUndo = 0;
@@ -209,7 +177,7 @@ public class MancalaModel {
 		//save and notify listeners
 		saveCurState();
 		*/
-		changeListeners();
+		dispatchEvent("update:pits");
 	}
 	
 	
@@ -273,7 +241,7 @@ public class MancalaModel {
 				
 				//nested if statement to determine 
 				//current player
-				if (whichPlayerPit(i) == players.pOne) {
+				if (whichPlayerPit(i) == Player.PLAYER_ONE) {
 					
 					pit1 += pits[i];
 					
@@ -300,7 +268,7 @@ public class MancalaModel {
 			if (!(inCala(i))) {
 				//nested if statement to determine 
 				//current player
-				if (whichPlayerPit(i) == players.pOne) {
+				if (whichPlayerPit(i) == Player.PLAYER_ONE) {
 					pits[calaOne] += pits[i];
 					pits[i] = 0;
 				} else {
@@ -331,7 +299,7 @@ public class MancalaModel {
 				pits[pit] = 0;
 				pits[getOtherSidePit(pit)] = 0;
 				
-					if (whichPlayerPit(pit) == players.pOne) {
+					if (whichPlayerPit(pit) == Player.PLAYER_ONE) {
 						
 						pits[calaOne] += stealStone;
 						
@@ -360,7 +328,7 @@ public class MancalaModel {
 	}
 
 	
-	public gameState getGameState() {
+	public GameState getGameState() {
 		return gState;
 	}
 	
@@ -369,7 +337,7 @@ public class MancalaModel {
 		return pits;
 	}
 	
-	public players getCurrentPlayer() {
+	public Player getCurrentPlayer() {
 		return pCur;
 	}
 
@@ -380,9 +348,18 @@ public class MancalaModel {
 	 */
 	public void resetPockets(int stonedCount) {
 		Arrays.fill(pits, stonedCount);
-		
+
+		// empty mancala pockets
 		pits[6] = pits[13] = 0;
-		
-		changeListeners();
+
+		dispatchEvent("update:pits");
+	}
+
+	public boolean getCanUndo() {
+		return false;
+	}
+
+	public boolean getCanEndTurn() {
+		return false;
 	}
 }
