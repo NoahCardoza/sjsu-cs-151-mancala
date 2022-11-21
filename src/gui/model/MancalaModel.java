@@ -191,31 +191,39 @@ public class MancalaModel {
 			}
 			
 
-			/*
+
 			if (inCala(pit) && whichPlayerPit(pit) 
 					!= pCur) {
 				continue;
 			}
-			*/
+
 			
 			pits[pit] += 1;
 			stoneNum--;
 			
 		}
 
+
+
 		/*
+
+
 		//checks to see if last stone 
 		//and find where it is
 		findLastStones(pit);
-		
+
+
+
 		//checks for empty pits
 		if (checkIfPitsEmpty()) {
 			moveLastStonesToCala();
 			gState = gameState.end;
 		}
 
+		/*
 		*/
 
+		
 		//notify listeners
 		changeListeners();
 	}
@@ -278,7 +286,7 @@ public class MancalaModel {
 		int pit1 = 0;
 		int pit2 = 0;
 		
-		for (int i = 0; i < pitTotal; i++) {
+		for (int i = 0; i < pitTotal; ++i) {
 			
 			//checks that i isn't in either 
 			//cala's index
@@ -296,9 +304,9 @@ public class MancalaModel {
 					
 				}
 			}
-			
+
 		}
-		
+
 		return (pit1 == 0 || pit2 == 0);
 		
 	}
@@ -307,10 +315,10 @@ public class MancalaModel {
 	//for obtaining and moving the leftover stones
 	//into respective players' mancalas
 	public void moveLastStonesToCala() {
-		for (int i = 0; i < pitTotal; i++) {
+		for (int i = 0; i < pitTotal; ++i) {
 			//checks that i isn't in either 
 			//cala's index 
-			if (!(inCala(i))) {
+			if (!inCala(i)) {
 				//nested if statement to determine 
 				//current player
 				if (whichPlayerPit(i) == players.pOne) {
@@ -365,10 +373,10 @@ public class MancalaModel {
 	//created for method ^
 	//getting the pit on the other side of the board
 	public int getOtherSidePit(int pit) {
-		if ( pit >= 13) {
-			return pit - 13;
+		if ( pit <= 12) {
+			return 12 - pit;
 		} else {
-			return 13 - pit;
+			return pit - 12;
 		}
 	}
 
@@ -414,6 +422,28 @@ public class MancalaModel {
 		if (pits < 0 || pits > pitTotal) {
 			return false;
 		} else if (pits == calaOne || pits == calaTwo) {
+			return false;
+		}
+
+		return true;
+	}
+
+
+	public boolean stillInPlay(int CurrentPit) {
+
+		//pits not empty
+		if (pits[CurrentPit] == 0) {
+			return false;
+		}
+
+		//not current player's pit
+		if (whichPlayerPit(CurrentPit) != pCur) {
+			return false;
+		}
+
+		//game is still not finished
+		if (gState != gameState.inGame) {
+
 			return false;
 		}
 
