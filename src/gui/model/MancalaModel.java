@@ -37,6 +37,9 @@ public class MancalaModel {
 	private int pOneUndo;
 	private int pTwoUndo;
 	private boolean lastStoneInCala;
+
+	//number of undos for each player
+	private int totalUndos = 3;
 	
 	//for each individual pit
 	private int[] pits;
@@ -207,6 +210,7 @@ public class MancalaModel {
 		//is placed and
 		findLastStones(pit);
 
+		/*
 		//checks for empty pits
 		if (checkIfPitsEmpty()) {
 			moveLastStonesToCala();
@@ -223,20 +227,19 @@ public class MancalaModel {
 	
 	//for undoing current player's most recent move
 	public void undo() {
-		
+
+		boolean alreadyUsed = false;
+
 		//checking if undo was already used prior
 		if (!undoAlr) {
 			return;
 		}
-		
-		
-		boolean alreadyUsed = false;
+
 		
 		
 		//checking player one
 
-		//number of undos for each player
-		int totalUndos = 3;
+
 		if (lastStoneInCala == false && pOneUndo < totalUndos) {
 			
 			pOneUndo++;
