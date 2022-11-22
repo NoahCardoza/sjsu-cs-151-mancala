@@ -178,10 +178,11 @@ public class MancalaModel extends BaseModel {
 		findLastStones(pit);
 
 
+		/*
 		//checks for empty pits
 		if (checkIfPitsEmpty()) {
 			moveLastStonesToCala();
-			gState = gameState.end;
+			gState = gState.END;
 		}
 
 		/*
@@ -190,8 +191,6 @@ public class MancalaModel extends BaseModel {
 
 
 		//notify listeners
-		changeListeners();
-
 		dispatchEvent("update:pits");
 
 	}
@@ -243,7 +242,7 @@ public class MancalaModel extends BaseModel {
 			pits = undoPits.clone();
 
 			alreadyUsed = false;
-			changeListeners();
+
 		}
 	}
 	
@@ -274,7 +273,8 @@ public class MancalaModel extends BaseModel {
 
 		}
 
-		return (pit1 == 0 || pit2 == 0);
+		return (pit1 == 0
+				|| pit2 == 0);
 		
 	}
 	
@@ -326,7 +326,7 @@ public class MancalaModel extends BaseModel {
 
 			//if current player is pOne then add stolen stones
 			//into pOne's mancala
-			if (whichPlayerPit(pit) == players.pOne) {
+			if (whichPlayerPit(pit) == Player.PLAYER_ONE) {
 
 				pits[calaOne] += stealStone;
 
@@ -352,7 +352,7 @@ public class MancalaModel extends BaseModel {
 						pits[calaTwo] += stealStone;
 					}
 					
-				lastStone = false;
+				lastStoneInCala = false;
         
 				interchange();					
 			
@@ -409,9 +409,6 @@ public class MancalaModel extends BaseModel {
 		return false;
 	}
 
-	public boolean getCanUndo() {
-		return false;
-	}
 
 	public boolean getCanProceedToNextTurn() {
 		return false;
@@ -444,7 +441,7 @@ public class MancalaModel extends BaseModel {
 		}
 
 		//game is still not finished
-		if (gState != gameState.inGame) {
+		if (gState != gState.IN_GAME) {
 
 			return false;
 		}
