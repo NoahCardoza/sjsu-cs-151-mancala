@@ -147,7 +147,7 @@ public class MancalaModel extends BaseModel {
 		//makes sure undo is still available
 		undoAlr = false;
 
-		
+		//resetting undos
 		if(pCur.equals(Player.PLAYER_ONE)) {
 			pTwoUndo = 0;
 		} else {
