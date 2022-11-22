@@ -60,10 +60,6 @@ public class MancalaModel extends BaseModel {
 		undoAlr = false;
 	}
 
-	//for saving current game stats
-	public void saveCurState() {
-		undoPits = pits.clone();
-	}
 	
 	//figuring out who owns current pit 
 	public Player whichPlayerPit(int currentPit) {
@@ -89,7 +85,6 @@ public class MancalaModel extends BaseModel {
 			pCur = Player.PLAYER_TWO;
 		}
 	}
-	
 	
 	//for game state
 	public void currentGameState(String st) {
@@ -132,12 +127,11 @@ public class MancalaModel extends BaseModel {
 		}
 	}
 	
-	
 	//for moving stones using pits' index
 	public void moveStones(int index) {
 
 		//save current game state
-		saveCurState();
+		undoPits = pits.clone();
 
 		int stoneNum = pits[index];
 		pits[index] = 0;
@@ -172,7 +166,6 @@ public class MancalaModel extends BaseModel {
 			stoneNum--;
 
 
-			
 		}
 
 		//checking for capture on player one's side
@@ -197,9 +190,6 @@ public class MancalaModel extends BaseModel {
 			pits[getOtherSidePit(pit)] = 0;
 
 		}
-
-
-
 
 		//checks to see where last stone
 		//is placed and
@@ -232,11 +222,7 @@ public class MancalaModel extends BaseModel {
 			return;
 		}
 
-		
-		
 		//checking player one
-
-
 		if (lastStoneInCala == false && pOneUndo < totalUndos) {
 			
 			pOneUndo++;
@@ -250,8 +236,7 @@ public class MancalaModel extends BaseModel {
 		
 		
 		
-		//checking player two 
-		
+		//checking player two
 		if (lastStoneInCala == false && pTwoUndo < totalUndos) {
 			
 			pTwoUndo++;
@@ -330,7 +315,7 @@ public class MancalaModel extends BaseModel {
 	// -> another turn for current player
 	//-if the last stone fell into an empty pit anywhere on the board
 	// 	*if stone fell on own empty side
-	// 		-> collect stolen stones + own marble
+	// 		-> collect stolen stones + own stone
 	public void findLastStones(int pit) {
 
 		//if last stone placed in own current player's mancala
@@ -437,9 +422,7 @@ public class MancalaModel extends BaseModel {
 	}
 
 
-	public boolean getCanProceedToNextTurn() {
-		return false;
-	}
+
 
 
 	public boolean validPit(int pits) {
@@ -455,24 +438,34 @@ public class MancalaModel extends BaseModel {
 	}
 
 
-	public boolean stillInPlay(int CurrentPit) {
 
-		//pits not empty
-		if (pits[CurrentPit] == 0) {
-			return false;
+	public void checkWinner() {
+		boolean topPitsEmpty = true;
+		boolean bottomPitsEmpty = true;
+
+
+		//checking if top pits has any stones
+		for (int j = 7; j < 13; j++) {
+
+			if(pits[j] > 0) {
+				topPitsEmpty = false;
+				break;
+			}
 		}
 
-		//not current player's pit
-		if (whichPlayerPit(CurrentPit) != pCur) {
-			return false;
+		//checking if bottom pits has any stones
+		for (int i = 0; i < 6; i++) {
+
+			if(pits[i] > 0) {
+				bottomPitsEmpty = false;
+				break;
+			}
 		}
 
-		//game is still not finished
-		if (gState != gState.IN_GAME) {
 
-			return false;
-		}
 
-		return true;
+
+
+
 	}
 }
