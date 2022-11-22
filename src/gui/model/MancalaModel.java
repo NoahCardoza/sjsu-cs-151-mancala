@@ -173,11 +173,7 @@ public class MancalaModel {
 
 		//makes sure undo is still available
 		undoAlr = false;
-		
-		int stoneNum = pits[index];
-		pits[index] = 0;
-		
-		int pit = index;
+
 		
 		if(pCur.equals(players.pOne)) {
 			pTwoUndo = 0;
@@ -185,6 +181,10 @@ public class MancalaModel {
 			pOneUndo = 0;
 		}
 
+		int stoneNum = pits[index];
+		pits[index] = 0;
+
+		int pit = index;
 
 		while (stoneNum > 0) {
 			pit++;
@@ -193,7 +193,6 @@ public class MancalaModel {
 				pit = 0;
 			}
 			
-
 
 			if (inCala(pit) && whichPlayerPit(pit) 
 					!= pCur) {
@@ -210,7 +209,7 @@ public class MancalaModel {
 		//is placed and
 		findLastStones(pit);
 
-		/*
+
 		//checks for empty pits
 		if (checkIfPitsEmpty()) {
 			moveLastStonesToCala();
@@ -311,7 +310,7 @@ public class MancalaModel {
 	//for obtaining and moving the leftover stones
 	//into respective players' mancalas
 	public void moveLastStonesToCala() {
-		for (int i = 0; i < pitTotal; ++i) {
+		for (int i = 0; i < pitTotal; ++i)
 			//checks that i isn't in either 
 			//cala's index 
 			if (!inCala(i)) {
@@ -325,7 +324,6 @@ public class MancalaModel {
 					pits[i] = 0;
 				}
 			}
-		}
 	}
 	
 	//recreating this method to check for
@@ -333,7 +331,7 @@ public class MancalaModel {
 	// -> another turn for current player
 	//-if the last stone fell into an empty pit anywhere on the board
 	// 	*if stone fell on own empty side
-	// 		-> collect stolen marbles + own marble
+	// 		-> collect stolen stones + own marble
 	public void findLastStones(int pit) {
 
 		//if last stone placed in own current player's mancala
@@ -347,7 +345,7 @@ public class MancalaModel {
 		else if(whichPlayerPit(pit) == pCur && inCala(pit)
 			&& pits[pit] == 1 && pits[getOtherSidePit(pit)] >= 0) {
 
-			//steal marbles from opposing side and the one placed
+			//steal stones from opposing side and the one placed
 			//on current player's side
 				int stealStone = pits[pit] +
 						pits[getOtherSidePit(pit)];
