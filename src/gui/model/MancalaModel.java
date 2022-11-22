@@ -462,6 +462,26 @@ public class MancalaModel extends BaseModel {
 			}
 		}
 
+		//take stones from pits that aren't empty and add them to
+		//player's cala
+
+		if (topPitsEmpty && !bottomPitsEmpty) {
+
+			for (int i = 0; i < 6; i++) {
+				pits[6] += pits[i];
+				pits[i] = 0;
+			}
+		} else if (!topPitsEmpty && bottomPitsEmpty) {
+
+			for (int j = 7; j < 13; j++) {
+
+				pits[13] += pits[j];
+				pits[j] = 0;
+			}
+		}
+
+
+
 
 
 
