@@ -139,6 +139,11 @@ public class MancalaModel extends BaseModel {
 		//save current game state
 		saveCurState();
 
+		int stoneNum = pits[index];
+		pits[index] = 0;
+
+		int pit = index;
+
 		//makes sure undo is still available
 		undoAlr = false;
 
@@ -148,11 +153,6 @@ public class MancalaModel extends BaseModel {
 		} else {
 			pOneUndo = 0;
 		}
-
-		int stoneNum = pits[index];
-		pits[index] = 0;
-
-		int pit = index;
 
 		while (stoneNum > 0) {
 			pit++;
@@ -170,13 +170,40 @@ public class MancalaModel extends BaseModel {
 			
 			pits[pit] += 1;
 			stoneNum--;
+
+
 			
 		}
+
+		//checking for capture on player one's side
+		if (pit < 6 && pits[pit] == 1 && pits[getOtherSidePit(pit)] > 0) {
+
+			pits[6] += pits[getOtherSidePit(pit)] + 1;
+
+			//clear pits where capture occured
+
+			pits[pit] = 0;
+			pits[getOtherSidePit(pit)] = 0;
+
+		}
+
+		if (pit >= 7 && pit < 13 && pits[pit] == 1 && pits[getOtherSidePit(pit)] > 0) {
+
+			pits[13] += pits[getOtherSidePit(pit)] + 1;
+
+			//clear pits where capture occured
+
+			pits[pit] = 0;
+			pits[getOtherSidePit(pit)] = 0;
+
+		}
+
+
+
 
 		//checks to see where last stone
 		//is placed and
 		findLastStones(pit);
-
 
 		/*
 		//checks for empty pits
