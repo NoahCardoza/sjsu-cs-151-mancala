@@ -36,7 +36,7 @@ public class MancalaModel {
 	
 	private int pOneUndo;
 	private int pTwoUndo;
-	private boolean lastStone;
+	private boolean lastStoneInCala;
 	
 	//for each individual pit
 	private int[] pits;
@@ -69,7 +69,7 @@ public class MancalaModel {
 		
 		pOneUndo = 0;
 		pTwoUndo = 0;
-		lastStone = false;
+		lastStoneInCala = false;
 		undoAlr = false;
 		
 			
@@ -203,16 +203,9 @@ public class MancalaModel {
 			
 		}
 
-
-
-		/*
-
-
-		//checks to see if last stone 
-		//and find where it is
+		//checks to see where last stone
+		//is placed and
 		findLastStones(pit);
-
-
 
 		//checks for empty pits
 		if (checkIfPitsEmpty()) {
@@ -223,7 +216,7 @@ public class MancalaModel {
 		/*
 		*/
 
-		
+
 		//notify listeners
 		changeListeners();
 	}
@@ -244,12 +237,12 @@ public class MancalaModel {
 
 		//number of undos for each player
 		int totalUndos = 3;
-		if (lastStone == false && pOneUndo < totalUndos) {
+		if (lastStoneInCala == false && pOneUndo < totalUndos) {
 			
 			pOneUndo++;
 			alreadyUsed = true;
 			
-		} else if(lastStone == true && pOneUndo < totalUndos) {
+		} else if(lastStoneInCala == true && pOneUndo < totalUndos) {
 			
 			pOneUndo++;
 			alreadyUsed = true;
@@ -259,12 +252,12 @@ public class MancalaModel {
 		
 		//checking player two 
 		
-		if (lastStone == false && pTwoUndo < totalUndos) {
+		if (lastStoneInCala == false && pTwoUndo < totalUndos) {
 			
 			pTwoUndo++;
 			alreadyUsed = true;
 			
-		} else if(lastStone == true && pTwoUndo < totalUndos) {
+		} else if(lastStoneInCala == true && pTwoUndo < totalUndos) {
 			
 			pTwoUndo++;
 			alreadyUsed = true;
@@ -332,40 +325,51 @@ public class MancalaModel {
 		}
 	}
 	
-	//for figuring out where the last stone is
+	//recreating this method to check for
+	//-if the last stone fell into the current player's mancala
+	// -> another turn for current player
+	//-if the last stone fell into an empty pit anywhere on the board
+	// 	*if stone fell on own empty side
+	// 		-> collect stolen marbles + own marble
 	public void findLastStones(int pit) {
-		
-		int stealStone;
-		
+
+		//if last stone placed in own current player's mancala
 		if (whichPlayerPit(pit) == pCur && inCala(pit)) {
-			
-			lastStone = true;
+
+			//current player has another turn
+			lastStoneInCala = true;
 		} 
-		
-			else if(whichPlayerPit(pit) == pCur && inCala(pit) 
-					&& pits[pit] == 1 && 
-					pits[getOtherSidePit(pit)] >= 0) { 
-				
-				stealStone = pits[pit] + 
+
+		//if stone falls into empty pit on current player's side
+		else if(whichPlayerPit(pit) == pCur && inCala(pit)
+			&& pits[pit] == 1 && pits[getOtherSidePit(pit)] >= 0) {
+
+			//steal marbles from opposing side and the one placed
+			//on current player's side
+				int stealStone = pits[pit] +
 						pits[getOtherSidePit(pit)];
-				
-				pits[pit] = 0;
-				pits[getOtherSidePit(pit)] = 0;
-				
-					if (whichPlayerPit(pit) == players.pOne) {
-						
-						pits[calaOne] += stealStone;
-						
-					} else {
-						
-						pits[calaTwo] += stealStone;
-					}
-					
-				lastStone = false;
+				pits[pit] = pits[getOtherSidePit(pit)] = 0;
+
+			//if current player is pOne then add stolen stones
+			//into pOne's mancala
+			if (whichPlayerPit(pit) == players.pOne) {
+
+				pits[calaOne] += stealStone;
+
+				//if current player is pTwo then add stolen stones
+				//into pTwo's mancala
+				} else {
+
+					pits[calaTwo] += stealStone;
+				}
+
+				//change current player
+				lastStoneInCala = false;
 				interchange();					
 			
 		} else {
-			lastStone = false;
+			//change current player
+			lastStoneInCala = false;
 			interchange();
 		}
 	}
