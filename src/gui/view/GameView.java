@@ -20,7 +20,7 @@ public class GameView extends JPanel {
     public GameView(ModelManager modelManager) {
         // create a new board component
         boardView = new BoardView(modelManager);
-        optionsView = new OptionsView();
+        optionsView = new OptionsView(modelManager);
 
         setLayout(new BorderLayout());
 
@@ -29,9 +29,6 @@ public class GameView extends JPanel {
         boardPanel.setLayout(new BoxLayout(boardPanel, BoxLayout.Y_AXIS));
         boardPanel.add(boardView);
         setBackground(Color.PINK);
-
-        JButton btn = new JButton("Add Stone");
-        btn.setSize(new Dimension(30,20));
 
         add(boardPanel, BorderLayout.CENTER);
         add(optionsView, BorderLayout.PAGE_END);

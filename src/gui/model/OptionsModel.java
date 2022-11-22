@@ -7,23 +7,37 @@
 
 package gui.model;
 
-import gui.style.BoardStyle;
-import gui.theme.BoardTheme;
+import gui.style.*;
+import gui.theme.*;
 import gui.window.MainWindow;
 
+import java.util.List;
+
 public class OptionsModel extends BaseModel {
+    private final List<BoardTheme> themes;
+    private final List<BoardStyle> styles;
     private BoardTheme currentTheme;
     private BoardStyle currentStyle;
 
     private MainWindow.Card currentCard;
 
-
-    public OptionsModel(BoardTheme currentTheme, BoardStyle currentStyle) {
+    /**
+     *
+     * @param themes all the available themes for the application
+     * @param styles all the available styles for the application
+     */
+    public OptionsModel(
+            List<BoardTheme> themes,
+            List<BoardStyle> styles
+    ) {
         super();
+        this.themes = themes;
+        this.styles = styles;
 
-        this.currentCard = MainWindow.Card.MainMenu;
-        this.currentTheme = currentTheme;
-        this.currentStyle = currentStyle;
+        this.currentCard = MainWindow.Card.MAIN_MENU;
+
+        this.currentTheme = themes.get(0);
+        this.currentStyle = styles.get(0);
     }
 
     public BoardTheme getCurrentTheme() {
@@ -51,5 +65,13 @@ public class OptionsModel extends BaseModel {
     public void setCurrentCard(MainWindow.Card currentCard) {
         this.currentCard = currentCard;
         dispatchEvent("update:currentCard");
+    }
+
+    public List<BoardStyle> getStyles() {
+        return styles;
+    }
+
+    public List<BoardTheme> getThemes() {
+        return themes;
     }
 }

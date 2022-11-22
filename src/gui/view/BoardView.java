@@ -14,6 +14,7 @@ import gui.model.ModelManager;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
 import java.awt.geom.RoundRectangle2D;
 
@@ -103,7 +104,7 @@ public class BoardView extends JPanel {
         g2.draw(centerDivide);
     }
 
-    public PocketsGridView getPocketsView() {
-        return pocketsGridView;
+    public void addPocketActionListener(ActionListener listener) {
+        pocketsGridView.addActionListener(listener);
     }
 }

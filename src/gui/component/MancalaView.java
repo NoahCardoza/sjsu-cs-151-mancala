@@ -26,7 +26,7 @@ public class MancalaView extends JPanel {
         setOpaque(false);
 
         setLayout(new StackLayout());
-        modelManager.getMancalaModel().add((event) -> {
+        modelManager.getMancalaModel().addEventListener("update:pits", (event) -> {
             int[] pits = modelManager.getMancalaModel().getPits();
             setCount(pits[index]);
         });
