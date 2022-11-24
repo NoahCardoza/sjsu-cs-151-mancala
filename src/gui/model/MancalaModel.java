@@ -12,7 +12,17 @@ import java.util.Arrays;
 public class MancalaModel extends BaseModel {
 	public enum GameState { START, IN_GAME, END }
 	
-	public enum Player { PLAYER_ONE, PLAYER_TWO }
+	public enum Player {
+		PLAYER_ONE("Player One"),
+		PLAYER_TWO("Player Two");
+
+		private String winner;
+
+		Player(String winner) {
+
+			this.winner = winner;
+		}
+	}
 	
 	
 	private Player pCur;
@@ -45,6 +55,9 @@ public class MancalaModel extends BaseModel {
 	//index for each player's mancalas
 	private static final int calaOne = 6;
 	private static final int calaTwo = 13;
+
+	//for displaying winner at the end of the game
+	private String winner;
 	
 	public MancalaModel() {
 		pits = new int[pitTotal];
@@ -169,25 +182,31 @@ public class MancalaModel extends BaseModel {
 		}
 
 		//checking for capture on player one's side
-		if (pit < 6 && pits[pit] == 1 && pits[getOtherSidePit(pit)] > 0) {
+		if (pCur == getCurrentPlayer().PLAYER_ONE) {
+			if (pit < 6 && pits[pit] == 1 && pits[getOtherSidePit(pit)] > 0) {
 
-			pits[6] += pits[getOtherSidePit(pit)] + 1;
+				pits[6] += pits[getOtherSidePit(pit)] + 1;
 
-			//clear pits where capture occured
+				//clear pits where capture occured
 
-			pits[pit] = 0;
-			pits[getOtherSidePit(pit)] = 0;
+				pits[pit] = 0;
+				pits[getOtherSidePit(pit)] = 0;
 
+			}
 		}
 
-		if (pit >= 7 && pit < 13 && pits[pit] == 1 && pits[getOtherSidePit(pit)] > 0) {
+		//checking for capture on player two's side
+		if (pCur == getCurrentPlayer().PLAYER_TWO) {
+			if (pit >= 7 && pit < 13 && pits[pit] == 1 && pits[getOtherSidePit(pit)] > 0) {
 
-			pits[13] += pits[getOtherSidePit(pit)] + 1;
+				pits[13] += pits[getOtherSidePit(pit)] + 1;
 
-			//clear pits where capture occured
+				//clear pits where capture occured
 
-			pits[pit] = 0;
-			pits[getOtherSidePit(pit)] = 0;
+				pits[pit] = 0;
+				pits[getOtherSidePit(pit)] = 0;
+
+			}
 
 		}
 
@@ -365,7 +384,8 @@ public class MancalaModel extends BaseModel {
 					}
 					
 				lastStoneInCala = false;
-        
+
+				checkWinner();
 				interchange();					
 			
 		} else {
@@ -478,6 +498,21 @@ public class MancalaModel extends BaseModel {
 				pits[13] += pits[j];
 				pits[j] = 0;
 			}
+		}
+
+		//check whichever player has most stones
+
+		//player one wins
+		if (pits[6] > pits[13]) {
+			winner = String.valueOf(getCurrentPlayer());
+
+			//player two wins
+		} else if (pits[13] > pits[6]) {
+			winner = String.valueOf(getCurrentPlayer());
+
+			//tie
+		} else {
+			winner = "It's a tie between both players! ";
 		}
 
 
