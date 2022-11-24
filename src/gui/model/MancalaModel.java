@@ -214,6 +214,10 @@ public class MancalaModel extends BaseModel {
 		//is placed and
 		findLastStones(pit);
 
+		//check for winner and
+		//if possible then print winner
+		checkWinner();
+		
 		/*
 		//checks for empty pits
 		if (checkIfPitsEmpty()) {
@@ -514,12 +518,6 @@ public class MancalaModel extends BaseModel {
 		} else {
 			winner = "It's a tie between both players! ";
 		}
-
-
-
-
-
-
 
 
 	}
