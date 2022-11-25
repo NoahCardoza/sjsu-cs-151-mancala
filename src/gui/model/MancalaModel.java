@@ -16,7 +16,7 @@ public class MancalaModel extends BaseModel {
 		PLAYER_ONE("Player One"),
 		PLAYER_TWO("Player Two");
 
-		private String winner;
+		private final String winner;
 
 		Player(String winner) {
 
@@ -39,7 +39,7 @@ public class MancalaModel extends BaseModel {
 	private boolean lastStoneInCala;
 
 	//number of undos for each player
-	private int totalUndos = 3;
+	private final int totalUndos = 3;
 	
 	//for each individual pit
 	private int[] pits;
@@ -184,7 +184,7 @@ public class MancalaModel extends BaseModel {
 		}
 
 		//checking for capture on player one's side
-		if (pCur == getCurrentPlayer().PLAYER_ONE) {
+		if (pCur == Player.PLAYER_ONE) {
 			if (pit < 6 && pits[pit] == 1 && pits[getOtherSidePit(pit)] > 0) {
 
 				pits[6] += pits[getOtherSidePit(pit)] + 1;
@@ -198,7 +198,7 @@ public class MancalaModel extends BaseModel {
 		}
 
 		//checking for capture on player two's side
-		if (pCur == getCurrentPlayer().PLAYER_TWO) {
+		if (pCur == Player.PLAYER_TWO) {
 			if (pit >= 7 && pit < 13 && pits[pit] == 1 && pits[getOtherSidePit(pit)] > 0) {
 
 				pits[13] += pits[getOtherSidePit(pit)] + 1;
@@ -248,12 +248,12 @@ public class MancalaModel extends BaseModel {
 		}
 
 		//checking player one
-		if (lastStoneInCala == false && pOneUndo < totalUndos) {
+		if (!lastStoneInCala && pOneUndo < totalUndos) {
 			
 			pOneUndo++;
 			alreadyUsedUndo = true;
 			
-		} else if(lastStoneInCala == true && pOneUndo < totalUndos) {
+		} else if(lastStoneInCala && pOneUndo < totalUndos) {
 			
 			pOneUndo++;
 			alreadyUsedUndo = true;
@@ -262,12 +262,12 @@ public class MancalaModel extends BaseModel {
 		
 		
 		//checking player two
-		if (lastStoneInCala == false && pTwoUndo < totalUndos) {
+		if (!lastStoneInCala && pTwoUndo < totalUndos) {
 			
 			pTwoUndo++;
 			alreadyUsedUndo = true;
 			
-		} else if(lastStoneInCala == true && pTwoUndo < totalUndos) {
+		} else if(lastStoneInCala && pTwoUndo < totalUndos) {
 			
 			pTwoUndo++;
 			alreadyUsedUndo = true;
@@ -456,11 +456,7 @@ public class MancalaModel extends BaseModel {
 		// for if player tries to make a move on opposing pit
 		if (pits < 0 || pits > pitTotal) {
 			return false;
-		} else if (pits == calaOne || pits == calaTwo) {
-			return false;
-		}
-
-		return true;
+		} else return pits != calaOne && pits != calaTwo;
 	}
 
 
