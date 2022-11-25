@@ -144,7 +144,7 @@ public class MancalaModel extends BaseModel {
 	public void moveStones(int index) {
 
 		//save current game state
-		undoPits = pits.clone();
+		//undoPits = pits.clone();
 
 		int stoneNum = pits[index];
 		pits[index] = 0;
@@ -162,6 +162,8 @@ public class MancalaModel extends BaseModel {
 		}
 
 		while (stoneNum > 0) {
+			//save current game state
+			undoPits = pits.clone();
 			pit++;
 			
 			if (pit >= pitTotal) {
@@ -238,7 +240,7 @@ public class MancalaModel extends BaseModel {
 	//for undoing current player's most recent move
 	public void undo() {
 
-		boolean alreadyUsed = false;
+		boolean alreadyUsedUndo = false;
 
 		//checking if undo was already used prior
 		if (!undoAlr) {
@@ -249,12 +251,12 @@ public class MancalaModel extends BaseModel {
 		if (lastStoneInCala == false && pOneUndo < totalUndos) {
 			
 			pOneUndo++;
-			alreadyUsed = true;
+			alreadyUsedUndo = true;
 			
 		} else if(lastStoneInCala == true && pOneUndo < totalUndos) {
 			
 			pOneUndo++;
-			alreadyUsed = true;
+			alreadyUsedUndo = true;
 		} 
 		
 		
@@ -263,20 +265,20 @@ public class MancalaModel extends BaseModel {
 		if (lastStoneInCala == false && pTwoUndo < totalUndos) {
 			
 			pTwoUndo++;
-			alreadyUsed = true;
+			alreadyUsedUndo = true;
 			
 		} else if(lastStoneInCala == true && pTwoUndo < totalUndos) {
 			
 			pTwoUndo++;
-			alreadyUsed = true;
+			alreadyUsedUndo = true;
 		}
 
 
 
-		if (alreadyUsed) {
+		if (alreadyUsedUndo) {
 			pits = undoPits.clone();
 
-			alreadyUsed = false;
+			alreadyUsedUndo = false;
 
 		}
 	}
