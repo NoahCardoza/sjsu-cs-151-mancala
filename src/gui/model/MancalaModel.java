@@ -80,6 +80,8 @@ public class MancalaModel extends BaseModel {
 		// we can only change players if the current player
 		//  has taken their turn
 		if (canEndTurn) {
+			checkWinState();
+
 			boardHistory.clear();
 			setCanEndTurn(false);
 			setUndosAvailable(TOTAL_UNDOS_PER_TURN);
@@ -125,6 +127,9 @@ public class MancalaModel extends BaseModel {
 
 		// if they already took a turn and have not used an undo yet
 		if (canEndTurn) return;
+
+		// can't move and empty pocket
+		if (pits[index] == 0) return;
 
 		//save current game state
 		boardHistory.push(pits.clone());
@@ -180,14 +185,15 @@ public class MancalaModel extends BaseModel {
 		//is placed and
 		findLastStones(pit);
 
-		//check for winner and
-		//if possible then print winner
-		checkWinner();
+		if (!canEndTurn) {
+			// if either side is empty the game can be
+			// ended by ending the current turn
+			setCanEndTurn(isEitherSideEmpty());
+		}
 
 		//notify listeners
 		dispatchEvent("update:pits");
 		dispatchEvent("update:canUndo");
-
 	}
 	
 	//for undoing current player's most recent move
@@ -210,8 +216,7 @@ public class MancalaModel extends BaseModel {
 		if (whichPlayerPit(pit) == currentPlayer && inCala(pit)) return;
 
 		//if stone falls into empty pit on current player's side
-		if(whichPlayerPit(pit) == currentPlayer && inCala(pit)
-			&& pits[pit] == 1 && pits[getOtherSidePit(pit)] >= 0) {
+		if(whichPlayerPit(pit) == currentPlayer && inCala(pit) && pits[pit] == 1 && pits[getOtherSidePit(pit)] >= 0) {
 
 			//steal stones from opposing side and the one placed
 			//on current player's side
@@ -237,15 +242,14 @@ public class MancalaModel extends BaseModel {
 				pits[pit] = 0;
 				pits[getOtherSidePit(pit)] = 0;
 				
-					if (whichPlayerPit(pit) == Player.PLAYER_ONE) {
-						
-						pits[PLAYER_ONE_MANCALA_INDEX] += stealStone;
-						
-					} else {
-						
-						pits[PLAYER_TWO_MANCALA_INDEX] += stealStone;
-					}
-				checkWinner();
+				if (whichPlayerPit(pit) == Player.PLAYER_ONE) {
+
+					pits[PLAYER_ONE_MANCALA_INDEX] += stealStone;
+
+				} else {
+
+					pits[PLAYER_TWO_MANCALA_INDEX] += stealStone;
+				}
 		}
 
 		setCanEndTurn(true);
@@ -285,12 +289,12 @@ public class MancalaModel extends BaseModel {
 		return boardHistory.size() > 0 && undosAvailable > 0;
 	}
 
-	public void checkWinner() {
+	private boolean isEitherSideEmpty() {
 		boolean topPitsEmpty = true;
 		boolean bottomPitsEmpty = true;
 
 		//checking if top pits has any stones
-		for (int j = 7; j < 13; j++) {
+		for (int j = PLAYER_ONE_MANCALA_INDEX + 1; j < PLAYER_TWO_MANCALA_INDEX; j++) {
 			if(pits[j] > 0) {
 				topPitsEmpty = false;
 				break;
@@ -298,28 +302,29 @@ public class MancalaModel extends BaseModel {
 		}
 
 		//checking if bottom pits has any stones
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < PLAYER_ONE_MANCALA_INDEX; i++) {
 			if(pits[i] > 0) {
 				bottomPitsEmpty = false;
 				break;
 			}
 		}
 
+		return topPitsEmpty || bottomPitsEmpty;
+	}
+
+
+	public void checkWinState() {
+		if (!isEitherSideEmpty()) return;
+
 		//take stones from pits that aren't empty and add them to
 		//player's cala
-
-		if (topPitsEmpty && !bottomPitsEmpty) {
-			for (int i = 0; i < 6; i++) {
-				pits[PLAYER_ONE_MANCALA_INDEX] += pits[i];
-				pits[i] = 0;
-			}
-		} else if (!topPitsEmpty && bottomPitsEmpty) {
-			for (int j = 7; j < 13; j++) {
-				pits[PLAYER_TWO_MANCALA_INDEX] += pits[j];
-				pits[j] = 0;
-			}
-		} else {
-			return;
+		for (int i = 0; i < PLAYER_ONE_MANCALA_INDEX; i++) {
+			pits[PLAYER_ONE_MANCALA_INDEX] += pits[i];
+			pits[i] = 0;
+		}
+		for (int j = PLAYER_ONE_MANCALA_INDEX + 1; j < PLAYER_TWO_MANCALA_INDEX; j++) {
+			pits[PLAYER_TWO_MANCALA_INDEX] += pits[j];
+			pits[j] = 0;
 		}
 
 		setState(GameState.GAME_OVER);
@@ -333,7 +338,7 @@ public class MancalaModel extends BaseModel {
 			setWinner(Player.TIE);
 		}
 
-
+		dispatchEvent("update:pits");
 	}
 
 

@@ -63,6 +63,7 @@ public class OptionsView extends JPanel {
                     switch (modelManager.getMancalaModel().getCurrentPlayer()) {
                         case PLAYER_ONE -> "Player A";
                         case PLAYER_TWO -> "Player B";
+                        case TIE -> null; // should never happen
                     }));
         }, true);
 

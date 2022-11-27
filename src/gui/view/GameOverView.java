@@ -32,7 +32,7 @@ public class GameOverView extends JPanel {
 
         JPanel optionsPanel = new JPanel(new FlowLayout());
 
-        playAgainButton = new JButton("Player Again");
+        playAgainButton = new JButton("Play Again");
         quitButton = new JButton("Quit");
 
         optionsPanel.add(playAgainButton);
