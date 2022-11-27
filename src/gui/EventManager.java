@@ -29,7 +29,8 @@ public class EventManager {
 
     public void dispatch(String event) {
         if (!listeners.containsKey(event)) {
-            throw new RuntimeException("No listeners for '" + event + "'.");
+//            throw new RuntimeException("No listeners for '" + event + "'.");
+            return;
         }
         for (ChangeListener listener : listeners.get(event)) {
             listener.stateChanged(new ChangeEvent(this));

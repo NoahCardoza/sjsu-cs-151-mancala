@@ -8,7 +8,6 @@
 package gui.controller;
 
 import gui.component.PocketsGridCell;
-import gui.model.MancalaModel;
 import gui.model.ModelManager;
 import gui.window.MainWindow;
 
@@ -49,7 +48,7 @@ public class MainController implements BaseController {
 
         // on next turn button clicked
         mainWindow.getOptionsView().addNextTurnActionListener((event) -> {
-            modelManager.getMancalaModel().interchange();
+            modelManager.getMancalaModel().endTurn();
         });
 
         // on style selected
@@ -75,22 +74,17 @@ public class MainController implements BaseController {
         // on pocket clicked
         mainWindow.getBoardView().addPocketActionListener(event -> {
             PocketsGridCell pocket = (PocketsGridCell) event.getSource();
-            MancalaModel.Player player = modelManager.getMancalaModel().getCurrentPlayer();
-            int index = pocket.getIndex();
+            modelManager.getMancalaModel().moveStonesAtIndex(pocket.getIndex());
+        });
 
-            // TODO: check state to make sure move is possible
-            //       and move this logic to the model
-            if ((
-                    player == MancalaModel.Player.PLAYER_ONE
-                            && index <= 5
-                            && index >= 0
-            ) || (
-                    player == MancalaModel.Player.PLAYER_TWO
-                            && index <= 12
-                            && index >= 7)
-            ) {
-                modelManager.getMancalaModel().moveStones(index);
-            }
+        // on play again clicked
+        mainWindow.getEndGameStateView().onPlayAgainButtonClick((event) -> {
+            modelManager.getOptionsModel().setCurrentCard(MainWindow.Card.MAIN_MENU);
+        });
+
+        // on quit clicked
+        mainWindow.getEndGameStateView().onQuitButtonClick((event) -> {
+            System.exit(0);
         });
     }
 }

@@ -84,7 +84,7 @@ public class OptionsView extends JPanel {
     }
 
     public void addNextTurnActionListener(ActionListener listener) {
-        undoButton.addActionListener(listener);
+        nextTurnButton.addActionListener(listener);
     }
 
     public void addStyleSelectedListener(ActionListener listener) {
