@@ -27,17 +27,25 @@ public class OptionsView extends JPanel {
         setBorder(new EmptyBorder(10, 10, 10, 10));
 
         mainMenuButton = new JButton("Main Menu");
+        undoButton = new JButton();
+        nextTurnButton = new JButton("End Turn");
+        currentPlayerLabel = new JLabel();
 
-        undoButton = new JButton("Undo");
+        // listeners for undo button
         modelManager.getMancalaModel().addEventListener("update:canUndo", event -> {
             undoButton.setEnabled(modelManager.getMancalaModel().getCanUndo());
         }, true);
 
-        nextTurnButton = new JButton("End Turn");
+        modelManager.getMancalaModel().addEventListener("update:undosAvailable", event -> {
+            undoButton.setText(String.format("Undo (%s)", modelManager.getMancalaModel().getUndosAvailable()));
+        }, true);
+
+        // listeners for end turn button
         modelManager.getMancalaModel().addEventListener("update:canEndTurn", event -> {
             nextTurnButton.setEnabled(modelManager.getMancalaModel().getCanEndTurn());
         }, true);
 
+        // configure values for combo boxes
         styleSelect = new JComboBox<>(
                 modelManager
                         .getOptionsModel()
@@ -56,7 +64,7 @@ public class OptionsView extends JPanel {
                         .toArray()
         );
 
-        currentPlayerLabel = new JLabel();
+        // listen for current player label
         modelManager.getMancalaModel().addEventListener("update:currentPlayer", (event) -> {
             currentPlayerLabel.setText(String.format(
                     "%s's Turn",
@@ -67,6 +75,7 @@ public class OptionsView extends JPanel {
                     }));
         }, true);
 
+        // add all components to the view
         add(new ScoreView(modelManager));
         add(mainMenuButton);
         add(undoButton);
