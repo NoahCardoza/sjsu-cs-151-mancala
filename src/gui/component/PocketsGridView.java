@@ -7,6 +7,7 @@
 
 package gui.component;
 
+import gui.model.MancalaModel;
 import gui.model.ModelManager;
 
 import javax.swing.*;
@@ -43,6 +44,32 @@ public class PocketsGridView extends JPanel {
                 cell.setCount(pits[cell.getIndex()]);
             }
         });
+
+        modelManager.getMancalaModel().addEventListener("update:currentPlayer", (event) -> {
+            switch (modelManager.getMancalaModel().getCurrentPlayer()) {
+                case PLAYER_ONE -> {
+                    for (int i = 6; i < 12; i++) {
+                        pockets.get(i).setActive(true);
+                    }
+                    for (int i = 0; i < 6; i++) {
+                        pockets.get(i).setActive(false);
+                    }
+                }
+                case PLAYER_TWO -> {
+                    for (int i = 6; i < 12; i++) {
+                        pockets.get(i).setActive(false);
+                    }
+                    for (int i = 0; i < 6; i++) {
+                        pockets.get(i).setActive(true);
+                    }
+                }
+                case TIE -> {
+                    for (PocketsGridCell cell: pockets) {
+                        cell.setActive(false);
+                    }
+                }
+            }
+        }, true);
     }
 
     public void addActionListener(ActionListener l) {

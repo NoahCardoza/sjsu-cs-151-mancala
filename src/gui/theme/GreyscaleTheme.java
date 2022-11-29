@@ -14,6 +14,13 @@ import java.awt.*;
  */
 public class GreyscaleTheme implements BoardTheme {
     private static final Color stone = new Color(42, 42, 42);
+    private static final Color transparent = new Color(0, 0, 0, 0);
+    private static final Color white = Color.white;
+    private static final Color black = Color.black;
+    public static final Color offWhite = new Color(254, 254, 254);
+    public static final Color lightGray = Color.lightGray;
+    public static final Color darkGray = Color.darkGray;
+    private static final Font font = new Font("Arial", Font.PLAIN, 13);
 
     @Override
     public String getName() {
@@ -22,32 +29,32 @@ public class GreyscaleTheme implements BoardTheme {
 
     @Override
     public Color getBoardBackgroundColor() {
-        return Color.BLACK;
+        return black;
     }
 
     @Override
     public Color getBoardOutlineColor() {
-        return new Color(0, 0, 0, 0);
+        return transparent;
     }
 
     @Override
     public Color getPocketColor() {
-        return Color.darkGray;
+        return darkGray;
     }
 
     @Override
     public Color getPocketOutlineColor() {
-        return Color.lightGray;
+        return lightGray;
     }
 
     @Override
     public Color getPocketActiveOutlineColor() {
-        return new Color(254, 254, 254);
+        return offWhite;
     }
 
     @Override
     public Color getTextColor() {
-        return Color.white;
+        return white;
     }
 
     @Override
@@ -57,7 +64,7 @@ public class GreyscaleTheme implements BoardTheme {
 
     @Override
     public Color getStoneColor1Outline() {
-        return Color.white;
+        return white;
     }
 
     @Override
@@ -67,7 +74,7 @@ public class GreyscaleTheme implements BoardTheme {
 
     @Override
     public Color getStoneColor2Outline() {
-        return Color.white;
+        return white;
     }
 
     @Override
@@ -77,7 +84,7 @@ public class GreyscaleTheme implements BoardTheme {
 
     @Override
     public Color getStoneColor3Outline() {
-        return Color.white;
+        return white;
     }
 
     @Override
@@ -87,11 +94,11 @@ public class GreyscaleTheme implements BoardTheme {
 
     @Override
     public Color getStoneColor4Outline() {
-        return Color.white;
+        return white;
     }
 
     @Override
     public Font getFont() {
-        return new Font("Arial", Font.PLAIN, 13);
+        return font;
     }
 }

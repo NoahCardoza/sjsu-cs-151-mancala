@@ -51,13 +51,13 @@ public class MancalaView extends JPanel {
     }
 
     public void setCount(int count) {
-        for (Component c : getComponents()) {
-            remove(c);
-        }
+        removeAll();
 
         for (int i = 0; i < count; i++) {
             // TODO: choose random colors
             add(new Stone(modelManager, Stone.COLOR_1));
         }
+
+        repaint();
     }
 }

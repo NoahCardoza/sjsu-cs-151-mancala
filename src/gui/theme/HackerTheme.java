@@ -15,6 +15,10 @@ import java.awt.*;
 public class HackerTheme implements BoardTheme {
     private static final Color limeGreen = new Color(116, 255, 1);
     private static final Color black = new Color(0, 0, 0);
+    private static final Color offBlack = new Color(19, 19, 19);
+    private static final Color offWhite = new Color(254, 254, 254);
+    private static final Color gray = new Color(52, 52, 52);
+    private static final Font font = new Font("Courier New", Font.PLAIN, 13);
 
     @Override
     public String getName() {
@@ -23,17 +27,17 @@ public class HackerTheme implements BoardTheme {
 
     @Override
     public Color getBoardBackgroundColor() {
-        return new Color(52, 52, 52);
+        return gray;
     }
 
     @Override
     public Color getBoardOutlineColor() {
-        return new Color(0, 0, 0, 0);
+        return black;
     }
 
     @Override
     public Color getPocketColor() {
-        return new Color(19, 19, 19);
+        return offBlack;
     }
 
     @Override
@@ -43,7 +47,7 @@ public class HackerTheme implements BoardTheme {
 
     @Override
     public Color getPocketActiveOutlineColor() {
-        return new Color(254, 254, 254);
+        return offWhite;
     }
 
     @Override
@@ -93,6 +97,6 @@ public class HackerTheme implements BoardTheme {
 
     @Override
     public Font getFont() {
-        return new Font("Courier New", Font.PLAIN, 13);
+        return font;
     }
 }

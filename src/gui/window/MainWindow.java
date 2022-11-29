@@ -73,6 +73,10 @@ public class MainWindow extends JFrame {
         return gameView.getOptionsView();
     }
 
+    public GameOverView getEndGameStateView() {
+        return gameView.getEndGameStateView();
+    }
+
     public MainMenuView getMainMenuView() {
         return mainMenuView;
     }
