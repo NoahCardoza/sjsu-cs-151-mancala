@@ -58,4 +58,11 @@ public class PocketsGridCell extends JPanel {
         pocketView.addActionListener(event -> l.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "pocketClick")));
     }
 
+    public void setActive(boolean active) {
+        pocketView.setActive(active);
+    }
+
+    public boolean isActive() {
+        return pocketView.isActive();
+    }
 }

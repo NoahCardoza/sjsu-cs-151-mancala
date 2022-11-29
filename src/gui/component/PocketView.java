@@ -16,6 +16,7 @@ import java.awt.geom.RectangularShape;
 
 public class PocketView extends JButton {
     private final ModelManager modelManager;
+    private boolean active;
 
     public PocketView(ModelManager modelManager) {
         super();
@@ -44,6 +45,11 @@ public class PocketView extends JButton {
 
         g2.setColor(modelManager.getOptionsModel().getCurrentTheme().getPocketOutlineColor());
         g2.draw(shape);
+
+        if (active) {
+            g2.setColor(modelManager.getOptionsModel().getCurrentTheme().getPocketActiveOutlineColor());
+            g2.draw(shape);
+        }
     }
 
     public void setCount(int count) {
@@ -59,5 +65,14 @@ public class PocketView extends JButton {
             // TODO: choose random colors
             add(new Stone(modelManager, Stone.COLOR_1));
         }
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+        repaint();
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }

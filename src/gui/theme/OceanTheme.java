@@ -31,7 +31,7 @@ public class OceanTheme implements BoardTheme {
 
 	@Override
 	public Color getPocketActiveOutlineColor() {
-		return new Color(89, 96, 205);
+		return new Color(222, 127, 183);
 	}
 
 	@Override
