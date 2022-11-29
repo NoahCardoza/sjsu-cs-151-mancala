@@ -62,19 +62,12 @@ public class MancalaModel extends BaseModel {
 
 	
 	//figuring out who owns current pit 
-	public Player whichPlayerPit(int currentPit) {
-		if (currentPit == PLAYER_ONE_MANCALA_INDEX) {
-			return Player.PLAYER_ONE;
-		} else { 
-			return Player.PLAYER_TWO;
-		}
-		
-		
-		
+	private Player whichPlayerPit(int currentPit) {
+		return currentPit == PLAYER_ONE_MANCALA_INDEX ? Player.PLAYER_ONE : Player.PLAYER_TWO;
 	}
 
 	/**
-	 * for changing players when their turn's are over
+	 * for changing players when their turns are over
 	 */
 	public void endTurn() {
 		// we can only change players if the current player
@@ -96,8 +89,8 @@ public class MancalaModel extends BaseModel {
 
 	//checking for if inside the players' mancala
 	//or if the current pit is a mancala
-	public boolean inCala(int currentPit) {
-		return (currentPit == PLAYER_ONE_MANCALA_INDEX || currentPit == PLAYER_TWO_MANCALA_INDEX);
+	private boolean inMancala(int pit) {
+		return (pit == PLAYER_ONE_MANCALA_INDEX || pit == PLAYER_TWO_MANCALA_INDEX);
 	}
 
 	private boolean isWithinPlayerOnePockets(int index) {
@@ -147,7 +140,7 @@ public class MancalaModel extends BaseModel {
 				pit = 0;
 			}
 
-			if (inCala(pit) && whichPlayerPit(pit) != currentPlayer) {
+			if (inMancala(pit) && whichPlayerPit(pit) != currentPlayer) {
 				continue;
 			}
 
@@ -202,6 +195,7 @@ public class MancalaModel extends BaseModel {
 			setUndosAvailable(undosAvailable - 1);
 			setCanEndTurn(false);
 			setPits(boardHistory.pop());
+			dispatchEvent("update:canUndo");
 		}
 	}
 
@@ -211,12 +205,12 @@ public class MancalaModel extends BaseModel {
 	//-if the last stone fell into an empty pit anywhere on the board
 	// 	*if stone fell on own empty side
 	// 		-> collect stolen stones + own stone
-	public void findLastStones(int pit) {
+	private void findLastStones(int pit) {
 		//if last stone placed in own current player's mancala
-		if (whichPlayerPit(pit) == currentPlayer && inCala(pit)) return;
+		if (whichPlayerPit(pit) == currentPlayer && inMancala(pit)) return;
 
 		//if stone falls into empty pit on current player's side
-		if(whichPlayerPit(pit) == currentPlayer && inCala(pit) && pits[pit] == 1 && pits[getOtherSidePit(pit)] >= 0) {
+		if(whichPlayerPit(pit) == currentPlayer && inMancala(pit) && pits[pit] == 1 && pits[getOtherSidePit(pit)] >= 0) {
 
 			//steal stones from opposing side and the one placed
 			//on current player's side
@@ -257,36 +251,12 @@ public class MancalaModel extends BaseModel {
 	
 	//created for method ^
 	//getting the pit on the other side of the board
-	public int getOtherSidePit(int pit) {
+	private int getOtherSidePit(int pit) {
 		if ( pit <= 12) {
 			return 12 - pit;
 		} else {
 			return pit - 12;
 		}
-	}
-
-	public Player getCurrentPlayer() {
-		return currentPlayer;
-	}
-
-	/**
-	 * Initializes all pockets.
-	 *
-	 * @param stonedCount the number of stones to be placed into each pocket
-	 */
-	public void resetPockets(int stonedCount) {
-		setup();
-
-		Arrays.fill(pits, stonedCount);
-
-		// empty mancala pockets
-		pits[PLAYER_ONE_MANCALA_INDEX] = pits[PLAYER_TWO_MANCALA_INDEX] = 0;
-
-		dispatchEvent("update:pits");
-	}
-
-	public boolean getCanUndo() {
-		return boardHistory.size() > 0 && undosAvailable > 0;
 	}
 
 	private boolean isEitherSideEmpty() {
@@ -313,11 +283,11 @@ public class MancalaModel extends BaseModel {
 	}
 
 
-	public void checkWinState() {
+	private void checkWinState() {
 		if (!isEitherSideEmpty()) return;
 
 		//take stones from pits that aren't empty and add them to
-		//player's cala
+		//player's mancala
 		for (int i = 0; i < PLAYER_ONE_MANCALA_INDEX; i++) {
 			pits[PLAYER_ONE_MANCALA_INDEX] += pits[i];
 			pits[i] = 0;
@@ -341,6 +311,29 @@ public class MancalaModel extends BaseModel {
 		dispatchEvent("update:pits");
 	}
 
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	/**
+	 * Initializes all pockets.
+	 *
+	 * @param stonedCount the number of stones to be placed into each pocket
+	 */
+	public void resetPockets(int stonedCount) {
+		setup();
+
+		Arrays.fill(pits, stonedCount);
+
+		// empty mancala pockets
+		pits[PLAYER_ONE_MANCALA_INDEX] = pits[PLAYER_TWO_MANCALA_INDEX] = 0;
+
+		dispatchEvent("update:pits");
+	}
+
+	public boolean getCanUndo() {
+		return boardHistory.size() > 0 && undosAvailable > 0;
+	}
 
 	public int getPlayerOneScore() {
 		return pits[PLAYER_ONE_MANCALA_INDEX];
