@@ -4,6 +4,15 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class OceanTheme implements BoardTheme {
+	private static final Color boardBackgroundColor = new Color(117, 134, 210);
+	private static final Color pocketColor = new Color(75, 76, 80);
+	private static final Color deepPurple = new Color(89, 96, 205);
+	private static final Color darkPurple = new Color(84, 90, 186);
+	private static final Color darkBlue = new Color(45, 52, 156);
+	private static final Color greenMud = new Color(130, 132, 63);
+	private static final Color armyGreen = new Color(99, 103, 69);
+	private static final Font font = new Font("Arial", Font.BOLD, 20);
+
 	@Override
 	public String getName() {
 		return "Ocean";
@@ -11,22 +20,23 @@ public class OceanTheme implements BoardTheme {
 
 	@Override
 	public Color getBoardBackgroundColor() {
-		return new Color(117, 134, 210);
+		return boardBackgroundColor;
 	}
 
 	@Override
 	public Color getBoardOutlineColor() {
-		return new Color(117, 134, 210);
+		return boardBackgroundColor;
 	}
+
 
 	@Override
 	public Color getPocketColor() {
-		return new Color(75, 76, 80);
+		return pocketColor;
 	}
 
 	@Override
 	public Color getPocketOutlineColor() {
-		return new Color(89, 96, 205);
+		return deepPurple;
 	}
 
 	@Override
@@ -36,51 +46,51 @@ public class OceanTheme implements BoardTheme {
 
 	@Override
 	public Color getTextColor() {
-		return new Color(89, 96, 205);
+		return deepPurple;
 	}
 
 	@Override
 	public Color getStoneColor1() {
-		return new Color(130, 132, 63);
+		return greenMud;
 	}
 
 	@Override
 	public Color getStoneColor1Outline() {
-		return new Color(130, 132, 63);
+		return greenMud;
 	}
 
 	@Override
 	public Color getStoneColor2() {
-		return new Color(99, 103, 69);
+		return armyGreen;
 	}
 
 	@Override
 	public Color getStoneColor2Outline() {
-		return new Color(99, 103, 69);
+		return armyGreen;
 	}
 
 	@Override
 	public Color getStoneColor3() {
-		return new Color(84, 90, 186);
+		return darkPurple;
 	}
 
 	@Override
 	public Color getStoneColor3Outline() {
-		return new Color(84, 90, 186);
+		return darkPurple;
 	}
 
 	@Override
 	public Color getStoneColor4() {
-		return new Color(45, 52, 156);
+		return darkBlue;
 	}
 
 	@Override
 	public Color getStoneColor4Outline() {
-		return new Color(45, 52, 156);
+		return darkBlue;
 	}
 
 	@Override
 	public Font getFont() {
-		return new Font("Arial", Font.BOLD, 20);
+		return font;
 	}
 }
