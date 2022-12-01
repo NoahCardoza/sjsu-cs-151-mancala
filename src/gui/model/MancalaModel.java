@@ -11,41 +11,86 @@ import java.util.Arrays;
 import java.util.Stack;
 
 public class MancalaModel extends BaseModel {
+	/**
+	 * for game state constants
+	 * uses state design pattern (sort of)
+	 */
 	public enum GameState { IN_GAME, GAME_OVER }
-	
+
+	/**
+//	 * for current player constants and
+	 * to be used for assigning winner later
+	 */
 	public enum Player { PLAYER_ONE, TIE, PLAYER_TWO }
 
+	/**
+	 * for the current player
+	 */
 	private Player currentPlayer;
+
+	/**
+	 *
+	 */
 	private GameState state;
 
-	//number of undos for each player
+	/**
+	 * number of undos for each player
+	 */
 	private final int TOTAL_UNDOS_PER_TURN = 3;
-	
-	//for each individual pit
+
+	/**
+	 * int array for each individual pit on the board
+	 */
 	private int[] pits;
-	
-	//for undo option 
+
+	/**
+	 *
+	 */
 	private Stack<int[]> boardHistory;
-	
-	
-	//total number of pits in the game
+
+
+	/**
+	 * total number of pits in the game
+	 */
 	private static final int TOTAL_PITS = 14;
-	
-	
-	// index for each player's mancalas
+
+
+	/**
+	 * index for player one's mancala
+	 */
 	private static final int PLAYER_ONE_MANCALA_INDEX = 6;
+
+	/**
+	 * index for player two's mancala
+	 */
 	private static final int PLAYER_TWO_MANCALA_INDEX = 13;
 
-	//for displaying winner at the end of the game
+	/**
+	 * for checking if current player's turn can end
+	 */
 	private boolean canEndTurn;
+
+
+	/**
+	 * for checking if any undos are available to be used
+	 */
 	private int undosAvailable;
 
+	/**
+	 * for use of determining and assigning the game winner
+	 */
 	private Player winner;
-	
+
+	/**
+	 * constructor that calls setup method
+	 */
 	public MancalaModel() {
 		setup();
 	}
 
+	/**
+	 * setting up the game
+	 */
 	private void setup() {
 		setPits(new int[TOTAL_PITS]);
 
@@ -60,14 +105,19 @@ public class MancalaModel extends BaseModel {
 		setUndosAvailable(TOTAL_UNDOS_PER_TURN);
 	}
 
-	
-	//figuring out who owns current pit 
+
+	/**
+	 * checks who owns the current pit
+ 	 * @param currentPit the current pit to be checked
+	 * @return whichever player owns the current pit
+	 */
 	private Player whichPlayerPit(int currentPit) {
 		return currentPit == PLAYER_ONE_MANCALA_INDEX ? Player.PLAYER_ONE : Player.PLAYER_TWO;
 	}
 
 	/**
-	 * for changing players when their turns are over
+	 * for ending current player's turn and
+	 * switching to the other player
 	 */
 	public void endTurn() {
 		// we can only change players if the current player
@@ -82,30 +132,63 @@ public class MancalaModel extends BaseModel {
 		}
 	}
 
+	/**
+	 *
+	 * @param currentPlayer
+	 */
 	private void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 		dispatchEvent("update:currentPlayer");
 	}
 
-	//checking for if inside the players' mancala
-	//or if the current pit is a mancala
+	/**
+	 * checks if current pit is a mancala
+	 * @param pit the current pit
+	 * @return true if in either player's mancala
+	 */
 	private boolean inMancala(int pit) {
 		return (pit == PLAYER_ONE_MANCALA_INDEX || pit == PLAYER_TWO_MANCALA_INDEX);
 	}
 
+	/**
+	 * checks if pit index resides with any of player one's indexes
+	 * @param index current pit index
+	 * @return true if current pit index is equal to
+	 * any of the pits of player one
+	 */
 	private boolean isWithinPlayerOnePockets(int index) {
 		return  index <= 5 && index >= 0;
 	}
 
+	/**
+	 * checks if pit index resides with any of player two's indexes
+	 * @param index current pit index
+	 * @return true if current pit index is equal to
+	 * any of the pits of player two
+	 */
 	private boolean isWithinPlayerTwoPockets(int index) {
 		return  index <= 12 && index >= 7;
 	}
 
+	/**
+	 * checks if pit index is the same as either player's mancala index
+	 * @param index current pit index
+	 * @return true if current pit index is equal to
+	 * mancala index of either player
+	 */
 	private boolean isMancalaIndex(int index) {
 		return  index == 6 || index == 13;
 	}
-	
-	//for moving stones using pits' index
+
+	/**
+	 *
+	 * moves stones using pit index.
+	 * checks where last stone was placed.
+	 * checks if already moved and able to steal stones.
+	 *
+	 * @param index of the current pit.
+	 */
+	//
 	public void moveStonesAtIndex(int index) {
 		// ignore move calls on mancala indexes
 		if (isMancalaIndex(index)) return;
@@ -133,7 +216,6 @@ public class MancalaModel extends BaseModel {
 		int pit = index;
 
 		while (stonesToDistribute > 0) {
-			//save current game state
 			pit++;
 			
 			if (pit >= TOTAL_PITS) {
@@ -188,8 +270,10 @@ public class MancalaModel extends BaseModel {
 		dispatchEvent("update:pits");
 		dispatchEvent("update:canUndo");
 	}
-	
-	//for undoing current player's most recent move
+
+	/**
+	 * for undoing current player's most recent move
+	 */
 	public void undo() {
 		if (getCanUndo()) {
 			setUndosAvailable(undosAvailable - 1);
@@ -199,12 +283,20 @@ public class MancalaModel extends BaseModel {
 		}
 	}
 
-	//recreating this method to check for
-	//-if the last stone fell into the current player's mancala
-	// -> another turn for current player
-	//-if the last stone fell into an empty pit anywhere on the board
-	// 	*if stone fell on own empty side
-	// 		-> collect stolen stones + own stone
+	/**
+	 *
+	 * checks where the last stone is placed.
+	 * if the last stone is placed in the current player's mancala,
+	 * then give another turn for current player.
+	 *
+	 * if the last stone is placed on an empty pit on the current player's side
+	 * and there are stones on the opposite pit of the board,
+	 * then steal stones from the opposite pit and take into current player's mancala
+	 * along with the last stone placed in empty pit.
+	 *
+	 * @param pit current pit that the last stone was placed in.
+	 *            check this pit.
+	 */
 	private void findLastStones(int pit) {
 		//if last stone placed in own current player's mancala
 		if (whichPlayerPit(pit) == currentPlayer && inMancala(pit)) return;
@@ -248,9 +340,12 @@ public class MancalaModel extends BaseModel {
 
 		setCanEndTurn(true);
 	}
-	
-	//created for method ^
-	//getting the pit on the other side of the board
+
+	/**
+	 * finds the opposing pit of the current pit
+	 * @param pit takes the current pit
+	 * @returns the pit on the opposite side of the current pit
+	 */
 	private int getOtherSidePit(int pit) {
 		if ( pit <= 12) {
 			return 12 - pit;
@@ -259,6 +354,12 @@ public class MancalaModel extends BaseModel {
 		}
 	}
 
+
+	/**
+	 * checks if there are no more stones present in the pits of
+	 * either player's side.
+	 * @return the side that's empty.
+	 */
 	private boolean isEitherSideEmpty() {
 		boolean topPitsEmpty = true;
 		boolean bottomPitsEmpty = true;
@@ -283,6 +384,13 @@ public class MancalaModel extends BaseModel {
 	}
 
 
+	/**
+	 *
+	 * checks win condition by first adding up all the stones
+	 * on the nonempty side then compares between the two players
+	 * to see who has more stones and is the winner.
+	 *
+	 */
 	private void checkWinState() {
 		if (!isEitherSideEmpty()) return;
 
@@ -311,6 +419,10 @@ public class MancalaModel extends BaseModel {
 		dispatchEvent("update:pits");
 	}
 
+	/**
+	 *
+	 * @return the current player
+	 */
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
@@ -353,37 +465,71 @@ public class MancalaModel extends BaseModel {
 		dispatchEvent("update:canEndTurn");
 	}
 
+	/**
+	 *
+	 * @return how many undos are available to be used
+	 */
 	public int getUndosAvailable() {
 		return undosAvailable;
 	}
 
+	/**
+	 *
+	 * @param undosAvailable
+	 */
 	private void setUndosAvailable(int undosAvailable) {
 		this.undosAvailable = undosAvailable;
 		dispatchEvent("update:undosAvailable");
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public int[] getPits() {
 		return pits;
 	}
 
+	/**
+	 *
+	 * @param pits
+	 */
 	public void setPits(int[] pits) {
 		this.pits = pits;
 		dispatchEvent("update:pits");
 	}
 
+	/**
+	 *
+	 * @returns current game state
+	 */
 	public GameState getState() {
 		return state;
 	}
 
+
+	/**
+	 *
+	 * @param state
+	 */
 	private void setState(GameState state) {
 		this.state = state;
 		dispatchEvent("update:state");
 	}
 
+
+	/**
+	 *
+	 * @return
+	 */
 	public Player getWinner() {
 		return winner;
 	}
 
+	/**
+	 *
+	 * @param winner
+	 */
 	private void setWinner(Player winner) {
 		this.winner = winner;
 		dispatchEvent("update:winner");
