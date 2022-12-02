@@ -1,3 +1,9 @@
+/**
+ * @author Dominic Lopez
+ * @version 0.0.1
+ * @date 12/2/2022
+ * @assignment Mancala
+ */
 package gui.style;
 
 import java.awt.geom.RectangularShape;

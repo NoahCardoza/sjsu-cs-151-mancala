@@ -1,8 +1,18 @@
+/**
+ * @author Dominic Lopez
+ * @version 0.0.1
+ * @date 12/2/2022
+ * @assignment Mancala
+ */
 package gui.theme;
 
 import java.awt.Color;
 import java.awt.Font;
-
+/**
+ * Ocean theme strategy for coloring the board.
+ * @author domin
+ *
+ */
 public class OceanTheme implements BoardTheme {
 	private static final Color boardBackgroundColor = new Color(117, 134, 210);
 	private static final Color pocketColor = new Color(75, 76, 80);
