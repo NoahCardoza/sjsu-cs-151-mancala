@@ -29,7 +29,7 @@ public class MancalaModel extends BaseModel {
 	private Player currentPlayer;
 
 	/**
-	 *
+	 * for current game state
 	 */
 	private GameState state;
 
@@ -44,7 +44,8 @@ public class MancalaModel extends BaseModel {
 	private int[] pits;
 
 	/**
-	 *
+	 * stack for previous versions of the board
+	 * prior to current player's input
 	 */
 	private Stack<int[]> boardHistory;
 
@@ -89,7 +90,7 @@ public class MancalaModel extends BaseModel {
 	}
 
 	/**
-	 * setting up the game
+	 * starting the game up
 	 */
 	private void setup() {
 		setPits(new int[TOTAL_PITS]);
@@ -133,8 +134,8 @@ public class MancalaModel extends BaseModel {
 	}
 
 	/**
-	 *
-	 * @param currentPlayer
+	 * changes the current player
+	 * @param currentPlayer the current player moving stones
 	 */
 	private void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
@@ -421,7 +422,7 @@ public class MancalaModel extends BaseModel {
 
 	/**
 	 *
-	 * @return the current player
+	 * @returns the current player
 	 */
 	public Player getCurrentPlayer() {
 		return currentPlayer;
@@ -443,22 +444,43 @@ public class MancalaModel extends BaseModel {
 		dispatchEvent("update:pits");
 	}
 
+	/**
+	 *
+	 * @returns true if player can still undo
+	 *
+	 */
 	public boolean getCanUndo() {
 		return boardHistory.size() > 0 && undosAvailable > 0;
 	}
 
+	/**
+	 *
+	 * @return # of stones in first player's mancala
+	 */
 	public int getPlayerOneScore() {
 		return pits[PLAYER_ONE_MANCALA_INDEX];
 	}
 
+	/**
+	 *
+	 * @return # of stones in second player's mancala
+	 */
 	public int getPlayerTwoScore() {
 		return pits[PLAYER_TWO_MANCALA_INDEX];
 	}
 
+	/**
+	 *
+	 * @returns whether current player can end their turn
+	 */
 	public boolean getCanEndTurn() {
 		return canEndTurn;
 	}
 
+	/**
+	 *
+	 * changes whether current player's turn ends
+	 */
 	private void setCanEndTurn(boolean canEndTurn) {
 		this.canEndTurn = canEndTurn;
 		dispatchEvent("update:canUndo");
@@ -466,7 +488,6 @@ public class MancalaModel extends BaseModel {
 	}
 
 	/**
-	 *
 	 * @return how many undos are available to be used
 	 */
 	public int getUndosAvailable() {
@@ -474,8 +495,8 @@ public class MancalaModel extends BaseModel {
 	}
 
 	/**
-	 *
-	 * @param undosAvailable
+	 * changes how much undos a player has
+	 * @param undosAvailable # of available undos per player
 	 */
 	private void setUndosAvailable(int undosAvailable) {
 		this.undosAvailable = undosAvailable;
@@ -484,7 +505,7 @@ public class MancalaModel extends BaseModel {
 
 	/**
 	 *
-	 * @return
+	 * @returns player pits
 	 */
 	public int[] getPits() {
 		return pits;
@@ -492,7 +513,7 @@ public class MancalaModel extends BaseModel {
 
 	/**
 	 *
-	 * @param pits
+	 * @param pits changes player pits
 	 */
 	public void setPits(int[] pits) {
 		this.pits = pits;
@@ -502,6 +523,7 @@ public class MancalaModel extends BaseModel {
 	/**
 	 *
 	 * @returns current game state
+	 * based on gamestate enum
 	 */
 	public GameState getState() {
 		return state;
@@ -509,8 +531,8 @@ public class MancalaModel extends BaseModel {
 
 
 	/**
-	 *
-	 * @param state
+	 * changes the current game state
+	 * @param state is the current game state
 	 */
 	private void setState(GameState state) {
 		this.state = state;
@@ -519,16 +541,16 @@ public class MancalaModel extends BaseModel {
 
 
 	/**
-	 *
-	 * @return
+	 * @returns winner of the match
+	 * based on Player enum
 	 */
 	public Player getWinner() {
 		return winner;
 	}
 
 	/**
-	 *
-	 * @param winner
+	 * changes the winner of the match
+	 * @param winner the winner of the match
 	 */
 	private void setWinner(Player winner) {
 		this.winner = winner;
