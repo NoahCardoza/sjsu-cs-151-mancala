@@ -1,7 +1,7 @@
 /**
  * @author Noah Cardoza
  * @version 0.0.1
- * @date 11/15/2022
+ * @date 11/14/2022
  * @assignment Mancala
  */
 
@@ -14,10 +14,19 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.geom.RectangularShape;
 
+/**
+ * The Pocket view encapsulates the logic for drawing a pocket
+ * and it's stones.
+ */
 public class PocketView extends JButton {
     private final ModelManager modelManager;
     private boolean active;
 
+    /**
+     * Instantiates a new Pocket view.
+     *
+     * @param modelManager the model manager
+     */
     public PocketView(ModelManager modelManager) {
         super();
         this.modelManager = modelManager;
@@ -52,6 +61,11 @@ public class PocketView extends JButton {
         }
     }
 
+    /**
+     * Sets stone count.
+     *
+     * @param count the stone count
+     */
     public void setCount(int count) {
         if (getComponents().length == count) {
             return;
@@ -67,11 +81,21 @@ public class PocketView extends JButton {
         }
     }
 
+    /**
+     * Sets if the pocket is active.
+     *
+     * @param active the active
+     */
     public void setActive(boolean active) {
         this.active = active;
         repaint();
     }
 
+    /**
+     * Is active boolean.
+     *
+     * @return the boolean
+     */
     public boolean isActive() {
         return active;
     }

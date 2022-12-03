@@ -1,7 +1,7 @@
 /**
  * @author Noah Cardoza
  * @version 0.0.1
- * @date 11/15/2022
+ * @date 11/14/2022
  * @assignment Mancala
  */
 
@@ -9,9 +9,10 @@ package gui.layout;
 
 import java.awt.*;
 
+/**
+ * Organizes all child components in a radial fashion.
+ */
 public class RadialLayout implements LayoutManager {
-    public RadialLayout() {}
-
     @Override
     public void addLayoutComponent(String name, Component comp) {
     }

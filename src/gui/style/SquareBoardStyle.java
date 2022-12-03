@@ -10,6 +10,9 @@ package gui.style;
 import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
 
+/**
+ * The square board style.
+ */
 public class SquareBoardStyle implements BoardStyle {
     @Override
     public String getName() {

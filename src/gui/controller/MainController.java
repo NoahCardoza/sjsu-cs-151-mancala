@@ -13,21 +13,28 @@ import gui.window.MainWindow;
 
 import javax.swing.*;
 
-public class MainController implements BaseController {
+/**
+ * The main controller that makes all the
+ * model mutations.
+ */
+public class MainController {
     private final MainWindow mainWindow;
     private final ModelManager modelManager;
 
+    /**
+     * Instantiates a new Main controller.
+     *
+     * @param mainWindow   the main window
+     * @param modelManager the model manager
+     */
     public MainController(MainWindow mainWindow, ModelManager modelManager) {
         this.mainWindow = mainWindow;
         this.modelManager = modelManager;
     }
 
-    @Override
-    public void setup() {
-        addEventListeners();
-    }
-
-    @Override
+    /**
+     * Hooks up all event listeners to the view.
+     */
     public void addEventListeners() {
         // on (back to) main menu button clicked
         mainWindow.getOptionsView().addBackToMainMenuActionListener((event) -> {

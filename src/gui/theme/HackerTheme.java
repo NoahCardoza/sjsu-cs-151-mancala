@@ -10,7 +10,7 @@ package gui.theme;
 import java.awt.*;
 
 /**
- * Defines the default color scheme used in the game.
+ * Defines the hacker color scheme used in the game.
  */
 public class HackerTheme implements BoardTheme {
     private static final Color limeGreen = new Color(116, 255, 1);

@@ -12,7 +12,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Instructions view.
+ */
 public class InstructionsView extends JPanel {
+    /**
+     * Instantiates a new Instructions view.
+     */
     public InstructionsView() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

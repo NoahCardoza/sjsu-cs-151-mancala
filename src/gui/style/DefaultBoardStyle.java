@@ -11,6 +11,9 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
 
+/**
+ * The default board style.
+ */
 public class DefaultBoardStyle implements BoardStyle {
     @Override
     public String getName() {

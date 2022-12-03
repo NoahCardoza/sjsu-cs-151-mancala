@@ -14,73 +14,115 @@ import java.awt.*;
  * make up the board.
  */
 public interface BoardTheme {
-    String getName();
     /**
-     * Defines the background color of the board.
+     * Gets the name of the theme.
+     *
+     * @return the name
+     */
+    String getName();
+
+    /**
+     * Get the background color of the board.
      *
      * @return the background color of the board
      */
     Color getBoardBackgroundColor();
 
+    /**
+     * Get the board outline color.
+     *
+     * @return the board outline color
+     */
     Color getBoardOutlineColor();
 
     /**
-     * Defines the background of the pockets.
+     * Gets the background color of the pockets.
      *
      * @return the background color of the pockets
      */
     Color getPocketColor();
 
+    /**
+     * Gets pocket outline color.
+     *
+     * @return the pocket outline color
+     */
     Color getPocketOutlineColor();
 
     /**
-     * Defines the outline color of an active pocket.
+     * Gets the outline color of an active pocket.
      *
      * @return the outline color of an active pocket
      */
     Color getPocketActiveOutlineColor();
 
     /**
-     * Defines the text color.
+     * Gets the text color.
      *
      * @return the text color.
      */
     Color getTextColor();
 
     /**
-     * Defines the first variant of the stone color
+     * Gets the first variant of the stone color
      *
      * @return the first variant of the stone color
      */
     Color getStoneColor1();
 
+    /**
+     * Gets stone color 1 outline.
+     *
+     * @return the stone color 1 outline
+     */
     Color getStoneColor1Outline();
 
     /**
-     * Defines the second variant of the stone color
+     * Gets the second variant of the stone color
      *
      * @return the second variant of the stone color
      */
     Color getStoneColor2();
 
+    /**
+     * Gets the stone color 2 outline.
+     *
+     * @return the stone color 2 outline
+     */
     Color getStoneColor2Outline();
 
     /**
-     * Defines the third variant of the stone color
+     * Gets the third variant of the stone color
      *
      * @return the third variant of the stone color
      */
     Color getStoneColor3();
 
-    Color getStoneColor3Outline();
     /**
-     * Defines the forth variant of the stone color
+     * Gets the stone color 3 outline.
+     *
+     * @return the stone color 3 outline
+     */
+    Color getStoneColor3Outline();
+
+    /**
+     * Gets the forth variant of the stone color
      *
      * @return the forth variant of the stone color
      */
     Color getStoneColor4();
 
+    /**
+     * Gets the stone color 4 outline.
+     *
+     * @return the stone color 4 outline
+     */
     Color getStoneColor4Outline();
 
+    /**
+     * Gets the font.
+     *
+     * @return the font
+     */
     Font getFont();
 }

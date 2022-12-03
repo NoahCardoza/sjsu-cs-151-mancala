@@ -13,22 +13,40 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RectangularShape;
 
+/**
+ * Represents a Stone stored in a pocket or mancala.
+ */
 public class Stone extends JLabel {
+    /**
+     * The constant COLOR_1 variant.
+     */
     public final static int COLOR_1 = 0;
+    /**
+     * The constant COLOR_2 variant.
+     */
     public final static int COLOR_2 = 1;
+    /**
+     * The constant COLOR_3 variant.
+     */
     public final static int COLOR_3 = 2;
+    /**
+     * The constant COLOR_4 variant.
+     */
     public final static int COLOR_4 = 3;
 
-    private boolean active;
     private Color backgroundColor;
     private Color borderColor;
 
 
     private RectangularShape stoneEllipse;
 
+    /**
+     * Instantiates a new Stone.
+     *
+     * @param modelManager the model manager
+     * @param variant      the color variant
+     */
     public Stone(ModelManager modelManager, int variant) {
-        this.active = false;
-
         modelManager.getOptionsModel().addEventListener("update:currentTheme", (event) -> {
             this.backgroundColor = switch (variant) {
                 case COLOR_1 -> modelManager.getOptionsModel().getCurrentTheme().getStoneColor1();
@@ -64,11 +82,7 @@ public class Stone extends JLabel {
                 g2.setColor(getBackgroundColor());
                 g2.fill(stoneEllipse);
 
-                if (active) {
-                    g2.setColor(modelManager.getOptionsModel().getCurrentTheme().getPocketActiveOutlineColor());
-                } else {
-                    g2.setColor(getBorderColor());
-                }
+                g2.setColor(getBorderColor());
                 g2.draw(stoneEllipse);
             }
 
@@ -84,19 +98,21 @@ public class Stone extends JLabel {
         });
     }
 
+    /**
+     * Gets the background color.
+     *
+     * @return the background color
+     */
     public Color getBackgroundColor() {
         return backgroundColor;
     }
 
+    /**
+     * Gets the border color.
+     *
+     * @return the border color
+     */
     public Color getBorderColor() {
         return borderColor;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }

@@ -15,8 +15,19 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.geom.RectangularShape;
 
+/**
+ * Encapsulates the logic regarding how to display
+ * a mancala and stones inside one.
+ */
 public class MancalaView extends JPanel {
     private final ModelManager modelManager;
+
+    /**
+     * Instantiates a new Mancala view.
+     *
+     * @param modelManager the model manager
+     * @param index        the index
+     */
     public MancalaView(ModelManager modelManager, int index) {
         super();
 
@@ -50,7 +61,7 @@ public class MancalaView extends JPanel {
         g2.draw(mancalaBox);
     }
 
-    public void setCount(int count) {
+    private void setCount(int count) {
         removeAll();
 
         for (int i = 0; i < count; i++) {

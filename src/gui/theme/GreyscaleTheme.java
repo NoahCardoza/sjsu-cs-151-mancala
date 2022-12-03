@@ -10,16 +10,16 @@ package gui.theme;
 import java.awt.*;
 
 /**
- * Defines the default color scheme used in the game.
+ * Defines the grey scale color scheme used in the game.
  */
 public class GreyscaleTheme implements BoardTheme {
     private static final Color stone = new Color(42, 42, 42);
     private static final Color transparent = new Color(0, 0, 0, 0);
     private static final Color white = Color.white;
     private static final Color black = Color.black;
-    public static final Color offWhite = new Color(254, 254, 254);
-    public static final Color lightGray = Color.lightGray;
-    public static final Color darkGray = Color.darkGray;
+    private static final Color offWhite = new Color(254, 254, 254);
+    private static final Color lightGray = Color.lightGray;
+    private static final Color darkGray = Color.darkGray;
     private static final Font font = new Font("Arial", Font.PLAIN, 13);
 
     @Override

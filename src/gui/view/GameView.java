@@ -7,10 +7,8 @@
 
 package gui.view;
 
-import gui.component.PlayerScoreCard;
 import gui.model.MancalaModel;
 import gui.model.ModelManager;
-import gui.window.MainWindow;
 
 import javax.swing.*;
 import javax.swing.border.*;
