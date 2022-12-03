@@ -17,6 +17,8 @@ import java.awt.geom.RectangularShape;
 /**
  * The Pocket view encapsulates the logic for drawing a pocket
  * and it's stones.
+ *
+ * @author Noah Cardoza
  */
 public class PocketView extends JButton {
     private final ModelManager modelManager;

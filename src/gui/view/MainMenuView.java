@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 
 /**
  * The main menu view.
+ *
+ * @author Noah Cardoza
  */
 public class MainMenuView extends JPanel {
     private final JComboBox<String> mancalaCountSelect;

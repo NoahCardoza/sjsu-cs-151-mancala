@@ -13,6 +13,8 @@ import java.awt.geom.RoundRectangle2D;
 
 /**
  * The default board style.
+ *
+ * @author Noah Cardoza
  */
 public class DefaultBoardStyle implements BoardStyle {
     @Override

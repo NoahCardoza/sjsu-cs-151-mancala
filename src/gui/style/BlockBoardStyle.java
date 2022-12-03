@@ -12,6 +12,8 @@ import java.awt.geom.RectangularShape;
 
 /**
  * The block board style.
+ *
+ * @author Noah Cardoza
  */
 public class BlockBoardStyle implements BoardStyle {
     @Override

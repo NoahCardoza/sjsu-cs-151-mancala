@@ -11,6 +11,8 @@ import java.awt.*;
 
 /**
  * Defines the grey scale color scheme used in the game.
+ *
+ * @author Noah Cardoza
  */
 public class GreyscaleTheme implements BoardTheme {
     private static final Color stone = new Color(42, 42, 42);

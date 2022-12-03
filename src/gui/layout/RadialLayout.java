@@ -11,6 +11,8 @@ import java.awt.*;
 
 /**
  * Organizes all child components in a radial fashion.
+ *
+ * @author Noah Cardoza
  */
 public class RadialLayout implements LayoutManager {
     @Override

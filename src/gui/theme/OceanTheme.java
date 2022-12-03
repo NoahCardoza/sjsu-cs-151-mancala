@@ -8,10 +8,12 @@ package gui.theme;
 
 import java.awt.Color;
 import java.awt.Font;
+
 /**
  * Ocean theme strategy for coloring the board.
- * @author domin
  *
+ * @author Dominic Lopez
+ * @author Noah Cardoza
  */
 public class OceanTheme implements BoardTheme {
 	

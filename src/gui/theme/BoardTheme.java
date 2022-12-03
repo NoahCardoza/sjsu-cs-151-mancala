@@ -12,6 +12,8 @@ import java.awt.*;
 /**
  * An interface to define the different colors that
  * make up the board.
+ *
+ * @author Noah Cardoza
  */
 public interface BoardTheme {
     /**

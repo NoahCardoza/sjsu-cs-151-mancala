@@ -16,6 +16,8 @@ import javax.swing.*;
 /**
  * The main controller that makes all the
  * model mutations.
+ *
+ * @author Noah Cardoza
  */
 public class MainController {
     private final MainWindow mainWindow;

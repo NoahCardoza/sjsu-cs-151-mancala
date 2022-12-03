@@ -15,6 +15,8 @@ import java.util.List;
 
 /**
  * The options model. This class is responsible for storing the options for the game.
+ *
+ * @author Noah Cardoza
  */
 public class OptionsModel extends BaseModel {
     private final List<BoardTheme> themes;

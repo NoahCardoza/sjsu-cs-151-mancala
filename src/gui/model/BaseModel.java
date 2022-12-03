@@ -14,6 +14,8 @@ import javax.swing.event.ChangeListener;
 
 /**
  * Abstract class that all models extend from.
+ *
+ * @author Noah Cardoza
  */
 public abstract class BaseModel {
     private final EventManager eventManager;

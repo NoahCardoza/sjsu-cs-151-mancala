@@ -15,6 +15,8 @@ import java.awt.geom.RectangularShape;
 
 /**
  * Represents a Stone stored in a pocket or mancala.
+ *
+ * @author Noah Cardoza
  */
 public class Stone extends JLabel {
     /**

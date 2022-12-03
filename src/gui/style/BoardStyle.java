@@ -11,6 +11,8 @@ import java.awt.geom.RectangularShape;
 
 /**
  * Interface for board styles.
+ *
+ * @author Noah Cardoza
  */
 public interface BoardStyle {
     /**

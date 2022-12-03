@@ -14,6 +14,8 @@ import java.awt.*;
 /**
  * Represents the scorecard on either side of the
  * game over window for a player.
+ *
+ * @author Noah Cardoza
  */
 public class PlayerScoreCard extends JPanel {
     private final JLabel playerLabel;

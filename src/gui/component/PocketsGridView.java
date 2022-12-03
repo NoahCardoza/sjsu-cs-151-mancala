@@ -16,6 +16,8 @@ import java.util.ArrayList;
 
 /**
  * The grid view of the pockets.
+ *
+ * @author Noah Cardoza
  */
 public class PocketsGridView extends JPanel {
     private final ArrayList<PocketsGridCell> pockets;

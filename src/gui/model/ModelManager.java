@@ -11,6 +11,8 @@ package gui.model;
  * Contains references to all the data models in the game to avoid having to pass
  * them around as parameters to so many methods and improve the easy of
  * future refactoring of the code.
+ *
+ * @author Noah Cardoza
  */
 public class ModelManager {
     private final OptionsModel optionsModel;

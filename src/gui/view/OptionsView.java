@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 
 /**
  * A view defining the options shown below the board.
+ *
+ * @author Noah Cardoza
  */
 public class OptionsView extends JPanel {
     private final JComboBox<Object> styleSelect;

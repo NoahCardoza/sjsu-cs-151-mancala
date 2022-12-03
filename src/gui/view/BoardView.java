@@ -20,6 +20,8 @@ import java.awt.geom.RoundRectangle2D;
 
 /**
  * A component that draws a resizable mancala board.
+ *
+ * @author Noah Cardoza
  */
 public class BoardView extends JPanel {
     // TODO: lock aspect ration in for board (w, h) = (22, 9)

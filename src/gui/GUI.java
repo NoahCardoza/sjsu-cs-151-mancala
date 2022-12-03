@@ -25,6 +25,8 @@ import java.util.stream.Stream;
 
 /**
  * A class that contains all the logic to set up the GUI window.
+ *
+ * @author Noah Cardoza
  */
 public class GUI {
     /**

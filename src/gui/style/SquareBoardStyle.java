@@ -12,6 +12,8 @@ import java.awt.geom.RoundRectangle2D;
 
 /**
  * The square board style.
+ *
+ * @author Noah Cardoza
  */
 public class SquareBoardStyle implements BoardStyle {
     @Override

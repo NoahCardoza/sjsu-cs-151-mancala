@@ -18,6 +18,8 @@ import java.awt.event.ActionListener;
 
 /**
  * Represents a cell inside the grid bag layout of pockets.
+ *
+ * @author Noah Cardoza
  */
 public class PocketsGridCell extends JPanel {
     /**

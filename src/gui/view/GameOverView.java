@@ -19,6 +19,8 @@ import java.awt.event.ActionListener;
 
 /**
  * The game over view.
+ *
+ * @author Noah Cardoza
  */
 public class GameOverView extends JPanel {
     private final PlayerScoreCard playerOneCard;

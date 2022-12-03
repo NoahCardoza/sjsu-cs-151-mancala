@@ -12,6 +12,8 @@ import javax.swing.*;
 
 /**
  * The main class for the mancala game.
+ *
+ * @author Noah Cardoza
  */
 public class MancalaTest {
 	/**

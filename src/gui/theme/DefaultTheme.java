@@ -11,6 +11,8 @@ import java.awt.*;
 
 /**
  * Defines the default color scheme used in the game.
+ *
+ * @author Noah Cardoza
  */
 public class DefaultTheme implements BoardTheme {
     private static final Color transparent = new Color(0, 0, 0, 0);

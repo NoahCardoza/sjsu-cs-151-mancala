@@ -18,6 +18,8 @@ import java.awt.event.ComponentEvent;
 /**
  * Contains all the Main window logic
  * and the different screens.
+ *
+ * @author Noah Cardoza
  */
 public class MainWindow extends JFrame {
     /**

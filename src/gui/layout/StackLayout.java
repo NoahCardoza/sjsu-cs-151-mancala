@@ -12,6 +12,8 @@ import java.awt.*;
 /**
  * Stacks child components from left to right until the end of
  * the parent and proceeds on the next row.
+ *
+ * @author Noah Cardoza
  */
 public class StackLayout implements LayoutManager {
     @Override

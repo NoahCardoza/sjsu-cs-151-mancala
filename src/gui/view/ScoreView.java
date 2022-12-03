@@ -18,6 +18,8 @@ import java.awt.event.ActionListener;
 
 /**
  * The final Score view.
+ *
+ * @author Noah Cardoza
  */
 public class ScoreView extends JPanel {
 

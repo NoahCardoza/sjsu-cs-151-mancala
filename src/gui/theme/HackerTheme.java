@@ -11,6 +11,8 @@ import java.awt.*;
 
 /**
  * Defines the hacker color scheme used in the game.
+ *
+ * @author Noah Cardoza
  */
 public class HackerTheme implements BoardTheme {
     private static final Color limeGreen = new Color(116, 255, 1);

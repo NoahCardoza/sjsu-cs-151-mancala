@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 
 /**
  * The type Instructions view.
+ *
+ * @author Noah Cardoza
  */
 public class InstructionsView extends JPanel {
     /**

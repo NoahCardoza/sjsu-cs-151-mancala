@@ -14,6 +14,11 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 
+/**
+ * The game view containing the board, options, and end of game score.
+ *
+ * @author Noah Cardoza
+ */
 public class GameView extends JPanel {
     private final BoardView boardView;
     private final OptionsView optionsView;
@@ -21,6 +26,11 @@ public class GameView extends JPanel {
     private final GameOverView endGameStateView;
 
 
+    /**
+     * Instantiates a new Game view.
+     *
+     * @param modelManager the model manager
+     */
     public GameView(ModelManager modelManager) {
         // create a new board component
 
@@ -51,18 +61,38 @@ public class GameView extends JPanel {
         });
     }
 
+    /**
+     * Show change the screen.
+     *
+     * @param state the state
+     */
     public void showCard(MancalaModel.GameState state) {
         cardLayout.show(this, state.toString());
     }
 
+    /**
+     * Gets board view.
+     *
+     * @return the board view
+     */
     public BoardView getBoardView() {
         return boardView;
     }
 
+    /**
+     * Gets options view.
+     *
+     * @return the options view
+     */
     public OptionsView getOptionsView() {
         return optionsView;
     }
 
+    /**
+     * Gets end game state view.
+     *
+     * @return the end game state view
+     */
     public GameOverView getEndGameStateView() {
         return endGameStateView;
     }

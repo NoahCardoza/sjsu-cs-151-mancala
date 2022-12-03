@@ -18,6 +18,8 @@ import java.awt.geom.RectangularShape;
 /**
  * Encapsulates the logic regarding how to display
  * a mancala and stones inside one.
+ *
+ * @author Noah Cardoza
  */
 public class MancalaView extends JPanel {
     private final ModelManager modelManager;
