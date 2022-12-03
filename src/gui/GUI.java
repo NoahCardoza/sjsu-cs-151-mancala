@@ -23,7 +23,13 @@ import gui.window.MainWindow;
 
 import java.util.stream.Stream;
 
+/**
+ * A class that contains all the logic to set up the GUI window.
+ */
 public class GUI {
+    /**
+     * Constructs a new main window and hooks up the models and controllers
+     */
     public GUI() {
         ModelManager modelManager = new ModelManager(
                 new OptionsModel(
@@ -46,7 +52,7 @@ public class GUI {
         MainWindow mainWindow = new MainWindow(modelManager);
         MainController mainController = new MainController(mainWindow, modelManager);
 
-        mainController.setup();
+        mainController.addEventListeners();
 
         mainWindow.setVisible(true);
     }

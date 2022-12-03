@@ -12,10 +12,16 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The main menu view.
+ */
 public class MainMenuView extends JPanel {
     private final JComboBox<String> mancalaCountSelect;
     private final JButton startGameButton;
 
+    /**
+     * Instantiates a new main menu view.
+     */
     public MainMenuView() {
         setBorder(new EmptyBorder(20, 0, 20, 0));
         setLayout(new BorderLayout());
@@ -37,11 +43,21 @@ public class MainMenuView extends JPanel {
         add(footerPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Gets mancala count.
+     *
+     * @return the mancala count
+     */
     public int getMancalaCount() {
         return mancalaCountSelect.getSelectedIndex() + 1;
     }
 
-    public void addStartGameButtonListener(ActionListener l) {
-        startGameButton.addActionListener(l);
+    /**
+     * Add start game button listener.
+     *
+     * @param listener the listener
+     */
+    public void addStartGameButtonListener(ActionListener listener) {
+        startGameButton.addActionListener(listener);
     }
 }

@@ -16,8 +16,16 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The final Score view.
+ */
 public class ScoreView extends JPanel {
 
+    /**
+     * Instantiates a new Score view.
+     *
+     * @param modelManager the model manager
+     */
     public ScoreView(ModelManager modelManager) {
         setLayout(new BorderLayout());
 

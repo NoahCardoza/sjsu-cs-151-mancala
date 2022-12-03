@@ -13,15 +13,15 @@ import java.awt.*;
  * Defines the default color scheme used in the game.
  */
 public class DefaultTheme implements BoardTheme {
-    public static final Color transparent = new Color(0, 0, 0, 0);
-    public static final Color lightBrown = new Color(166, 124, 82);
-    public static final Color darkBrown = new Color(117, 76, 37);
-    public static final Color mustardYellow = new Color(251, 176, 60);
-    public static final Color rubyRed = new Color(212, 19, 89);
-    public static final Color emeraldGreen = new Color(34, 181, 116);
-    public static final Color babyBlue = new Color(41, 171, 226);
-    public static final Color offWhite = new Color(254, 254, 254);
-    public static final Color textColor = new Color(54, 53, 53, 147);
+    private static final Color transparent = new Color(0, 0, 0, 0);
+    private static final Color lightBrown = new Color(166, 124, 82);
+    private static final Color darkBrown = new Color(117, 76, 37);
+    private static final Color mustardYellow = new Color(251, 176, 60);
+    private static final Color rubyRed = new Color(212, 19, 89);
+    private static final Color emeraldGreen = new Color(34, 181, 116);
+    private static final Color babyBlue = new Color(41, 171, 226);
+    private static final Color offWhite = new Color(254, 254, 254);
+    private static final Color textColor = new Color(54, 53, 53, 147);
 
     @Override
     public String getName() {

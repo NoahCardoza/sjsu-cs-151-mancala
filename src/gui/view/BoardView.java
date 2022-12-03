@@ -104,6 +104,11 @@ public class BoardView extends JPanel {
         g2.draw(centerDivide);
     }
 
+    /**
+     * Add action listener to the pockets.
+     *
+     * @param listener the listener
+     */
     public void addPocketActionListener(ActionListener listener) {
         pocketsGridView.addActionListener(listener);
     }

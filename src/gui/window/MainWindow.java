@@ -15,13 +15,33 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+/**
+ * Contains all the Main window logic
+ * and the different screens.
+ */
 public class MainWindow extends JFrame {
-    public enum Card { MAIN_MENU, GAME }
+    /**
+     * The enum Card.
+     */
+    public enum Card {
+        /**
+         * Main menu card.
+         */
+        MAIN_MENU,
+        /**
+         * Game card.
+         */
+        GAME }
 
     private final GameView gameView;
     private final CardLayout cardLayout;
     private final MainMenuView mainMenuView;
 
+    /**
+     * Instantiates a new Main window.
+     *
+     * @param modelManager the model manager
+     */
     public MainWindow(ModelManager modelManager) {
         super();
 
@@ -61,22 +81,47 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Show card.
+     *
+     * @param card the card
+     */
     public void showCard(Card card) {
         cardLayout.show(getContentPane(), card.toString());
     }
 
+    /**
+     * Gets the board view.
+     *
+     * @return the board view
+     */
     public BoardView getBoardView() {
         return gameView.getBoardView();
     }
 
+    /**
+     * Gets the options view.
+     *
+     * @return the options view
+     */
     public OptionsView getOptionsView() {
         return gameView.getOptionsView();
     }
 
+    /**
+     * Gets the end game state view.
+     *
+     * @return the end game state view
+     */
     public GameOverView getEndGameStateView() {
         return gameView.getEndGameStateView();
     }
 
+    /**
+     * Gets the main menu view.
+     *
+     * @return the main menu view
+     */
     public MainMenuView getMainMenuView() {
         return mainMenuView;
     }

@@ -1,10 +1,19 @@
+/**
+ * @author Noah Cardoza
+ * @version 0.0.1
+ * @date 11/14/2022
+ * @assignment Mancala
+ */
+
 package gui.layout;
 
 import java.awt.*;
 
+/**
+ * Stacks child components from left to right until the end of
+ * the parent and proceeds on the next row.
+ */
 public class StackLayout implements LayoutManager {
-    public StackLayout() {}
-
     @Override
     public void addLayoutComponent(String name, Component comp) {
     }

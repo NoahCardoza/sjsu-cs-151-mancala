@@ -15,6 +15,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 
+/**
+ * A view defining the options shown below the board.
+ */
 public class OptionsView extends JPanel {
     private final JComboBox<Object> styleSelect;
     private final JComboBox<Object> themeSelect;
@@ -23,6 +26,11 @@ public class OptionsView extends JPanel {
     private final JButton mainMenuButton;
     private final JLabel currentPlayerLabel;
 
+    /**
+     * Instantiates a new Options view.
+     *
+     * @param modelManager the model manager
+     */
     public OptionsView(ModelManager modelManager) {
         setBorder(new EmptyBorder(10, 10, 10, 10));
 
@@ -85,22 +93,47 @@ public class OptionsView extends JPanel {
         add(currentPlayerLabel);
     }
 
+    /**
+     * Add back to main menu action listener.
+     *
+     * @param listener the listener
+     */
     public void addBackToMainMenuActionListener(ActionListener listener) {
         mainMenuButton.addActionListener(listener);
     }
 
+    /**
+     * Add undo action listener.
+     *
+     * @param listener the listener
+     */
     public void addUndoActionListener(ActionListener listener) {
         undoButton.addActionListener(listener);
     }
 
+    /**
+     * Add next turn action listener.
+     *
+     * @param listener the listener
+     */
     public void addNextTurnActionListener(ActionListener listener) {
         nextTurnButton.addActionListener(listener);
     }
 
+    /**
+     * Add style selected listener.
+     *
+     * @param listener the listener
+     */
     public void addStyleSelectedListener(ActionListener listener) {
         styleSelect.addActionListener(listener);
     }
 
+    /**
+     * Add theme selected listener.
+     *
+     * @param listener the listener
+     */
     public void addThemeSelectedListener(ActionListener listener) {
         themeSelect.addActionListener(listener);
     }

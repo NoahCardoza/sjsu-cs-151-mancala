@@ -10,7 +10,15 @@ import gui.GUI;
 
 import javax.swing.*;
 
+/**
+ * The main class for the mancala game.
+ */
 public class MancalaTest {
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args unused
+	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(GUI::new);
 	}

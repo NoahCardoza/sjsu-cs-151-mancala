@@ -189,7 +189,6 @@ public class MancalaModel extends BaseModel {
 	 *
 	 * @param index of the current pit.
 	 */
-	//
 	public void moveStonesAtIndex(int index) {
 		// ignore move calls on mancala indexes
 		if (isMancalaIndex(index)) return;

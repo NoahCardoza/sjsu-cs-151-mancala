@@ -1,3 +1,10 @@
+/**
+ * @author Noah Cardoza
+ * @version 0.0.1
+ * @date 11/26/2022
+ * @assignment Mancala
+ */
+
 package gui.view;
 
 import gui.component.PlayerScoreCard;
@@ -10,12 +17,20 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The game over view.
+ */
 public class GameOverView extends JPanel {
     private final PlayerScoreCard playerOneCard;
     private final PlayerScoreCard playerTwoCard;
     private final JButton playAgainButton;
     private final JButton quitButton;
 
+    /**
+     * Instantiates a new game over view.
+     *
+     * @param modelManager the model manager
+     */
     public GameOverView(ModelManager modelManager) {
         setLayout(new BorderLayout());
 
@@ -86,10 +101,20 @@ public class GameOverView extends JPanel {
         }, true);
     }
 
+    /**
+     * On quit button click.
+     *
+     * @param listener the listener
+     */
     public void onQuitButtonClick(ActionListener listener) {
         quitButton.addActionListener(listener);
     }
 
+    /**
+     * On play again button click.
+     *
+     * @param listener the listener
+     */
     public void  onPlayAgainButtonClick(ActionListener listener) {
         playAgainButton.addActionListener(listener);
     }

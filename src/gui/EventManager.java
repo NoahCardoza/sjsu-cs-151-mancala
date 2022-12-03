@@ -28,10 +28,12 @@ public class EventManager {
     }
 
     public void dispatch(String event) {
-        if (!listeners.containsKey(event)) {
+//        TODO: re-enable to ensure there are no
+//              misconfigured event listeners
+//        if (!listeners.containsKey(event)) {
 //            throw new RuntimeException("No listeners for '" + event + "'.");
-            return;
-        }
+//            return;
+//        }
         for (ChangeListener listener : listeners.get(event)) {
             listener.stateChanged(new ChangeEvent(this));
         }
